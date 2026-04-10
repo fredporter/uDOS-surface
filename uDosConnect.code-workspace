@@ -16,6 +16,10 @@
     {
       "name": "v2-reference (archived)",
       "path": "v2-reference"
+    },
+    {
+      "name": "uDosGo (integration — alongside)",
+      "path": "../uDosGo"
     }
   ],
   "settings": {

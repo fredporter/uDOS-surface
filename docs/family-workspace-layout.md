@@ -12,7 +12,7 @@ All checkouts below are rooted at **`~/Code/`** (or an equivalent single parent 
 
    **`~/Code/uDosGo/`**
 
-   Treat this as the only “live” integration tree for implementation work. On GitHub it may still appear as **`uDOS-v3`**; local folder name **`uDosGo`** is the family convention.
+   Treat this as the only “live” integration tree for implementation work. On GitHub: **[uDos-Go](https://github.com/fredporter/uDos-Go)**; local folder name **`uDosGo`** is the family convention.
 
 2. **Everything else in the family bundle** — governance, public docs, archived v2 module snapshots, shared bash/Python helpers, and future extension submodules — lives **under** the **`uDosConnect`** repository:
 
