@@ -1,7 +1,7 @@
 # uDosConnect
 
 Public **uDos** family monorepo: governance, documentation, shared helper scripts, and a read-only **v2 reference** tree.  
-**uDos** = **Universal Device Operating Surface** (capital **D** in new prose — see [`uDosDev/docs/dev-process-v4.md`](uDosDev/docs/dev-process-v4.md)).
+**uDos** = **Universal Device Operating Surface** (capital **D** in new prose — see [`uDosDev/docs/process/dev-process-v4.md`](uDosDev/docs/process/dev-process-v4.md)).
 
 This repository was previously published under other names (including **`uDOS-surface`**). It is **not** the runnable Host / ThinUI integration — that lives in **[uDos-Go](https://github.com/fredporter/uDos-Go)**, checked out locally as **`~/Code/uDosGo/`**. There are **no** commercial-only product trees here; content is suitable for a **public** remote.
 

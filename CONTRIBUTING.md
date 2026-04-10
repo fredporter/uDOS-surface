@@ -10,7 +10,7 @@ If this tree is not yet a Git repository locally, run `git init` at the repo roo
 
 If you already cloned without them: `git submodule update --init --recursive`.
 
-1. **Governance and process** — read [`uDosDev/docs/dev-process-v4.md`](uDosDev/docs/dev-process-v4.md) and [`uDosDev/TASKS.md`](uDosDev/TASKS.md).  
+1. **Governance and process** — read [`uDosDev/docs/process/dev-process-v4.md`](uDosDev/docs/process/dev-process-v4.md) and [`uDosDev/TASKS.md`](uDosDev/TASKS.md).  
 2. **Planning spine** — read [`docs/family-workspace-layout.md`](docs/family-workspace-layout.md): **`~/Code/uDosGo/`** for the integration monorepo; **`~/Code/uDosConnect/…`** for everything in this repo and optional nested family clones.  
 3. **Scratch** — use repo-local **`.local/`** or **`uDosDev/@dev/inbox/`** (gitignored) per dev standard; do not commit inbox dumps.  
 4. **Paths in docs** — prefer the **`~/Code/`** conventions above; avoid other machine-specific absolute paths. Checks in `uDosDev/scripts/` may reject patterns like `/Users/.../Code/`.  
