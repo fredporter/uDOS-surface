@@ -20,6 +20,9 @@
 .local/
 .compost/
 
+# Cursor local cache (large)
+.cursor/cache/
+
 # Python
 __pycache__/
 *.py[cod]
