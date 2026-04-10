@@ -1,0 +1,34 @@
+:root {
+  --cm-bg: #e8e8e8;
+  --cm-surface: #f2f2f2;
+  --cm-panel: #dddddd;
+  --cm-border: #222222;
+  --cm-text: #111111;
+  --cm-text-muted: #444444;
+  --cm-accent: #3a7bd5;
+  --cm-accent-alt: #c97a2b;
+}
+
+body {
+  background: var(--cm-bg);
+  color: var(--cm-text);
+  font-family: system-ui, sans-serif;
+}
+
+.cm-window,
+.cm-panel {
+  background: var(--cm-surface);
+  border: 1px solid var(--cm-border);
+}
+
+.cm-button {
+  background: var(--cm-bg);
+  border: 1px solid var(--cm-border);
+  color: var(--cm-text);
+}
+
+.cm-button:active,
+.cm-button.is-active {
+  background: var(--cm-accent);
+  color: #ffffff;
+}
