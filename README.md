@@ -10,15 +10,15 @@ This repository was previously published under other names (including **`uDOS-su
 For local paths and multi-repo planning, use **[`docs/family-workspace-layout.md`](docs/family-workspace-layout.md)**:
 
 - **`~/Code/uDosGo/`** — integration monorepo (always this location in family docs).
-- **`~/Code/uDosConnect/…`** — this repo; all other tracked family components (governance, docs, `v2-reference`, shared `scripts`, optional nested clones) live **under** here.
+- **`~/Code/uDosConnect/…`** — this repo; **`uDosGo`** stays **alongside** here under **`~/Code/`** (not inside this tree). Tracked content here includes governance-related submodules, `v2-reference`, and shared `scripts`.
 
 ## Contents
 
 | Path | Role |
 | --- | --- |
-| [`uDosDev/`](uDosDev/) | Family workflow, Task Forge (`TASKS.md`), dev process **v4**, governance scripts. |
-| [`uDosDocs/`](uDosDocs/) | Public documentation corpus. |
-| [`v2-reference/`](v2-reference/) | Archived conceptual **v2** module snapshots (historical code and notes — not the live integration). |
+| [`uDosDev/`](uDosDev/) | **Submodule** → [`uDos-Dev`](https://github.com/fredporter/uDos-Dev). Family workflow, Task Forge (`TASKS.md`), dev process **v4**, governance scripts. |
+| [`uDosDocs/`](uDosDocs/) | **Submodule** → [`uDos-Docs`](https://github.com/fredporter/uDos-Docs). Public documentation corpus. |
+| [`v2-reference/`](v2-reference/) | Archived conceptual **v2** module snapshots (historical code and notes — **not** a submodule; not the live integration). |
 | [`scripts/`](scripts/) | Shared Python bootstrap, family checks, and path helpers (see [`docs/shared-resources-architecture.md`](docs/shared-resources-architecture.md)). |
 
 ## Workspace

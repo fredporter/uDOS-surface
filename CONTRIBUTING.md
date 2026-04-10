@@ -4,6 +4,12 @@ If this tree is not yet a Git repository locally, run `git init` at the repo roo
 
 `git remote set-url origin https://github.com/fredporter/uDosConnect.git`
 
+**Submodules:** `uDosDev` and `uDosDocs` are Git submodules ([`uDos-Dev`](https://github.com/fredporter/uDos-Dev), [`uDos-Docs`](https://github.com/fredporter/uDos-Docs)). Clone with submodules in one step:
+
+`git clone --recurse-submodules https://github.com/fredporter/uDosConnect.git`
+
+If you already cloned without them: `git submodule update --init --recursive`.
+
 1. **Governance and process** — read [`uDosDev/docs/dev-process-v4.md`](uDosDev/docs/dev-process-v4.md) and [`uDosDev/TASKS.md`](uDosDev/TASKS.md).  
 2. **Planning spine** — read [`docs/family-workspace-layout.md`](docs/family-workspace-layout.md): **`~/Code/uDosGo/`** for the integration monorepo; **`~/Code/uDosConnect/…`** for everything in this repo and optional nested family clones.  
 3. **Scratch** — use repo-local **`.local/`** or **`uDosDev/@dev/inbox/`** (gitignored) per dev standard; do not commit inbox dumps.  
