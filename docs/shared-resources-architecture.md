@@ -59,15 +59,17 @@ Repo scripts should:
 5. Source `scripts/lib/udos-paths.sh` when they need managed runtime paths.
 6. Use `scripts/lib/udos-registry.sh` when they need a shared family registry path.
 
-## v2 reference trees
+## v2 reference trees (partial archive)
 
-Shared-mode-aware check scripts also exist under individual packages in **`v2-reference/`** (historical snapshots), for example:
+Shared-mode-aware check scripts still exist under **`v2-reference/<module>/`** for historical modules. The **groovebox** snapshot **`v2-reference/uDOS-groovebox`** was removed; use the live **[GrooveBox888](https://github.com/fredporter/GrooveBox888)** repo (`scripts/run-groovebox-checks.sh`) instead.
 
-- `v2-reference/uDOS-core/scripts/run-core-checks.sh`
-- `v2-reference/uDOS-thinui/scripts/run-thinui-checks.sh`
-- `v2-reference/uDOS-host/scripts/run-ubuntu-checks.sh`
+Other illustrative paths (when present):
 
-(Paths above are illustrative; see each package’s README.)
+- `v2-reference/uDOS-core/scripts/...`
+- `v2-reference/uDOS-thinui/scripts/...`
+- `v2-reference/uDOS-host/scripts/...`
+
+For **current** integration work, prefer **`uDosGo`** scripts at the repo root and under `packages/`.
 
 ## Recommended workflow
 

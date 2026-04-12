@@ -14,12 +14,12 @@ All checkouts below are rooted at **`~/Code/`** (or an equivalent single parent 
 
    Treat this as the only “live” integration tree for implementation work. On GitHub: **[uDosGo](https://github.com/fredporter/uDosGo)**; local folder name **`uDosGo`** is the family convention.
 
-2. **Everything else in the family bundle** — governance, public docs, archived v2 module snapshots, shared bash/Python helpers, and future extension submodules — lives **under** the **`uDosConnect`** repository:
+2. **Everything else in the family bundle** — governance, public docs, archived v2 module snapshots (except groovebox — see below), shared bash/Python helpers, and future extension submodules — lives **under** the **`uDosConnect`** repository:
 
    **`~/Code/uDosConnect/`**  
    **`~/Code/uDosConnect/uDosDev/`** — Task, dev process v4, governance  
    **`~/Code/uDosConnect/uDosDocs/`** — public documentation corpus  
-   **`~/Code/uDosConnect/v2-reference/`** — read-only historical module trees  
+   **`~/Code/uDosConnect/v2-reference/`** — read-only historical module trees (partial; **`uDOS-groovebox`** removed — use **[GrooveBox888](https://github.com/fredporter/GrooveBox888)** at **`~/Code/GrooveBox888/`**)  
    **`~/Code/uDosConnect/scripts/`** — shared family scripts  
 
    Optional extra clones that participate in checks (for example **`uDOS-wizard`**) should live **inside** this tree when you follow the spine, e.g. **`~/Code/uDosConnect/uDOS-wizard/`**, so paths like `../uDOS-wizard` from `uDosDev/` resolve predictably.
@@ -36,8 +36,9 @@ All checkouts below are rooted at **`~/Code/`** (or an equivalent single parent 
   uDosConnect/          ← this repo (governance, docs, v2-reference, scripts)
     uDosDev/
     uDosDocs/
-    v2-reference/
+    v2-reference/         ← archived snapshots (groovebox → GrooveBox888 sibling)
     scripts/
+  GrooveBox888/         ← optional; standalone groovebox repo
     …                     ← optional sibling clones used by family checks
   UniversalSurfaceXD/     ← optional; usual layout for the lab repo
 ```
