@@ -8,4 +8,4 @@ This repository bundles **`uDosDev`** and **`uDosDocs`** as **Git submodules** (
 
 **Vault-native UI/state (v4.5.1 locked):** [`uDosDev/docs/specs/v4/UDOS_VAULT_NATIVE_ARCHITECTURE_v4.5.1.md`](uDosDev/docs/specs/v4/UDOS_VAULT_NATIVE_ARCHITECTURE_v4.5.1.md) — `vault/system/` + `vault/templates/`; **`.compost/`** stays developer debris (Round E), not user vault.
 
-**uChatDown personality library (v1.0 locked):** [`uDosDev/docs/specs/v4/UCHATDOWN_PERSONALITY_LIBRARY_v1.0.md`](uDosDev/docs/specs/v4/UCHATDOWN_PERSONALITY_LIBRARY_v1.0.md) — five personas + `/vibe`; Bro v2.4 filename redirects; **uChatDown** [`docs/specs/`](https://github.com/fredporter/uChatDown/tree/main/docs/specs).
+**uChatDown personality (v4.5.1 locked):** [`uDosDev/docs/specs/v4/UCHATDOWN_PERSONALITY_LIBRARY_v4.5.1.md`](uDosDev/docs/specs/v4/UCHATDOWN_PERSONALITY_LIBRARY_v4.5.1.md) — six vibe states + global rules + `/vibe`; **uChatDown** [`docs/specs/`](https://github.com/fredporter/uChatDown/tree/main/docs/specs).
