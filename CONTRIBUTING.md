@@ -4,7 +4,7 @@ If this tree is not yet a Git repository locally, run `git init` at the repo roo
 
 `git remote set-url origin https://github.com/fredporter/uDosConnect.git`
 
-**Submodules:** `uDosDev` and `uDosDocs` are Git submodules ([`uDos-Dev`](https://github.com/fredporter/uDos-Dev), [`uDos-Docs`](https://github.com/fredporter/uDos-Docs)). Clone with submodules in one step:
+**Submodules:** `uDosDev` and `uDosDocs` are Git submodules ([`uDosDev`](https://github.com/fredporter/uDosDev), [`uDosDocs`](https://github.com/fredporter/uDosDocs)). Clone with submodules in one step:
 
 `git clone --recurse-submodules https://github.com/fredporter/uDosConnect.git`
 

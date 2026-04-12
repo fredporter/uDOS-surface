@@ -3,7 +3,7 @@
 Public **uDos** family monorepo: governance, documentation, shared helper scripts, and a read-only **v2 reference** tree.  
 **uDos** = **Universal Device Operating Surface** (capital **D** in new prose — see [`uDosDev/docs/process/dev-process-v4.md`](uDosDev/docs/process/dev-process-v4.md)).
 
-This repository was previously published under other names (including **`uDOS-surface`**). It is **not** the runnable Host / ThinUI integration — that lives in **[uDos-Go](https://github.com/fredporter/uDos-Go)**, checked out locally as **`~/Code/uDosGo/`**. There are **no** commercial-only product trees here; content is suitable for a **public** remote.
+This repository was previously published under other names (including **`uDOS-surface`**). It is **not** the runnable Host / ThinUI integration — that lives in **[uDosGo](https://github.com/fredporter/uDosGo)**, checked out locally as **`~/Code/uDosGo/`**. There are **no** commercial-only product trees here; content is suitable for a **public** remote.
 
 ## Planning spine (`~/Code/`)
 
@@ -17,8 +17,8 @@ For local paths and multi-repo planning, use **[`docs/family-workspace-layout.md
 | Path | Role |
 | --- | --- |
 | [`TASKS.md`](TASKS.md) | Monorepo Task pointer — canonical backlog in **`uDosDev/TASKS.md`**; public docs in **`uDosDocs/TASKS.md`**. |
-| [`uDosDev/`](uDosDev/) | **Submodule** → [`uDos-Dev`](https://github.com/fredporter/uDos-Dev). Family workflow, Task (`TASKS.md`), dev process **v4**, governance scripts. **v4 doc inventory:** [`uDosDev/docs/DOC-REGISTRY-uDosv4.md`](uDosDev/docs/DOC-REGISTRY-uDosv4.md). |
-| [`uDosDocs/`](uDosDocs/) | **Submodule** → [`uDos-Docs`](https://github.com/fredporter/uDos-Docs). Public documentation corpus. |
+| [`uDosDev/`](uDosDev/) | **Submodule** → [`uDosDev`](https://github.com/fredporter/uDosDev). Family workflow, Task (`TASKS.md`), dev process **v4**, governance scripts. **v4 doc inventory:** [`uDosDev/docs/DOC-REGISTRY-uDosv4.md`](uDosDev/docs/DOC-REGISTRY-uDosv4.md). |
+| [`uDosDocs/`](uDosDocs/) | **Submodule** → [`uDosDocs`](https://github.com/fredporter/uDosDocs). Public documentation corpus. |
 | [`courses/`](courses/) | **v4 learning pathway** — numbered shells (00–05) + **`06-ucode-runtime`**; locked narrative in **`uDosDocs/docs/educational-content/`**. Validate: `bash scripts/validate-courses.sh`. |
 | [`v2-reference/`](v2-reference/) | Archived conceptual **v2** module snapshots (historical code and notes — **not** a submodule; not the live integration). |
 | [`scripts/`](scripts/) | Shared Python bootstrap, family checks, course validation, and path helpers (see [`docs/shared-resources-architecture.md`](docs/shared-resources-architecture.md)). |
@@ -30,7 +30,7 @@ Open [`uDosConnect.code-workspace`](uDosConnect.code-workspace) in Cursor or VS 
 
 ## Adjacent repositories
 
-- **[uDos-Go](https://github.com/fredporter/uDos-Go)** — runnable integration monorepo; clone at **`~/Code/uDosGo/`**.  
+- **[uDosGo](https://github.com/fredporter/uDosGo)** — runnable integration monorepo; clone at **`~/Code/uDosGo/`**.  
 - **[UniversalSurfaceXD](https://github.com/fredporter/UniversalSurfaceXD)** — surface language, interchange JSON, browser lab; usual clone **`~/Code/UniversalSurfaceXD/`** (see layout doc).
 
 In **tracked** prose, avoid machine-specific paths other than the **`~/Code/`** spine above; use `<repo-root>` where a generic placeholder is still needed.

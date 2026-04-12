@@ -1,6 +1,6 @@
 # v4 `~/Code/` dev scripts
 
-Small helpers for the **sibling-repo** layout opened by **uDos-Go** [`uDosGo.code-workspace`](https://github.com/fredporter/uDos-Go/blob/main/uDosGo.code-workspace) or [`workspaces/`](https://github.com/fredporter/uDos-Go/tree/main/workspaces) focused variants (clone as `~/Code/uDosGo`).
+Small helpers for the **sibling-repo** layout opened by **uDosGo** [`uDosGo.code-workspace`](https://github.com/fredporter/uDosGo/blob/main/uDosGo.code-workspace) or [`workspaces/`](https://github.com/fredporter/uDosGo/tree/main/workspaces) focused variants (clone as `~/Code/uDosGo`).
 
 | Script | Purpose |
 | --- | --- |
