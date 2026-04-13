@@ -22,6 +22,8 @@ For local paths and multi-repo planning, use **[`docs/family-workspace-layout.md
 | [`courses/`](courses/) | **v4 learning pathway** — numbered shells (00–05) + **`06-ucode-runtime`**; locked narrative in **`uDosDocs/docs/educational-content/`**. Validate: `bash scripts/validate-courses.sh`. |
 | [`v2-reference/`](v2-reference/) | Archived conceptual **v2** module snapshots (historical code and notes — **not** a submodule; not the live integration). **Groovebox** is no longer mirrored here — use **[GrooveBox888](https://github.com/fredporter/GrooveBox888)**. |
 | [`scripts/`](scripts/) | Shared Python bootstrap, family checks, course validation, and path helpers (see [`docs/shared-resources-architecture.md`](docs/shared-resources-architecture.md)). |
+| [`modules/`](modules/) | In-tree **product modules** (first: **[`modules/ucoin/`](modules/ucoin/)** — barter-default uCoin spec, courses, phased implementation). Not the same as Git **submodules** (`uDosDev` / `uDosDocs`). |
+| [`docs/ucoin-boundary.md`](docs/ucoin-boundary.md) | Short family note: **uCoin (barter)** vs **optional crypto** — points at `modules/ucoin/`. |
 | [`.compost/README.md`](.compost/README.md) | **TIDY/CLEAN** recovery pile (gitignored content; policy file tracked) — not for submodule trees. |
 
 ## Workspace
