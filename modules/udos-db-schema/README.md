@@ -1,11 +1,56 @@
-# udos-db-schema
+# uDos database schema
 
-**In-tree** SQL DDL for **uDos** Tier 1 (**SQLite** cell/cube registry). This folder is **not** a Git submodule yet; a future **`udos-db-schema`** repository may be split out when versioning and CI are ready.
+Canonical DDL for all uDos database tiers. **Source of truth** until `fredporter/udos-db-schema` exists on GitHub; then this tree becomes a **git submodule** at the **same path** (`modules/udos-db-schema/`).
 
-**Locked architecture:** [uDosDev — `UDOS_FIVE_TIER_DATABASE_STRATEGY_LOCKED_v1.md`](../../uDosDev/docs/specs/v4/UDOS_FIVE_TIER_DATABASE_STRATEGY_LOCKED_v1.md).
+**Locked decision:** in-tree only; no broken submodule URLs. See [`MIGRATION.md`](MIGRATION.md).
+
+## Structure
+
+```
+sqlite/           # T1: local SQLite (cell / voxel / uCube / uname)
+  schema.sql      # CANONICAL — apply for new ~/.udos/cells.db
+  migrations/
+  triggers.sql
+postgres/         # T2: AWS RDS (Space Cloud) — stubs
+mysql/            # T3: WordPress — stubs
+lmdb/             # T4: LMDB + CRDT docs
+airgap/           # T5: offline transfer notes
+```
+
+## Canonical file
 
 | Path | Role |
 | --- | --- |
-| [`sqlite/schema.sql`](sqlite/schema.sql) | Create tables: `users`, `cells`, `cubes`, `spatial_links`, `sync_state` |
+| [`sqlite/schema.sql`](sqlite/schema.sql) | **T1** — `voxels`, `ucubes`, `cells`, `blocks`, `name_registry` |
 
-**Initialize locally:** from repo root, `bash scripts/init-udos-sqlite.sh` (creates `~/.udos/cells.db` if missing).
+## Usage
+
+```bash
+# From uDosConnect repo root (recommended)
+bash scripts/init-udos-sqlite.sh
+
+# Or direct
+sqlite3 ~/.udos/cells.db < sqlite/schema.sql
+```
+
+## Versioning
+
+- **v1.0** — 2026-04-13 — initial locked DDL + tier stubs + migrations 001–003
+
+## Submodule (future)
+
+When the standalone repo exists:
+
+```bash
+git submodule add https://github.com/fredporter/udos-db-schema.git modules/udos-db-schema
+```
+
+Paths under `uDosConnect` stay identical.
+
+## License
+
+Align with uDos family (AGPL-3.0 where applicable for schema text).
+
+## Specs
+
+- [uDosDev — `UDOS_FIVE_TIER_DATABASE_STRATEGY_LOCKED_v1.md`](../../uDosDev/docs/specs/v4/UDOS_FIVE_TIER_DATABASE_STRATEGY_LOCKED_v1.md)
