@@ -39,13 +39,13 @@ export async function main(argv: string[]): Promise<void> {
     .option("-f, --file <file>", "Single markdown file (alternative to positional [file])")
     .option("-d, --dir <dir>", "Directory of markdown files", "./surfaces")
     .option("-o, --output <dir>", "Output directory", "./dist")
-    .option("--format <format>", "Export format: html | png", "html")
+    .option("--format <format>", "Export format: html | svg", "html")
     .action(
       async (positional: string | undefined, o: { file?: string; dir?: string; output: string; format: string }) => {
         const format = String(o.format ?? "html").toLowerCase();
         if (format !== "html") {
-          if (format === "png") {
-            throw new Error("[A2 stub] USXD PNG export is planned; use --format html in A1.");
+          if (format === "svg") {
+            throw new Error("[A2 stub] USXD SVG export is planned; use --format html in A1.");
           }
           throw new Error(`Unsupported export format: ${format}. Supported: html`);
         }

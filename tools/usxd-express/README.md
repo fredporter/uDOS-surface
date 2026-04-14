@@ -7,7 +7,7 @@ Text-only **OBF / USXD** surface designer: edit markdown (` ```usxd``` + optiona
 | Command | Purpose |
 | --- | --- |
 | `usxd-express serve` | Preview server; watches `**/*.md` under the current directory (or `--dir` / `--file`) |
-| `usxd-express export` | Write one `.html` per `SURFACE` to `-o` / `--output` (`--format html`; `png` is `[A2 stub]`) |
+| `usxd-express export` | Write one `.html` per `SURFACE` to `-o` / `--output` (`--format html`; `svg` is `[A2 stub]`) |
 | `usxd-express render <file>` | Render first surface in markdown to terminal (ASCII/teletext) |
 | `usxd-express validate <file>` | Check USXD + grid dimensions |
 | `usxd-express list` | List `SURFACE` names in markdown under `--dir` |
