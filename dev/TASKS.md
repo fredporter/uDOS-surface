@@ -2,7 +2,15 @@
 
 ## Status: **A1 milestone complete** (automated); **operator live test** — [`OPERATOR-LIVE-TEST-A1.md`](OPERATOR-LIVE-TEST-A1.md); one command: `npm run verify:a1` (repo root).
 
-**Migration (T012 / T013):** **phase closed** — [`dev/decisions/2026-04-15-migration-phase-closure.md`](decisions/2026-04-15-migration-phase-closure.md), intentional gaps [`dev/workflow/migration-intentional-gaps-v1.md`](workflow/migration-intentional-gaps-v1.md). Governance → **`dev/`**, product/docs → **`docs/`** (canonical; no root `uDosDev/` / `uDosDocs/`). See also `dev/workflow/2026-04-15-docs-migration-restart.md`, `dev/workflow/imported/2026-04-15-uDosDev-snapshot/`, `dev/roadmaps/2026-04-14-submodule-migration-round-plan.md`.
+## A1 branch — merge before **alpha** A1 closes (beta backlog reconciled)
+
+**Purpose:** **A1** and **A2** are **alpha** milestones. This branch held **beta**-program items (historical v4–v5 / imported checklists) now folded into one monorepo queue; remaining rows must land **before** A1 operator sign-off. When empty (or promoted into the table below), **merge**: add evidence to `dev/devlog/` + `dev/summary/` per [`dev/workflow/dev-summary-and-devlog.md`](workflow/dev-summary-and-devlog.md), then archive or trim [`BACKLOG-A1-branch.md`](BACKLOG-A1-branch.md).
+
+**FYI:** [`dev/devlog/2026-04-15-fyi-agent-rules-architecture-alpha-beta-reconciliation.md`](devlog/2026-04-15-fyi-agent-rules-architecture-alpha-beta-reconciliation.md) · **Compost map:** [`dev/workflow/COMPOST-SUPERSEDED-BETA-TO-ALPHA.md`](workflow/COMPOST-SUPERSEDED-BETA-TO-ALPHA.md).
+
+**Link:** [`BACKLOG-A1-branch.md`](BACKLOG-A1-branch.md) — ordered queue, sync (**uDosConnect** only), gates, **alpha A2** pointers.
+
+**Migration (T012 / T013):** **phase closed** — [`dev/decisions/2026-04-15-migration-phase-closure.md`](decisions/2026-04-15-migration-phase-closure.md), intentional gaps [`dev/workflow/migration-intentional-gaps-v1.md`](workflow/migration-intentional-gaps-v1.md). Former governance/docs trees are **absorbed** into **`dev/`** and **`docs/`** (no root `uDosDev/` / `uDosDocs/` folders). See `dev/workflow/2026-04-15-docs-migration-restart.md`, `dev/workflow/imported/2026-04-15-uDosDev-snapshot/`, `dev/roadmaps/2026-04-14-submodule-migration-round-plan.md` for history only.
 
 ## Tasks
 
@@ -19,8 +27,8 @@
 | T009 | Capture IronPad inspiration patterns (no integration/fork) | P1 | done | @cursor | 2026-04-14 |
 | T010 | Add ASCII↔Teletext bridge commands in `core-rs` | P0 | done | @cursor | 2026-04-14 |
 | T011 | Create widget-test harness for edit.tf + NextChat | P1 | done | @cursor | 2026-04-14 |
-| T012 | Run phased migration rounds for `uDosDev` -> `dev` | P0 | done | @cursor | 2026-04-15 |
-| T013 | Run phased migration rounds for `uDosDocs` -> `docs` | P0 | done | @cursor | 2026-04-15 |
+| T012 | Run phased migration rounds — governance into `dev/` | P0 | done | @cursor | 2026-04-15 |
+| T013 | Run phased migration rounds — documentation into `docs/` | P0 | done | @cursor | 2026-04-15 |
 | T014 | Add `do ascii banner` (FIGlet external tool lane) | P1 | done | @cursor | 2026-04-15 |
 | T015 | Add FIGlet->Teletext conversion support | P1 | done | @cursor | 2026-04-15 |
 | T016 | Implement FIGlet external command surface in `core-rs` | P1 | done | @cursor | 2026-04-15 |

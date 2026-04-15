@@ -61,7 +61,7 @@ Repo scripts should:
 
 ## v2 reference trees (partial archive)
 
-Shared-mode-aware check scripts still exist under **`v2-reference/<module>/`** for historical modules. The **groovebox** snapshot **`v2-reference/uDOS-groovebox`** was removed; use the live **[GrooveBox888](https://github.com/fredporter/GrooveBox888)** repo (`scripts/run-groovebox-checks.sh`) instead.
+Shared-mode-aware check scripts still exist under **`v2-reference/<module>/`** for historical modules when that tree is present locally.
 
 Other illustrative paths (when present):
 
@@ -69,7 +69,7 @@ Other illustrative paths (when present):
 - `v2-reference/uDOS-thinui/scripts/...`
 - `v2-reference/uDOS-host/scripts/...`
 
-For **current** integration work, prefer **`uDosGo`** scripts at the repo root and under `packages/`.
+For **current** work, use **this repository’s** `scripts/` at the repo root and under packages (`core/`, `tools/`, …).
 
 ## Recommended workflow
 

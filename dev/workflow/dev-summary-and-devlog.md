@@ -69,7 +69,10 @@ Index and naming: [`dev/devlog/README.md`](../devlog/README.md).
 
 ## Related
 
-- [`dev-process-v4.md`](migrated-round1/process/dev-process-v4.md) — framework zones, `.local/` / `.compost/`.
-- [`v4-5-plus-dev-flow-and-resume.md`](migrated-round1/process/v4-5-plus-dev-flow-and-resume.md) — resume, live testing, dev-report **evidence** in `docs/dev-reports/` when using slotted templates ([uDosDev DEV_REPORTS strategy](https://github.com/fredporter/uDosDev/blob/main/docs/dev/DEV_REPORTS_AND_DOC_TEMPLATES_STRATEGY_LOCKED_v1.md)).
+- [`dev-process-beta.md`](migrated-round1/process/dev-process-beta.md) — framework zones, `.local/` / `.compost/` (uDos **beta** label for older version-era docs).
+- [`dev/BACKLOG-A1-branch.md`](../BACKLOG-A1-branch.md) — A1 side branch backlog; merge before A1 closes; **uDosConnect** only.
+- [`dev-beta-flow-and-resume.md`](migrated-round1/process/dev-beta-flow-and-resume.md) — sync, resume, live-testing evidence in `docs/dev-reports/` when using slotted templates under `docs/` / `dev/`.
 - [`dev/TASKS.md`](../TASKS.md) — backlog.
 - [`dev/DOC-TODO.md`](../DOC-TODO.md) — deferred public-doc items.
+- [`dev/workflow/COMPOST-SUPERSEDED-BETA-TO-ALPHA.md`](COMPOST-SUPERSEDED-BETA-TO-ALPHA.md) — retired **beta** filenames → **alpha** workflow.
+- [`dev/devlog/2026-04-15-fyi-agent-rules-architecture-alpha-beta-reconciliation.md`](../devlog/2026-04-15-fyi-agent-rules-architecture-alpha-beta-reconciliation.md) — FYI handover (alpha vs beta).

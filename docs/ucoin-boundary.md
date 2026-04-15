@@ -8,4 +8,4 @@
 | **uCoin (crypto mode)** | **Optional** — user opt-in after intake; **non-custodial**; may interface with **Stellar** per module specs. |
 | **Cryptocurrency (general)** | Third-party networks (e.g. Stellar, Bitcoin) — **uDos does not operate** these networks. |
 
-**Family spec:** [SPATIAL_STORAGE_ECOSYSTEM_v1](https://github.com/fredporter/uDosDev/blob/main/docs/specs/v4/SPATIAL_STORAGE_ECOSYSTEM_v1.md) uses **uCoin** as an **economic accounting** term. The **`modules/ucoin`** tree defines **shipping boundaries** for apps (barter first, crypto optional).
+**Spec note (beta):** **uCoin** is used as an **economic accounting** term in spatial/ecosystem docs mirrored under **`dev/workflow/imported/`** when present. The **`modules/ucoin`** tree defines **shipping boundaries** for apps (barter first, crypto optional).

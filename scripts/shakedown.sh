@@ -7,7 +7,7 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 ROOT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 CODE_ROOT="${UDOS_CODE_ROOT:-$HOME/Code}"
 
-echo "==> uDosConnect shakedown (v4 Round E)"
+echo "==> uDosConnect shakedown (Round E — alpha gate; beta-era script lane)"
 cd "$ROOT_DIR"
 
 # Canonical monorepo paths (no root uDosDev/ / uDosDocs/ submodules — see dev/workflow/migration-intentional-gaps-v1.md)

@@ -1,9 +1,9 @@
 # uDosConnect
 
 Public **uDos** family monorepo: **A1 runtime scaffold**, governance, documentation, shared helper scripts, and a read-only **v2 reference** tree.  
-**uDos** = **Universal Device Operating Surface** (capital **D** in new prose — see [`dev/workflow/migrated-round1/process/dev-process-v4.md`](dev/workflow/migrated-round1/process/dev-process-v4.md) or [uDosDev on GitHub](https://github.com/fredporter/uDosDev/blob/main/docs/process/dev-process-v4.md)).
+**uDos** = **Universal Device Operating Surface** (capital **D** in new prose — see [`dev/workflow/migrated-round1/process/dev-process-beta.md`](dev/workflow/migrated-round1/process/dev-process-beta.md)).
 
-This repository was previously published under other names (including **`uDOS-surface`**). **A1 (locked):** **`uDosConnect` is the single active uDos repo** — see **[`docs/A1-structure-locked.md`](docs/A1-structure-locked.md)**. VA1 work lives in **`core/`** (`do` CLI). Legacy **v4 uDosGo** integration (Host / ThinUI) was moved to **`~/Code/archive/uDosGo-v4-backup/`**; for fresh work, clone **[uDosGo](https://github.com/fredporter/uDosGo)** where you need it or port into `core/`.
+This repository was previously published under other names (including **`uDOS-surface`**). **A1 (locked):** **`uDosConnect` is the only uDos project tree** for implementation — see **[`docs/A1-structure-locked.md`](docs/A1-structure-locked.md)**. VA1 work lives in **`core/`** (`do` CLI) and related packages under this monorepo.
 
 ## Quickstart (students — one entry point)
 
@@ -68,10 +68,10 @@ When **`https://udos.sh/install`** is published, it can point at this repo’s `
 
 | Path | Role |
 | --- | --- |
-| [`TASKS.md`](TASKS.md) | Monorepo Task pointer — canonical backlog in **[`dev/TASKS.md`](dev/TASKS.md)**. Upstream **[UDEV-*] history:** [uDosDev TASKS on GitHub](https://github.com/fredporter/uDosDev/blob/main/TASKS.md). |
-| [`dev/`](dev/) | **Governance + contributor workflow (canonical in-repo)** — [`dev/TASKS.md`](dev/TASKS.md), [`dev/AGENTS.md`](dev/AGENTS.md), roadmaps, `dev/workflow/`. Upstream archive: [github.com/fredporter/uDosDev](https://github.com/fredporter/uDosDev) — do **not** recreate a root `uDosDev/` folder here. |
-| [`docs/`](docs/) | **Documentation corpus (canonical in-repo)** — public / student / contributor zones. Upstream archive for merges: [github.com/fredporter/uDosDocs](https://github.com/fredporter/uDosDocs) — do **not** recreate a root `uDosDocs/` folder here. |
-| [`courses/`](courses/) | **v4 learning pathway** — numbered shells (00–05) + **`06-ucode-runtime`**; narrative pointers in [AppStoreDocs / uDosDocs educational content](https://github.com/fredporter/uDosDocs/tree/main/docs/educational-content). Validate: `bash scripts/validate-courses.sh`. |
+| [`TASKS.md`](TASKS.md) | Monorepo task pointer — canonical backlog in **[`dev/TASKS.md`](dev/TASKS.md)** and **[`dev/BACKLOG-A1-branch.md`](dev/BACKLOG-A1-branch.md)** (A1 branch; merge before A1 closes). |
+| [`dev/`](dev/) | **Governance + contributor workflow** — [`dev/TASKS.md`](dev/TASKS.md), [`dev/AGENTS.md`](dev/AGENTS.md), roadmaps, `dev/workflow/`. |
+| [`docs/`](docs/) | **Documentation corpus** — public / student / contributor zones. |
+| [`courses/`](courses/) | **Learning pathway (beta numbering in folder names)** — shells **00–06**; validate: `bash scripts/validate-courses.sh`. |
 | [`scripts/`](scripts/) | Shared Python bootstrap, family checks, course validation, and path helpers (see [`docs/shared-resources-architecture.md`](docs/shared-resources-architecture.md)). |
 | [`modules/`](modules/) | **A1:** TS packages + uCoin, DB schema, LLM bridge — see [`modules/README.md`](modules/README.md). |
 | [`docs/ucoin-boundary.md`](docs/ucoin-boundary.md) | Short family note: **uCoin (barter)** vs **optional crypto** — points at `modules/ucoin/`. |
@@ -79,13 +79,7 @@ When **`https://udos.sh/install`** is published, it can point at this repo’s `
 
 ## Workspace
 
-Open [`uDosConnect.code-workspace`](uDosConnect.code-workspace) in Cursor or VS Code — roots for **`core/`**, **`modules/`**, **`dev/`**, **`templates/`**, **`seed/`**, **`docs/`**, **`courses/`**, **`scripts/`**, and (when present) sibling **archive** / **v2-reference** trees per [`docs/family-workspace-layout.md`](docs/family-workspace-layout.md). **v4 dev rounds:** [uDosDev `v4-dev-rounds.md`](https://github.com/fredporter/uDosDev/blob/main/docs/v4-dev-rounds.md) or [`dev/workflow/migrated-round1/…`](dev/workflow/migrated-round1/) when mirrored. **4.5+ flow:** [`dev/workflow/migrated-round1/process/v4-5-plus-dev-flow-and-resume.md`](dev/workflow/migrated-round1/process/v4-5-plus-dev-flow-and-resume.md).
-
-## Adjacent repositories
-
-- **[uDosGo](https://github.com/fredporter/uDosGo)** — v4 integration monorepo (historical tree: **`~/Code/archive/uDosGo-v4-backup/`**; clone fresh from GitHub if you need a working copy next to other repos).  
-- **[UniversalSurfaceXD](https://github.com/fredporter/UniversalSurfaceXD)** — surface language, interchange JSON, browser lab; usual clone **`~/Code/UniversalSurfaceXD/`** (see layout doc).  
-- **[GrooveBox888](https://github.com/fredporter/GrooveBox888)** — standalone groovebox lane; clone at **`~/Code/GrooveBox888/`** (replaces the removed `v2-reference/uDOS-groovebox` snapshot).
+Open [`uDosConnect.code-workspace`](uDosConnect.code-workspace) in Cursor or VS Code — roots for **`core/`**, **`modules/`**, **`dev/`**, **`templates/`**, **`seed/`**, **`docs/`**, **`courses/`**, **`scripts/`**, and (when present) local **archive** trees per [`docs/family-workspace-layout.md`](docs/family-workspace-layout.md). **Dev flow (beta-era filenames in `dev/workflow/`):** [`dev/workflow/migrated-round1/process/dev-beta-flow-and-resume.md`](dev/workflow/migrated-round1/process/dev-beta-flow-and-resume.md). **A1 branch backlog:** [`dev/BACKLOG-A1-branch.md`](dev/BACKLOG-A1-branch.md).
 
 In **tracked** prose, avoid machine-specific paths except the **optional** coding-root examples in [`docs/family-workspace-layout.md`](docs/family-workspace-layout.md); use `<repo-root>` where a neutral placeholder is better.
 

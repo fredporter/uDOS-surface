@@ -1,6 +1,6 @@
-# Operator live test — A1 milestone (uDosConnect)
+# Operator live test — **alpha** A1 milestone (uDosConnect)
 
-**Milestone:** Rust core tasks **T001–T021**, TypeScript VA1 **`@udos/core`** tests, repo hygiene (shakedown), optional Rust **`udos-core`** CLI smoke.
+**Milestone:** Rust core tasks **T001–T021**, TypeScript VA1 **`@udos/core`** tests, repo hygiene (shakedown), optional Rust **`udos-core`** CLI smoke. (**Alpha** = A1/A2 product line; **beta** = historical program docs.)
 
 **When:** Before tagging a release or declaring A1 “operator accepted.”
 

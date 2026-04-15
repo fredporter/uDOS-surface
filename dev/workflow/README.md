@@ -18,12 +18,12 @@ These files currently mirror template content and can still be used:
 - `review.md`
 - `promotion.md`
 
-## Family / pre-v5 (roadmap snapshots)
+## Beta roadmap (imported snapshots under `dev/workflow/imported/`)
 
-- **Index:** [`family-pre-v5-index.md`](family-pre-v5-index.md) — imported **PRE_V5** + **roadmap-v4-family** pointers  
+- **Index:** [`family-pre-v5-index.md`](family-pre-v5-index.md) — **PRE_V5** + roadmap pointers *(historical filenames)*  
 - **Public summary:** [`docs/roadmap/pre-v5-family-notes.md`](../../docs/roadmap/pre-v5-family-notes.md)
 
-## Submodule migration (uDosDev / uDosDocs)
+## Historical governance migration (absorbed into `dev/` / `docs/`)
 
 - **Progress (T012 / T013):** [`migration-progress-2026-04.md`](migration-progress-2026-04.md)
 - **Upstream delta (filtered rsync):** [`compare-upstream-migration-delta.sh`](compare-upstream-migration-delta.sh)

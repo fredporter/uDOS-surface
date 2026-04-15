@@ -26,7 +26,7 @@ Moved from **[`../TASKS.md`](../TASKS.md)** on 2026-04-13. **Task ids** referenc
 
 - [x] **Family product map + consumer roadmap (2026-04-12)** — [family-product-map-v4.5.md](https://github.com/fredporter/uDosDev/blob/main/docs/family-product-map-v4.5.md), [V451_CONSUMER_SPEC_ROADMAP_v4.5.1.md](https://github.com/fredporter/uDosDev/blob/main/docs/future/V451_CONSUMER_SPEC_ROADMAP_v4.5.1.md); README row; governance repo bump (historical)
 
-- [x] **4.5+ dev flow + resume (2026-04-12)** — README → [uDosDev `v4-5-plus-dev-flow-and-resume.md`](https://github.com/fredporter/uDosDev/blob/main/docs/process/v4-5-plus-dev-flow-and-resume.md); mirrored under `dev/workflow/migrated-round1/process/` in monorepo
+- [x] **Dev flow + resume (2026-04-12)** — now [`dev/workflow/migrated-round1/process/dev-beta-flow-and-resume.md`](../../dev/workflow/migrated-round1/process/dev-beta-flow-and-resume.md) *(uDos **beta** label; uDosConnect only).*
 
 - [x] **Restructure handoff (2026-04-12)** — canonical GitHub slugs in README / CONTRIBUTING / layout doc + v4 scripts README (**uDosGo**, **uDosDev**, **uDosDocs**); [v3-system-brief](https://github.com/fredporter/uDosDev/blob/main/docs/v3-system-brief.md) URL fixes
 

@@ -1,11 +1,11 @@
-# Migrated Round 1 (uDosDev -> dev)
+# Migrated Round 1 (governance → `dev/`)
 
-This folder holds the first batch of high-value process documents migrated from `uDosDev`.
+This folder holds the first batch of process documents consolidated under **`dev/`** (historical migration; **beta**-era sources).
 
 ## Included
 
-- `process/dev-process-v4.md`
-- `process/dev-checklist-v4.md`
-- `process/v4-5-plus-dev-flow-and-resume.md`
+- `process/dev-process-beta.md`
+- `process/dev-checklist-beta.md`
+- `process/dev-beta-flow-and-resume.md`
 
-These are staged copies for consolidation into canonical `dev/` docs in later rounds.
+Canonical workflow for **alpha** (A1 / A2) execution: **`dev/TASKS.md`**, **`dev/BACKLOG-A1-branch.md`**, and the files above for governance checks.

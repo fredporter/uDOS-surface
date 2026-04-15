@@ -21,7 +21,7 @@
 - [x] Root `README.md`, `CONTRIBUTING.md`, `AGENTS.md` point at **`dev/`** and **`docs/`** (no root **`uDosDev/`** / **`uDosDocs/`** submodule folders)
 - [x] **`docs/specs/audience-tags.md`** — governance canonical under **`dev/`**
 - [x] **`docs/A1-structure-locked.md`** — matches npm workspaces (**`core`**, **`ui`**, **`tools/*`**, **`modules/*`**) and top-level folders
-- [x] **`dev/workflow/migrated-round1/process/v4-5-plus-dev-flow-and-resume.md`** — pre-v5 / v4.6 checklist links prefer **`dev/workflow/imported/2026-04-15-uDosDev-snapshot/`** where files exist; other links remain upstream until migrated
+- [x] **`dev/workflow/migrated-round1/process/dev-beta-flow-and-resume.md`** — checklist links prefer **`dev/workflow/imported/2026-04-15-uDosDev-snapshot/`** where files exist *(beta-era imported snapshot tree).*
 
 ## Part 3 — VA1 development priorities
 

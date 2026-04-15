@@ -10,7 +10,7 @@
 | Maps | [`uDosDev-migration-map.md`](uDosDev-migration-map.md), [`uDosDocs-migration-map.md`](uDosDocs-migration-map.md) |
 | uDosDev roadmap snapshot | [`imported/2026-04-15-uDosDev-snapshot/`](imported/2026-04-15-uDosDev-snapshot/README.md) |
 | uDosDocs scripts import | [`../../scripts/imported/2026-04-15-uDosDocs/`](../../scripts/imported/2026-04-15-uDosDocs/README.md) |
-| Process docs link hygiene | [`migrated-round1/process/v4-5-plus-dev-flow-and-resume.md`](migrated-round1/process/v4-5-plus-dev-flow-and-resume.md) — pre-v5 pointers use imported snapshots |
+| Process docs link hygiene | [`migrated-round1/process/dev-beta-flow-and-resume.md`](migrated-round1/process/dev-beta-flow-and-resume.md) — pointers use imported snapshots *(beta)* |
 | Family / pre-v5 index | [`family-pre-v5-index.md`](family-pre-v5-index.md), [`../../docs/roadmap/pre-v5-family-notes.md`](../../docs/roadmap/pre-v5-family-notes.md) |
 | **`site/`** static snapshot | [`../../docs/contributor/migrated-round2/site/`](../../docs/contributor/migrated-round2/site/) — upstream `uDosDocs/site/` (2026-04-15) |
 | Round 2 knowledge keep-now | [`../../docs/contributor/migrated-round2/knowledge/`](../../docs/contributor/migrated-round2/knowledge/) — bank subset per [`uDosDocs-round2b-knowledge-triage.md`](uDosDocs-round2b-knowledge-triage.md) |

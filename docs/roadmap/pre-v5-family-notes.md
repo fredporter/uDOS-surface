@@ -6,9 +6,9 @@ slot: 5
 apple_color: Blue
 ---
 
-# Pre-v5 family notes
+# Pre-v5 family notes (uDos **beta**)
 
-**Context:** The uDos **v4.5.1 → v4.6** program uses **pre-v5 execution rounds** (**PRE5-R01–R07**) before any **v5** product line. This page is a **short, stable pointer** for **uDosConnect**; full text lives under **`dev/workflow/imported/`**.
+**Context:** Historical program labels (v4.x / “pre-v5”) appear in imported filenames; **working meaning = uDos beta**. Execution rounds **PRE5-R01–R07** are summarized here; full text lives under **`dev/workflow/imported/`** in **uDosConnect** only.
 
 ## Canonical documents (this repo)
 
@@ -16,9 +16,9 @@ apple_color: Blue
 | --- | --- |
 | [PRE_V5_ROADMAP_AND_EXECUTION_ROUNDS_v1.md](../../dev/workflow/imported/2026-04-15-uDosDev-snapshot/future/PRE_V5_ROADMAP_AND_EXECUTION_ROUNDS_v1.md) | Locked spec bundle (§1), streamlined ops summary (§2), task prefixes (§3), **execution rounds §4**, relationship to v5 (§5) |
 | [PRE_V5_ROADMAP_SINGLE_LANE_v1.md](../../dev/workflow/imported/2026-04-15-uDosDev-snapshot/future/PRE_V5_ROADMAP_SINGLE_LANE_v1.md) | One table: **PRE5-R01 → PRE5-R07** order (aligned with §4) |
-| [roadmap-v4-family.md](../../dev/workflow/imported/2026-04-15-uDosDev-snapshot/roadmap-v4-family.md) | Cross-repo v4 spine (snapshot; internal links may still point at historical uDosDev paths) |
+| [roadmap-v4-family.md](../../dev/workflow/imported/2026-04-15-uDosDev-snapshot/roadmap-v4-family.md) | Roadmap spine snapshot *(beta-era filename; prefer in-repo paths when following links)* |
 
-**Dev index:** [`dev/workflow/family-pre-v5-index.md`](../../dev/workflow/family-pre-v5-index.md).
+**Dev index:** [`dev/workflow/family-pre-v5-index.md`](../../dev/workflow/family-pre-v5-index.md) *(beta roadmap index).*
 
 ## Single-lane round order (summary)
 

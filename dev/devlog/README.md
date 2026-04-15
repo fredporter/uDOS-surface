@@ -17,7 +17,7 @@
 ## Linking
 
 - **Period summaries** in [`dev/summary/`](../summary/) should **link here**, not duplicate paragraphs.
-- Formal audits may still use **`docs/dev-reports/`** with slotted templates per [DEV_REPORTS strategy](https://github.com/fredporter/uDosDev/blob/main/docs/dev/DEV_REPORTS_AND_DOC_TEMPLATES_STRATEGY_LOCKED_v1.md) when you need slot/frontmatter policy.
+- Formal audits may still use **`docs/dev-reports/`** with slotted templates; mirror policy under **`dev/workflow/`** when you need slot/frontmatter conventions.
 
 ## Feed / MCP
 

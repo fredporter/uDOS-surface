@@ -8,19 +8,19 @@ If this tree is not yet a Git repository locally, run `git init` at the repo roo
 
 `git clone https://github.com/fredporter/uDosConnect.git`
 
-**Canonical trees in this repo:** **`dev/`** (governance / workflow), **`docs/`** (documentation). Upstream archives for cherry-picks and history: **[uDosDev](https://github.com/fredporter/uDosDev)**, **[uDosDocs](https://github.com/fredporter/uDosDocs)** — do **not** recreate **`uDosDev/`** or **`uDosDocs/`** directories at the root of **uDosConnect** (old submodule paths; removed).
+**Canonical trees in this repo:** **`dev/`** (governance / workflow), **`docs/`** (documentation). Do **not** recreate old **`uDosDev/`** or **`uDosDocs/`** directory names at the root — that material is **absorbed** into **`dev/`** and **`docs/`**.
 
-1. **Governance and process** — read [`dev/workflow/migrated-round1/process/dev-process-v4.md`](dev/workflow/migrated-round1/process/dev-process-v4.md) (or [uDosDev on GitHub](https://github.com/fredporter/uDosDev/blob/main/docs/process/dev-process-v4.md)) and [`dev/TASKS.md`](dev/TASKS.md).
+1. **Governance and process** — read [`dev/workflow/migrated-round1/process/dev-process-beta.md`](dev/workflow/migrated-round1/process/dev-process-beta.md) and [`dev/TASKS.md`](dev/TASKS.md).
 2. **Planning spine** — read [`docs/family-workspace-layout.md`](docs/family-workspace-layout.md): optional coding root (e.g. **`~/Code/`**), Mac/Linux/Windows examples, **`uDosConnect`** as active monorepo, optional **`archive/`** for retired trees.
 3. **Scratch** — use repo-local **`.local/`** or **`dev/local/`** (gitignored) per dev standard; do not commit inbox dumps.
 4. **Paths in docs** — follow the **optional** coding-root pattern in [`docs/family-workspace-layout.md`](docs/family-workspace-layout.md); avoid other machine-specific absolute paths. Checks under **`scripts/`** or **`dev/`** may reject patterns like `/Users/.../Code/`.
 5. **Local Python pointer** — after `scripts/bootstrap-family-python.sh`, the file **`.udos-family-python`** is created at the repo root and is **gitignored** (see `.udos-family-python.example`).
 6. **PRs** — prefer **`main`**; keep changes scoped and described in complete sentences.
 
-7. **Family checks** — a full pass (for example scripts mirrored from [uDosDev `run-dev-checks.sh`](https://github.com/fredporter/uDosDev/blob/main/scripts/run-dev-checks.sh)) may expect optional repos (for example **`uDOS-wizard`**) nested under the monorepo **when** you use the layout in [`docs/family-workspace-layout.md`](docs/family-workspace-layout.md); if those folders are absent, the script may stop early. That is normal on a partial checkout.
+7. **Family checks** — scripts under **`scripts/`** may assume paths described in [`docs/family-workspace-layout.md`](docs/family-workspace-layout.md); if optional paths are absent, a script may stop early — that is normal on a partial environment.
 
 8. **Node / npm** — this repo uses **npm workspaces** at the root (`package.json` + `package-lock.json`). Install with **`npm ci`** (or **`npm install`**) at the repo root, then **`npm run build`** or **`npm test`**. Do not rely on per-package lockfiles under `core/` or `tools/sonic-express/`.
 
 9. **Dev scaffold (`--devonly` templates)** — contributor tiers, VibeCLI ↔ Cursor handover, and ignored scratch: [`dev/README.md`](dev/README.md). Do not commit personal notes under **`dev/local/`**; roadmaps/features in-repo are **template-only** (see `dev/.gitignore`).
 
-For deeper family context, start with [uDosDev `README.md`](https://github.com/fredporter/uDosDev/blob/main/README.md) and [uDosDev `docs/getting-started.md`](https://github.com/fredporter/uDosDev/blob/main/docs/getting-started.md), or mirrored docs under `dev/workflow/` when present.
+For deeper context, use **`docs/`** and **`dev/workflow/`** in this repo (including imported snapshots under `dev/workflow/imported/` where present).

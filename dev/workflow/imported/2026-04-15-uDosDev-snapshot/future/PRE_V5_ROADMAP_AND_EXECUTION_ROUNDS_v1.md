@@ -2,7 +2,7 @@
 
 **Status:** **Active** — ties **locked specs** (2026-04) to **shippable work rounds** before any **v5** program.  
 **Version:** 1.7.3  
-**Dev flow standard:** [v4-5-plus-dev-flow-and-resume.md](../process/v4-5-plus-dev-flow-and-resume.md) — `.local/` thinking → **`TASKS.md`** → implementation → **`npm` / `bash` gates** per repo; family [v4-dev-rounds.md](../v4-dev-rounds.md) round naming.
+**Dev flow standard:** [dev-beta-flow-and-resume.md](../../../migrated-round1/process/dev-beta-flow-and-resume.md) — `.local/` thinking → **`TASKS.md`** → implementation → **`npm` / `bash` gates` in **uDosConnect**; round naming in imported [v4-dev-rounds.md](../v4-dev-rounds.md) *(beta-era filename).*
 
 **Completion target:** [wpmudev-agent `PRE_V5_COMPLETION_CHECKLIST.md`](https://github.com/fredporter/wpmudev-agent/blob/main/docs/PRE_V5_COMPLETION_CHECKLIST.md) (checklist) plus round exit criteria below.
 

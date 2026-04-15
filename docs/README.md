@@ -19,7 +19,7 @@
 | [specs/font-system-obf.md](specs/font-system-obf.md) | **Locked** Monaspace, OBF fonts, CDN, `do font` |
 | [specs/workflow-network-a1-a2.md](specs/workflow-network-a1-a2.md) | **A1/A2 split:** local workflow + A2 bridge/server/network stubs |
 | [A1-structure-locked.md](A1-structure-locked.md) | **Locked A1 layout:** `core/`, `tools/`, `modules/`, `dev/`, `templates/`, `seed/` |
-| [A1-CLEANUP-CHECKLIST.md](A1-CLEANUP-CHECKLIST.md) | **Status:** cleanup + uDosDev path pass + VA1 deliverables |
+| [A1-CLEANUP-CHECKLIST.md](A1-CLEANUP-CHECKLIST.md) | **Status:** cleanup + path pass + VA1 deliverables |
 | [public/README.md](public/README.md) | **`--public`** user-facing landing |
 | [public/getting-started.md](public/getting-started.md) | **`--public`** Quickstart pointer |
 | [public/vault-guide.md](public/vault-guide.md) | **`--public`** Vault overview |
@@ -28,16 +28,14 @@
 | [public/faq.md](public/faq.md) | **`--public`** FAQ (tags, OBF, folders) |
 | [student/README.md](student/README.md) | **`--student`** course-facing landing |
 | [contributor/README.md](contributor/README.md) | **`--contributor`** invite / dev portal stubs |
-| [contributor/migrated-round2/README.md](contributor/migrated-round2/README.md) | **Round 2** migrated uDosDocs batch (examples, wizard, knowledge subset, **`site/`**) |
+| [contributor/migrated-round2/README.md](contributor/migrated-round2/README.md) | **Round 2** migrated documentation batch (examples, wizard, knowledge subset, **`site/`**) |
 | [templates/README.md](templates/README.md) | Tagged markdown templates |
 | [family-workspace-layout.md](family-workspace-layout.md) | **Disk layout:** optional coding root, OS examples, monorepo + archive (link here; don’t repeat) |
 | [shared-resources-architecture.md](shared-resources-architecture.md) | Shared Python / `~/.udos` layout and root `scripts/` helpers |
 | [roadmap/README.md](roadmap/README.md) | Public roadmap pointers (`--published`, slot **5**) |
-| [roadmap/pre-v5-family-notes.md](roadmap/pre-v5-family-notes.md) | **Pre-v5** family: **PRE5-R01–R07** + links to snapshots under **`dev/workflow/imported/`** |
-| [../dev/workflow/imported/2026-04-15-uDosDev-snapshot/README.md](../dev/workflow/imported/2026-04-15-uDosDev-snapshot/README.md) | Roadmap snapshot merged under **`dev/`** (upstream: GitHub uDosDev) |
-| [../scripts/imported/2026-04-15-uDosDocs/README.md](../scripts/imported/2026-04-15-uDosDocs/README.md) | Imported uDosDocs scripts (review before CI wiring) |
+| [roadmap/pre-v5-family-notes.md](roadmap/pre-v5-family-notes.md) | **Beta** roadmap notes: **PRE5-R01–R07** + links to snapshots under **`dev/workflow/imported/`** *(historical “pre-v5” filename)* |
+| [../dev/workflow/imported/2026-04-15-uDosDev-snapshot/README.md](../dev/workflow/imported/2026-04-15-uDosDev-snapshot/README.md) | Roadmap snapshot under **`dev/workflow/imported/`** *(historical folder name; **beta** program)* |
+| [../scripts/imported/2026-04-15-uDosDocs/README.md](../scripts/imported/2026-04-15-uDosDocs/README.md) | Imported doc-maintenance scripts (review before CI wiring) |
 | [ucoin-boundary.md](ucoin-boundary.md) | uCoin (barter) vs optional crypto |
 
-**Contributor baseline:** canonical trees and “no root `uDosDev/` / `uDosDocs/`” match [CONTRIBUTING.md](../CONTRIBUTING.md). **Docs corpus–specific:** roadmap snapshot under **`dev/workflow/imported/2026-04-15-uDosDev-snapshot/`**; **dev-only** reports (`--devonly`) follow [DEV_REPORTS strategy](https://github.com/fredporter/uDosDev/blob/main/docs/dev/DEV_REPORTS_AND_DOC_TEMPLATES_STRATEGY_LOCKED_v1.md) as mirrored into **`dev/`**; **`--draft`** in **`dev/local/`** (gitignored); imported doc-script helpers **`scripts/imported/2026-04-15-uDosDocs/`** (review before use).
-
-**Cross-format templates (reference):** [DEV_REPORTS_AND_DOC_TEMPLATES_STRATEGY_LOCKED_v1.md on GitHub](https://github.com/fredporter/uDosDev/blob/main/docs/dev/DEV_REPORTS_AND_DOC_TEMPLATES_STRATEGY_LOCKED_v1.md) — mirror policy into **`dev/`** as needed.
+**Contributor baseline:** canonical **`dev/`** + **`docs/`** trees match [CONTRIBUTING.md](../CONTRIBUTING.md). **Docs corpus–specific:** roadmap snapshot under **`dev/workflow/imported/2026-04-15-uDosDev-snapshot/`** *(historical directory name)*; **dev-only** reports (`--devonly`) follow the slotted template policy mirrored under **`dev/workflow/`**; **`--draft`** in **`dev/local/`** (gitignored); imported doc-script helpers **`scripts/imported/2026-04-15-uDosDocs/`** (review before use).

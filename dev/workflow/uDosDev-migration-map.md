@@ -22,9 +22,9 @@
 
 ## Round 1 Batch (completed now)
 
-- `uDosDev/docs/process/dev-process-v4.md` -> `dev/workflow/migrated-round1/process/dev-process-v4.md`
-- `uDosDev/docs/process/dev-checklist-v4.md` -> `dev/workflow/migrated-round1/process/dev-checklist-v4.md`
-- `uDosDev/docs/process/v4-5-plus-dev-flow-and-resume.md` -> `dev/workflow/migrated-round1/process/v4-5-plus-dev-flow-and-resume.md`
+- `uDosDev/docs/process/dev-process-v4.md` -> `dev/workflow/migrated-round1/process/dev-process-beta.md` *(renamed in monorepo)*
+- `uDosDev/docs/process/dev-checklist-v4.md` -> `dev/workflow/migrated-round1/process/dev-checklist-beta.md` *(renamed in monorepo)*
+- `uDosDev/docs/process/v4-5-plus-dev-flow-and-resume.md` -> `dev/workflow/migrated-round1/process/dev-beta-flow-and-resume.md` *(renamed in monorepo)*
 
 ## Round 2 Batch (2026-04-15 — snapshot import, post-submodule)
 
