@@ -9,9 +9,9 @@ slot: 5
 apple_color: Blue
 ---
 
-# uDos A1 `do` command reference (VA1)
+# uDos A1 `udo` command reference (VA1)
 
-**Scope:** commands implemented by **`@udos/core`** (TypeScript) for the default npm workspace CLI. The **`udos-core`** Rust binary adds **`do run`** / **`do fmt`** for the mini uCode runtime (see **uCode runtime** below). Run **`do <command> --help`** for flags.
+**Scope:** commands implemented by **`@udos/core`** (TypeScript) for the default npm workspace CLI. The **`udos-core`** Rust binary adds **`udo run`** / **`udo fmt`** for the mini uCode runtime (see **uCode runtime** below). Run **`udo <command> --help`** for flags.
 
 **Style / tokens:** [../specs/va1-style-guide.md](../specs/va1-style-guide.md)
 
@@ -19,13 +19,14 @@ apple_color: Blue
 
 | Command | Description | Example |
 | --- | --- | --- |
-| `do init` | Create vault (default `~/vault` or `UDOS_VAULT`) | `do init` |
-| `do list` | List vault file paths | `do list` |
-| `do open <file>` | Open in `$EDITOR` (default `nano`) | `do open content/note.md` |
-| `do edit <file>` | Same as open (VA1) | `do edit content/note.md` |
-| `do delete <file>` | Move to `.compost/` | `do delete draft.md` |
-| `do restore <id>` | Restore from compost | `do restore abc123` |
-| `do search <query>` | Search `.md` / `.txt` in vault | `do search hello` |
+| `udo init` | Create vault (default `~/vault` or `UDOS_VAULT`); full scaffold including `@toybox/`, `@sandbox/`, `.local/` | `udo init` |
+| `udo vault init [path]` | Same bootstrap; optional explicit vault root | `udo vault init /tmp/my-vault` |
+| `udo list` | List vault file paths | `udo list` |
+| `udo open <file>` | Open in `$EDITOR` (default `nano`) | `udo open content/note.md` |
+| `udo edit <file>` | Same as open (VA1) | `udo edit content/note.md` |
+| `udo delete <file>` | Move to `.compost/` | `udo delete draft.md` |
+| `udo restore <id>` | Restore from compost | `udo restore abc123` |
+| `udo search <query>` | Search `.md` / `.txt` in vault | `udo search hello` |
 
 ## uCode runtime (Rust `udos-core`)
 
@@ -33,10 +34,10 @@ Implemented by **`core-rs`** (`udos-core`). Language subset: `PRINT`, `LET`, `IF
 
 | Command | Description | Example |
 | --- | --- | --- |
-| `do run --file <path>` | Execute a `.ucode` file | `do run -f ucode/hello.ucode` |
-| `do run --eval <snippet>` | Inline uCode (quote as needed) | `do run --eval 'PRINT "hello"'` |
-| `do fmt <path>` | Format `.ucode` under a file or directory (trim trailing spaces; ensure final newline) | `do fmt ucode/` |
-| `do fmt --check <path>` | Exit with error if any file would change (CI-style) | `do fmt --check script.ucode` |
+| `udo run --file <path>` | Execute a `.ucode` file | `udo run -f ucode/hello.ucode` |
+| `udo run --eval <snippet>` | Inline uCode (quote as needed) | `udo run --eval 'PRINT "hello"'` |
+| `udo fmt <path>` | Format `.ucode` under a file or directory (trim trailing spaces; ensure final newline) | `udo fmt ucode/` |
+| `udo fmt --check <path>` | Exit with error if any file would change (CI-style) | `udo fmt --check script.ucode` |
 
 ## ASCII / FIGlet (`udos-core`)
 
@@ -44,73 +45,81 @@ Requires external **`figlet`** on `PATH` for large banners; boxed fallback if mi
 
 | Command | Description | Example |
 | --- | --- | --- |
-| `do ascii banner <text>` | FIGlet banner (`--font`, default `standard`) | `do ascii banner Hi --font slant` |
-| `do ascii banner <text> --to-teletext` | Hex teletext codes per line | `do ascii banner Hi --to-teletext` |
-| `do ascii fonts list` | List fonts (`showfigfonts` / `figlet -I2` / stub) | `do ascii fonts list` |
-| `do ascii fonts install <name>` | A1 stub (manual `.flf` install hint) | `do ascii fonts install mine` |
-| `do ascii fonts preview --font <f> <text>` | Preview font | `do ascii fonts preview --font standard OK` |
+| `udo ascii banner <text>` | FIGlet banner (`--font`, default `standard`) | `udo ascii banner Hi --font slant` |
+| `udo ascii banner <text> --to-teletext` | Hex teletext codes per line | `udo ascii banner Hi --to-teletext` |
+| `udo ascii fonts list` | List fonts (`showfigfonts` / `figlet -I2` / stub) | `udo ascii fonts list` |
+| `udo ascii fonts install <name>` | A1 stub (manual `.flf` install hint) | `udo ascii fonts install mine` |
+| `udo ascii fonts preview --font <f> <text>` | Preview font | `udo ascii fonts preview --font standard OK` |
 
 ## Markdown
 
 | Command | Description | Example |
 | --- | --- | --- |
-| `do md format <file>` | Format markdown | `do md format note.md` |
-| `do md lint <file>` | Lint | `do md lint note.md` |
-| `do md toc <file>` | Insert / refresh TOC | `do md toc note.md` |
+| `udo md format <file>` | Format markdown | `udo md format note.md` |
+| `udo md lint <file>` | Lint | `udo md lint note.md` |
+| `udo md toc <file>` | Insert / refresh TOC | `udo md toc note.md` |
 
 ## Frontmatter
 
 | Command | Description | Example |
 | --- | --- | --- |
-| `do fm add <file> --tag <tag>` | Add tag in frontmatter | `do fm add post.md --tag published` |
-| `do fm list <file>` | List fields | `do fm list post.md` |
-| `do fm edit <file>` | Edit frontmatter | `do fm edit post.md` |
+| `udo fm add <file> --tag <tag>` | Add tag in frontmatter | `udo fm add post.md --tag published` |
+| `udo fm list <file>` | List fields | `udo fm list post.md` |
+| `udo fm edit <file>` | Edit frontmatter | `udo fm edit post.md` |
 
 ## Templates
 
 | Command | Description | Example |
 | --- | --- | --- |
-| `do template list` | List templates | `do template list` |
-| `do template show <name>` | Show template | `do template show blog` |
-| `do template apply <name>` | Apply into vault | `do template apply blog` |
+| `udo template list` | List templates | `udo template list` |
+| `udo template show <name>` | Show template | `udo template show blog` |
+| `udo template apply <name>` | Apply into vault | `udo template apply blog` |
 
-## Feeds (read-only)
+## Feeds
 
 | Command | Description | Example |
 | --- | --- | --- |
-| `do feed list` | List feeds | `do feed list` |
-| `do feed view <name>` | View items | `do feed view news` |
-| `do feed export <name>` | Export JSON lines | `do feed export news --json` |
+| `udo feed list` | List configured feeds (`.local/feeds.yaml`) or JSONL feeds | `udo feed list` |
+| `udo feed view <name>` | View configured feed details or JSONL items | `udo feed view news` |
+| `udo feed show <name>` | Alias for `view` (configured feed details) | `udo feed show sandbox-versioning` |
+| `udo feed enable <name>` | A2 stub — mark feed as enabled conceptually | `udo feed enable sandbox-versioning` |
+| `udo feed disable <name>` | A2 stub — mark feed as disabled conceptually | `udo feed disable sandbox-versioning` |
+| `udo feed test <name> --dry-run` | Inspect configured feed action | `udo feed test sandbox-versioning --dry-run` |
+| `udo feed export <name>` | Export JSON lines | `udo feed export news --json` |
 
 ## Spools
 
 | Command | Description | Example |
 | --- | --- | --- |
-| `do spool list` | List spools | `do spool list` |
-| `do spool info <name>` | Metadata | `do spool info weekly` |
-| `do spool extract <name>` | Extract | `do spool extract weekly` |
+| `udo spool list` | List spools | `udo spool list` |
+| `udo spool info <name>` | Metadata | `udo spool info weekly` |
+| `udo spool show <name>` | Show configured spool details | `udo spool show condense-sandbox` |
+| `udo spool run <name> [--dry-run]` | Run one spool now (sync) | `udo spool run condense-sandbox --dry-run` |
+| `udo spool run --all [--dry-run]` | Run all enabled spools | `udo spool run --all` |
+| `udo spool status` | Show last run status from `.local/spool-status.json` | `udo spool status` |
+| `udo spool extract <name>` | Extract | `udo spool extract weekly` |
 
 ## Publishing
 
 | Command | Description | Example |
 | --- | --- | --- |
-| `do publish build` | Build static site under vault `.site/` | `do publish build` |
-| `do publish preview` | Local preview (port `DO_PREVIEW_PORT`, default 4173) | `do publish preview` |
-| `do publish status` | Last build info | `do publish status` |
-| `do publish deploy` | Deploy built output to GitHub Pages (`gh-pages`) | `do publish deploy` |
+| `udo publish build` | Build static site under vault `.site/` | `udo publish build` |
+| `udo publish preview` | Local preview (port `DO_PREVIEW_PORT`, default 4173) | `udo publish preview` |
+| `udo publish status` | Last build info | `udo publish status` |
+| `udo publish deploy` | Deploy built output to GitHub Pages (`gh-pages`) | `udo publish deploy` |
 
 ## GitHub (native workflow)
 
 | Command | Description | Example |
 | --- | --- | --- |
-| `do github clone <repo>` | Clone GitHub repo into vault/default target | `do github clone bro/udos-vault` |
-| `do github pull` | Pull latest changes | `do github pull` |
-| `do github push` | Commit and push local changes | `do github push -m "update vault"` |
-| `do github status` | Show repo sync/status summary | `do github status` |
-| `do github sync` | Pull then push | `do github sync` |
-| `do github fork [repo]` | Fork upstream repo via `gh` | `do github fork udos/uDosConnect` |
-| `do github release <tag>` | Create GitHub release | `do github release v1.2.0` |
-| `do github configure --username --repo` | Save defaults in `~/.config/udos/github.yaml` | `do github configure --username bro --repo bro/udos-vault` |
+| `udo github clone <repo>` | Clone GitHub repo into vault/default target | `udo github clone bro/udos-vault` |
+| `udo github pull` | Pull latest changes | `udo github pull` |
+| `udo github push` | Commit and push local changes | `udo github push -m "update vault"` |
+| `udo github status` | Show repo sync/status summary | `udo github status` |
+| `udo github sync` | Pull then push | `udo github sync` |
+| `udo github fork [repo]` | Fork upstream repo via `gh` | `udo github fork udos/uDosConnect` |
+| `udo github release <tag>` | Create GitHub release | `udo github release v1.2.0` |
+| `udo github configure --username --repo` | Save defaults in `~/.config/udos/github.yaml` | `udo github configure --username bro --repo bro/udos-vault` |
 
 Config file:
 
@@ -121,22 +130,22 @@ Config file:
 
 | Command | Description | Example |
 | --- | --- | --- |
-| `do issue create --title <t> [--body]` | Create issue in current/default repo | `do issue create --title "Fix docs"` |
-| `do issue list [--limit]` | List open issues | `do issue list --limit 50` |
-| `do pr create [--title --body --base]` | Create pull request | `do pr create --title "Update docs"` |
-| `do pr list [--limit]` | List open PRs | `do pr list` |
-| `do pr checkout <id>` | Checkout PR branch | `do pr checkout 42` |
-| `do pr review <id> [--body]` | Add PR review/comment | `do pr review 42 --body "Looks good"` |
-| `do pr approve <id>` | Approve PR | `do pr approve 42` |
-| `do pr merge <id>` | Merge PR (auto/squash) | `do pr merge 42` |
+| `udo issue create --title <t> [--body]` | Create issue in current/default repo | `udo issue create --title "Fix docs"` |
+| `udo issue list [--limit]` | List open issues | `udo issue list --limit 50` |
+| `udo pr create [--title --body --base]` | Create pull request | `udo pr create --title "Update docs"` |
+| `udo pr list [--limit]` | List open PRs | `udo pr list` |
+| `udo pr checkout <id>` | Checkout PR branch | `udo pr checkout 42` |
+| `udo pr review <id> [--body]` | Add PR review/comment | `udo pr review 42 --body "Looks good"` |
+| `udo pr approve <id>` | Approve PR | `udo pr approve 42` |
+| `udo pr merge <id>` | Merge PR (auto/squash) | `udo pr merge 42` |
 
 ## Unified collaboration terms
 
 | Command | Code track (GitHub) | Docs/content track (WordPress terms) |
 | --- | --- | --- |
-| `do submit [path] [--target]` | Create PR draft (`do pr create`) | Submit draft (A1 stub) |
-| `do review [path] [--target] [--pr]` | Review PR (`do pr review`) | Editorial review (A1 stub) |
-| `do approve [path] [--target] [--pr]` | Approve PR (`do pr approve`) | Approve draft (A1 stub) |
+| `udo submit [path] [--target]` | Create PR draft (`udo pr create`) | Submit draft (A1 stub) |
+| `udo review [path] [--target] [--pr]` | Review PR (`udo pr review`) | Editorial review (A1 stub) |
+| `udo approve [path] [--target] [--pr]` | Approve PR (`udo pr approve`) | Approve draft (A1 stub) |
 
 Auto-detection defaults:
 
@@ -147,17 +156,17 @@ Auto-detection defaults:
 
 | Command | Description |
 | --- | --- |
-| `do wp sync` | WordPress sync stub (upgrade message) |
-| `do wp publish` | WordPress publish stub (upgrade message) |
-| `do wp review` | WordPress editorial review stub (upgrade message) |
+| `udo wp sync` | WordPress sync stub (upgrade message) |
+| `udo wp publish` | WordPress publish stub (upgrade message) |
+| `udo wp review` | WordPress editorial review stub (upgrade message) |
 
 ## Sync (A1 stubs for WP cloud actions)
 
 | Command | Description |
 | --- | --- |
-| `do sync status` | Stub — WP cloud status is handled by uDos Universe / uDos.space |
-| `do sync pull` | Stub — WP cloud pull requires Universe / uDos.space |
-| `do sync push` | Stub — WP cloud push requires Universe / uDos.space |
+| `udo sync status` | Stub — WP cloud status is handled by uDos Universe / uDos.space |
+| `udo sync pull` | Stub — WP cloud pull requires Universe / uDos.space |
+| `udo sync push` | Stub — WP cloud push requires Universe / uDos.space |
 
 > A1 still supports local publishing and normal GitHub workflows (`git push`) for open content/code.
 
@@ -165,43 +174,43 @@ Auto-detection defaults:
 
 | Command | Description | Example |
 | --- | --- | --- |
-| `do workflow list` | List workflows from local SQLite | `do workflow list` |
-| `do workflow create <name> --step 'action'` | Create workflow with one or more steps | `do workflow create nightly --step 'shell:echo hi' --step 'spool:create'` |
-| `do workflow run <name>` | Run workflow now | `do workflow run nightly` |
-| `do workflow schedule <name> --cron '<expr>'` | Save cron metadata | `do workflow schedule nightly --cron '0 2 * * *'` |
-| `do workflow status <name>` | Show latest run state | `do workflow status nightly` |
-| `do workflow logs <name>` | Show local workflow log lines | `do workflow logs nightly` |
-| `do workflow webhook add <name> --url <url>` | Queue webhook registration for A2 | `do workflow webhook add ingest --url https://example.com/hook` |
-| `do workflow webhook list` | A2 webhook list stub | `do workflow webhook list` |
-| `do workflow queue list` | Queue visibility stub | `do workflow queue list` |
+| `udo workflow list` | List workflows from local SQLite | `udo workflow list` |
+| `udo workflow create <name> --step 'action'` | Create workflow with one or more steps | `udo workflow create nightly --step 'shell:echo hi' --step 'spool:create'` |
+| `udo workflow run <name>` | Run workflow now | `udo workflow run nightly` |
+| `udo workflow schedule <name> --cron '<expr>'` | Save cron metadata | `udo workflow schedule nightly --cron '0 2 * * *'` |
+| `udo workflow status <name>` | Show latest run state | `udo workflow status nightly` |
+| `udo workflow logs <name>` | Show local workflow log lines | `udo workflow logs nightly` |
+| `udo workflow webhook add <name> --url <url>` | Queue webhook registration for A2 | `udo workflow webhook add ingest --url https://example.com/hook` |
+| `udo workflow webhook list` | A2 webhook list stub | `udo workflow webhook list` |
+| `udo workflow queue list` | Queue visibility stub | `udo workflow queue list` |
 
 ## A2 bridge and server stubs
 
 | Command | Description | Example |
 | --- | --- | --- |
-| `do a2 server start` | A2 server start stub | `do a2 server start` |
-| `do a2 server stop` | A2 server stop stub | `do a2 server stop` |
-| `do a2 server status` | A2 server status stub | `do a2 server status` |
-| `do a2 server logs` | A2 server logs stub | `do a2 server logs` |
-| `do a2 server configure --port 8080` | A2 server config stub | `do a2 server configure --port 8080` |
-| `do a2 configure --url <url> [--api-key <key>]` | Configure A2 bridge endpoint | `do a2 configure --url https://api.example.com --api-key abc` |
-| `do a2 status` | Show A2 stub inventory and upgrade guidance | `do a2 status` |
-| `do workflow server start` | A2-oriented workflow server start stub | `do workflow server start` |
-| `do workflow server status` | A2-oriented workflow server status stub | `do workflow server status` |
-| `do beacon scan` | Local discovery stub (A2/LAN future) | `do beacon scan` |
+| `udo a2 server start` | A2 server start stub | `udo a2 server start` |
+| `udo a2 server stop` | A2 server stop stub | `udo a2 server stop` |
+| `udo a2 server status` | A2 server status stub | `udo a2 server status` |
+| `udo a2 server logs` | A2 server logs stub | `udo a2 server logs` |
+| `udo a2 server configure --port 8080` | A2 server config stub | `udo a2 server configure --port 8080` |
+| `udo a2 configure --url <url> [--api-key <key>]` | Configure A2 bridge endpoint | `udo a2 configure --url https://api.example.com --api-key abc` |
+| `udo a2 status` | Show A2 stub inventory and upgrade guidance | `udo a2 status` |
+| `udo workflow server start` | A2-oriented workflow server start stub | `udo workflow server start` |
+| `udo workflow server status` | A2-oriented workflow server status stub | `udo workflow server status` |
+| `udo beacon scan` | Local discovery stub (A2/LAN future) | `udo beacon scan` |
 
 ## USXD
 
 | Command | Description | Example |
 | --- | --- | --- |
-| `do usxd list` | List **theme** packs under `templates/usxd/` | `do usxd list` |
-| `do usxd apply <name>` | Copy theme into vault | `do usxd apply default` |
-| `do usxd show` | Active theme metadata | `do usxd show` |
-| `do usxd serve` | **USXD-Express** — preview ` ```usxd``` ` surfaces (live reload) | `do usxd serve --dir ./surfaces` |
-| `do usxd export` | Export markdown surfaces (`--format html`; `svg` is `[A2 stub]`) | `do usxd export -d ./surfaces -o ./dist --format html` |
-| `do usxd render <file>` | Render markdown USXD surface to terminal | `do usxd render docs/surface.md --mode teletext` |
-| `do usxd edit [file]` | Preview (uses `~/vault/surfaces` when present) | `do usxd edit` |
-| `do usxd validate <file>` | Check ` ```usxd``` ` + optional ` ```grid``` ` | `do usxd validate ui.md` |
+| `udo usxd list` | List **theme** packs under `templates/usxd/` | `udo usxd list` |
+| `udo usxd apply <name>` | Copy theme into vault | `udo usxd apply default` |
+| `udo usxd show` | Active theme metadata | `udo usxd show` |
+| `udo usxd serve` | **USXD-Express** — preview ` ```usxd``` ` surfaces (live reload) | `udo usxd serve --dir ./surfaces` |
+| `udo usxd export` | Export markdown surfaces (`--format html`; `svg` is `[A2 stub]`) | `udo usxd export -d ./surfaces -o ./dist --format html` |
+| `udo usxd render <file>` | Render markdown USXD surface to terminal | `udo usxd render docs/surface.md --mode teletext` |
+| `udo usxd edit [file]` | Preview (uses `~/vault/surfaces` when present) | `udo usxd edit` |
+| `udo usxd validate <file>` | Check ` ```usxd``` ` + optional ` ```grid``` ` | `udo usxd validate ui.md` |
 
 Tool: [`tools/usxd-express/README.md`](../../tools/usxd-express/README.md).
 
@@ -209,17 +218,17 @@ Tool: [`tools/usxd-express/README.md`](../../tools/usxd-express/README.md).
 
 | Command | Description | Example |
 | --- | --- | --- |
-| `do grid render <file>` | Render ` ```grid` block to terminal (ANSI) | `do grid render map.grid.md --mode mono` |
-| `do grid export <file> --format <f>` | `ascii`, `obf`, `svg`, `png` | `do grid export x.md --format png -o out.png` |
-| `do grid validate <file>` | Check row/column dimensions | `do grid validate map.grid.md` |
-| `do grid edit <file>` | Open in `$EDITOR`; creates minimal grid if new | `do grid edit dungeon.grid.md` |
-| `do grid resize <file> --size WxH` | Resize all layers to dimensions | `do grid resize map.grid --size 24x24` |
-| `do grid rotate <file> --degrees 90` | Rotate all layers | `do grid rotate map.grid --degrees 90` |
-| `do grid flip <file> --horizontal` | Flip all layers horizontally (`--vertical` default) | `do grid flip map.grid --horizontal` |
-| `do grid layer add <file> --name <name>` | Append empty layer | `do grid layer add map.grid --name overlay` |
-| `do grid layer list <file>` | List layer indices/names | `do grid layer list map.grid` |
-| `do grid layer show <file> --layer <n>` | Render one layer to terminal | `do grid layer show map.grid --layer 2` |
-| `do grid layer merge <file> --layers a,b,c` | Merge selected layers (non-space overlays) | `do grid layer merge map.grid --layers 0,1,2` |
+| `udo grid render <file>` | Render ` ```grid` block to terminal (ANSI) | `udo grid render map.grid.md --mode mono` |
+| `udo grid export <file> --format <f>` | `ascii`, `obf`, `svg`, `png` | `udo grid export x.md --format png -o out.png` |
+| `udo grid validate <file>` | Check row/column dimensions | `udo grid validate map.grid.md` |
+| `udo grid edit <file>` | Open in `$EDITOR`; creates minimal grid if new | `udo grid edit dungeon.grid.md` |
+| `udo grid resize <file> --size WxH` | Resize all layers to dimensions | `udo grid resize map.grid --size 24x24` |
+| `udo grid rotate <file> --degrees 90` | Rotate all layers | `udo grid rotate map.grid --degrees 90` |
+| `udo grid flip <file> --horizontal` | Flip all layers horizontally (`--vertical` default) | `udo grid flip map.grid --horizontal` |
+| `udo grid layer add <file> --name <name>` | Append empty layer | `udo grid layer add map.grid --name overlay` |
+| `udo grid layer list <file>` | List layer indices/names | `udo grid layer list map.grid` |
+| `udo grid layer show <file> --layer <n>` | Render one layer to terminal | `udo grid layer show map.grid --layer 2` |
+| `udo grid layer merge <file> --layers a,b,c` | Merge selected layers (non-space overlays) | `udo grid layer merge map.grid --layers 0,1,2` |
 
 Spec: [../specs/obf-grid-spec.md](../specs/obf-grid-spec.md) · package: `@udos/obf-grid`.
 
@@ -227,7 +236,7 @@ Spec: [../specs/obf-grid-spec.md](../specs/obf-grid-spec.md) · package: `@udos/
 
 | Command | Description | Example |
 | --- | --- | --- |
-| `do obf render <file> [--format terminal|html]` | Render ` ```obf` ` `CARD`/`COLUMNS`/`TABS`/`ACCORDION`/`GRID` blocks | `do obf render docs/specs/obf-ui-blocks.md --format html` |
+| `udo obf render <file> [--format terminal|html]` | Render ` ```obf` ` `CARD`/`COLUMNS`/`TABS`/`ACCORDION`/`GRID` blocks | `udo obf render docs/specs/obf-ui-blocks.md --format html` |
 
 Spec: [../specs/obf-ui-blocks.md](../specs/obf-ui-blocks.md).
 
@@ -235,10 +244,10 @@ Spec: [../specs/obf-ui-blocks.md](../specs/obf-ui-blocks.md).
 
 | Command | Description |
 | --- | --- |
-| `do font install [bundle]` | Fetch bundle from **`UDOS_CDN_BASE`** (default `https://cdn.udo.space`) or copy from **`cdn/fonts/seed/`** → `~/.cache/udos/fonts/` |
-| `do font list` | List cached files + active font |
-| `do font activate <id>` | Set active font for **`do publish build`** / **`do publish preview`** (injects `@font-face` into site CSS) |
-| `do font preview <id>` | Show resolved path + terminal sample strip |
+| `udo font install [bundle]` | Fetch bundle from **`UDOS_CDN_BASE`** (default `https://cdn.udo.space`) or copy from **`cdn/fonts/seed/`** → `~/.cache/udos/fonts/` |
+| `udo font list` | List cached files + active font |
+| `udo font activate <id>` | Set active font for **`udo publish build`** / **`udo publish preview`** (injects `@font-face` into site CSS) |
+| `udo font preview <id>` | Show resolved path + terminal sample strip |
 
 See [../specs/font-system-obf.md](../specs/font-system-obf.md), repo [`cdn/README.md`](../../cdn/README.md), dev [`../../dev/cdn-cloud-setup.md`](../../dev/cdn-cloud-setup.md).
 
@@ -246,27 +255,44 @@ See [../specs/font-system-obf.md](../specs/font-system-obf.md), repo [`cdn/READM
 
 | Command | Description |
 | --- | --- |
-| `do status` | Vault path, cwd, Node version |
-| `do doctor` | Health checks |
-| `do cleanup` | Remove `~/.cache/udos` |
-| `do version` / `do -V` | Package version |
-| `do tour` | Quickstart walkthrough |
-| `do update` | Rebuild workspace via sonic-express |
-| `do uninstall` | Remove global `do`; optional `--delete-vault` |
-| `do help` | Full help text |
+| `udo status` | Vault path, cwd, Node version |
+| `udo doctor` | Health checks |
+| `udo cleanup` | Remove `~/.cache/udos` |
+| `udo clean [--logs] [--dry-run]` | Clean vault-local `.local/cache`, `.local/tmp`, optional logs |
+| `udo tidy` | Print sorted entries for current directory |
+| `udo ping` / `udo pong` | Basic responsiveness checks |
+| `udo health [--quick]` | Doctor alias (`--quick` prints healthy/unhealthy) |
+| `udo version` / `udo -V` | Package version |
+| `udo tour` | Quickstart walkthrough |
+| `udo update` | Rebuild workspace via sonic-express |
+| `udo uninstall` | Remove global `udo`; optional `--delete-vault` |
+| `udo help` | Full help text |
 
-Use **`do <command> --help`** for subcommands (e.g. `do feed export --help`).
+## Trash / compost index
+
+| Command | Description |
+| --- | --- |
+| `udo trash move <file>` | Move file into `.compost/objects` and index it in `.compost/index.db` |
+| `udo trash restore <idOrPath> [--to <path>]` | Restore by id or original path |
+| `udo trash list` | List indexed entries |
+| `udo trash search <query>` | Search indexed trash entries |
+| `udo trash clean [--older-than 30d] [--priority-binary] [--dry-run]` | Cleanup indexed entries |
+| `udo compost index rebuild` | Rebuild index from `.compost/*` dirs |
+| `udo compost index verify` | Verify index rows point to existing files |
+| `udo compost index stats` | Show index totals / bytes / binary count |
+
+Use **`udo <command> --help`** for subcommands (e.g. `udo feed export --help`).
 
 ## Output format (VA1)
 
-Most commands print **plain text** to stdout. **`do feed export … --json`** emits JSON lines where implemented. A single JSON envelope for every command is **not** guaranteed in VA1; treat scripting as best-effort until documented per command.
+Most commands print **plain text** to stdout. **`udo feed export … --json`** emits JSON lines where implemented. A single JSON envelope for every command is **not** guaranteed in VA1; treat scripting as best-effort until documented per command.
 
 ## Exit codes (VA1)
 
 | Code | Typical meaning |
 | --- | --- |
 | `0` | Success |
-| `1` | Error / failed check (e.g. `do doctor`, missing vault) |
+| `1` | Error / failed check (e.g. `udo doctor`, missing vault) |
 
 Finer codes (2–5) are **not** consistently assigned in VA1.
 
@@ -277,8 +303,8 @@ Finer codes (2–5) are **not** consistently assigned in VA1.
 | `UDOS_VAULT` | Override vault root (default `~/vault`) |
 | `UDOS_TEMPLATES_ROOT` | Override templates directory |
 | `UDOS_CDN_BASE` | Font CDN origin (default `https://cdn.udo.space`) |
-| `EDITOR` | Editor for `do open` / `do edit` |
-| `DO_PREVIEW_PORT` | Port for `do publish preview` (default `4173`) |
+| `EDITOR` | Editor for `udo open` / `udo edit` |
+| `DO_PREVIEW_PORT` | Port for `udo publish preview` (default `4173`) |
 
 ## Version history
 

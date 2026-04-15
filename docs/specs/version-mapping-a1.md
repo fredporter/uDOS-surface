@@ -14,8 +14,8 @@ This file maps practical release numbers to the locked ladder in `version-ladder
 | Ladder stage | Scope signal | Suggested semver window |
 | --- | --- | --- |
 | A1.0.x | Wireframe core baseline (`vault`, markdown, grid/usxd local tooling, local publish) | `1.0.x` |
-| A1.1.x | GitHub-native collaboration (`do github`, `do issue`, `do pr`) | `1.1.x` |
-| A1.2.x | OBF/UI renderer expansion (`do usxd render/export parity`, `do obf render`) | `1.2.x` |
+| A1.1.x | GitHub-native collaboration (`udo github`, `udo issue`, `udo pr`) | `1.1.x` |
+| A1.2.x | OBF/UI renderer expansion (`udo usxd render/export parity`, `udo obf render`) | `1.2.x` |
 | A1.3.x | Orchestration contracts + strict A2 stubs/boundary checks | `1.3.x` |
 
 ## Current package alignment

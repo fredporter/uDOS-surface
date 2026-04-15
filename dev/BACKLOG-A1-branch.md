@@ -1,7 +1,7 @@
 # A1 branch backlog — alpha reconciliation (was beta-era queue)
 
 **Audience:** `--devonly`  
-**Status:** **Open** until merged — must complete **before** A1 operator sign-off and **before** starting A2.
+**Status:** **Operator-test ready** — automated + manual gate passed; pending human sign-off/merge notes before A2 start.
 
 **Alpha vs beta:** **A1** and **A2** are **alpha** milestones (product line). This file listed **beta**-program work (historical v3–v5 / “pre-v5” tracks, imported checklists). **This reconciliation task folds that beta backlog into alpha execution** under one monorepo; remaining rows here are what still ships before A1 closes.
 
@@ -43,6 +43,12 @@ This backlog is an **A1 side branch**: work listed here ships **before** A1 is f
 1. **`npm run verify:a1`** — [`OPERATOR-LIVE-TEST-A1.md`](OPERATOR-LIVE-TEST-A1.md).  
 2. **Operator manual smoke** — same doc.  
 3. **Handover** — DEVLOG + period summary; slotted docs → `./scripts/validate-doc-frontmatter.sh` when present.
+
+### Latest operator run (record)
+
+- Timestamp: `2026-04-15 16:48 AEST`
+- Git SHA: `12a3a59`
+- Result: `npm run verify:a1` **pass** + manual smoke **pass**
 
 ---
 

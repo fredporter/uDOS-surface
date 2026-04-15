@@ -40,3 +40,29 @@ export async function cmdUsxdEdit(file?: string): Promise<void> {
   }
   await runUsxdExpress(["serve"]);
 }
+
+function bundledDemoSurfacesDir(): string {
+  return path.join(udosConnectRoot(), "tools", "usxd-express", "surfaces");
+}
+
+async function defaultGuiDir(): Promise<string> {
+  const vault = getVaultRoot();
+  const vaultSurfaces = path.join(vault, "surfaces");
+  if (await fs.pathExists(vaultSurfaces)) return vaultSurfaces;
+  return bundledDemoSurfacesDir();
+}
+
+export async function cmdGuiOpen(opts?: { port?: string; noOpen?: boolean }): Promise<void> {
+  const dir = await defaultGuiDir();
+  const args = ["serve", "--dir", dir];
+  if (opts?.port) args.push("--port", opts.port);
+  if (opts?.noOpen) args.push("--no-open");
+  await runUsxdExpress(args);
+}
+
+export async function cmdGuiDemos(opts?: { port?: string; noOpen?: boolean }): Promise<void> {
+  const args = ["serve", "--dir", bundledDemoSurfacesDir()];
+  if (opts?.port) args.push("--port", opts.port);
+  if (opts?.noOpen) args.push("--no-open");
+  await runUsxdExpress(args);
+}

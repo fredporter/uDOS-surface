@@ -104,7 +104,7 @@ pub fn list_vault(path: Option<&Path>, depth: Option<usize>) -> Result<()> {
     let root = resolve_vault_root(path)?;
     if !root.exists() {
         return Err(anyhow!(
-            "vault does not exist at {} (run `do init` first)",
+            "vault does not exist at {} (run `udo init` first)",
             root.display()
         ));
     }

@@ -40,8 +40,14 @@ slot: 5
 | Fonts (Monaspace, OBF, CDN) | [specs/font-system-obf.md](specs/font-system-obf.md) |
 | Style tokens (wireframe) | [specs/style-guide-obf.md](specs/style-guide-obf.md) |
 | **VA1 style guide (consolidated)** | [specs/va1-style-guide.md](specs/va1-style-guide.md) |
-| **`do` command reference** | [public/ucode-commands.md](public/ucode-commands.md) |
+| **`udo` command reference** | [public/ucode-commands.md](public/ucode-commands.md) |
 | **OBF Grid** | [specs/obf-grid-spec.md](specs/obf-grid-spec.md) |
+| **Vault workspaces** (`@` / `#` / `.local`) | [specs/vault-workspaces.md](specs/vault-workspaces.md) |
+| **Markdownify MCP** (A1 spec + A2 wiring) | [specs/markdownify-integration.md](specs/markdownify-integration.md) |
+| **Feeds and spool** (A1 foundation → A2) | [specs/feeds-and-spool.md](specs/feeds-and-spool.md) |
+| **CommonMark reference** | [specs/commonmark-reference.md](specs/commonmark-reference.md) |
+| **Docker integration patterns** | [specs/docker-integration.md](specs/docker-integration.md) |
+| **Vector DB research (WordPress)** | [specs/vector-db-research.md](specs/vector-db-research.md) |
 
 **Templates** with sample frontmatter: [templates/](templates/).
 

@@ -103,9 +103,9 @@ FONT_SYSTEM:
 ### CLI (planned VA1+ behaviour)
 
 ```text
-do font install retro
-do font list
-do font activate Teletext50
+udo font install retro
+udo font list
+udo font activate Teletext50
 ```
 
 VA1 may ship **stubs** that print the spec path until download/cache is implemented.

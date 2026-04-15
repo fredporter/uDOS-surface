@@ -34,7 +34,7 @@ fn node_modules_ok(root: &Path) -> (bool, &'static str) {
     (false, "")
 }
 
-/// Verify Node, pipeline script, and npm dependencies for `do md *`.
+/// Verify Node, pipeline script, and npm dependencies for `udo md *`.
 pub fn doctor() -> Result<()> {
     let script = Path::new(remark_cli_path());
     let root = remark_pipeline_root();
@@ -46,7 +46,7 @@ pub fn doctor() -> Result<()> {
     match Command::new("node").arg("--version").output() {
         Err(e) => {
             println!("  [FAIL] node: not runnable ({e})");
-            println!("         Install Node.js LTS, then re-run: do md doctor");
+            println!("         Install Node.js LTS, then re-run: udo md doctor");
             ok = false;
         }
         Ok(out) if !out.status.success() => {
@@ -109,13 +109,13 @@ pub fn doctor() -> Result<()> {
     if !ok {
         let fix_dir = monorepo_root().unwrap_or_else(|| root.clone());
         println!(
-            "Fix: cd {} && npm install\nThen: do md doctor",
+            "Fix: cd {} && npm install\nThen: udo md doctor",
             fix_dir.display()
         );
         return Err(anyhow!("remark pipeline environment incomplete"));
     }
 
-    println!("All checks passed. `do md format|lint|…` is ready.");
+    println!("All checks passed. `udo md format|lint|…` is ready.");
     Ok(())
 }
 

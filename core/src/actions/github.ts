@@ -74,7 +74,7 @@ export async function cmdGitHubFork(repo?: string): Promise<void> {
   const cfg = await readGitHubConfig();
   const target = repo ?? cfg.default_repo;
   if (!target) {
-    console.error(chalk.red("No repo specified. Use do github fork <owner/repo> or configure default_repo."));
+    console.error(chalk.red("No repo specified. Use udo github fork <owner/repo> or configure default_repo."));
     process.exitCode = 1;
     return;
   }

@@ -17,35 +17,35 @@ slot: 5
 
 - Engine: TypeScript CLI commands.
 - Storage: `~/.local/share/udos/workflow.db` (SQLite via Node `node:sqlite`).
-- Triggers: manual (`do workflow run`), schedule metadata, file-based/manual actions.
+- Triggers: manual (`udo workflow run`), schedule metadata, file-based/manual actions.
 - Logging: `~/.local/share/udos/logs/workflow.log`.
 
 Commands:
 
-- `do workflow list`
-- `do workflow create <name> --step 'action'`
-- `do workflow run <name>`
-- `do workflow schedule <name> --cron '0 2 * * *'`
-- `do workflow status <name>`
-- `do workflow logs <name>`
+- `udo workflow list`
+- `udo workflow create <name> --step 'action'`
+- `udo workflow run <name>`
+- `udo workflow schedule <name> --cron '0 2 * * *'`
+- `udo workflow status <name>`
+- `udo workflow logs <name>`
 
 ## A2 workflow and server stubs
 
-- `do workflow server start|status` (A2-oriented stubs)
-- `do workflow webhook add <name> --url <url>`
-- `do workflow webhook list`
-- `do workflow queue list`
-- `do server start|stop|status|logs`
-- `do server configure --port 8080`
-- `do a2 configure --url <url> [--api-key]`
-- `do a2 status`
+- `udo workflow server start|status` (A2-oriented stubs)
+- `udo workflow webhook add <name> --url <url>`
+- `udo workflow webhook list`
+- `udo workflow queue list`
+- `udo server start|stop|status|logs`
+- `udo server configure --port 8080`
+- `udo a2 configure --url <url> [--api-key]`
+- `udo a2 status`
 
 ## A1 → A2 bridge
 
 - Config file: `~/.config/udos/a2.yaml`
 - Bridge API helper: `core/src/lib/a2-bridge.ts`
 - Sync behavior:
-  - `do sync pull/push` calls A2 when configured
+  - `udo sync pull/push` calls A2 when configured
   - otherwise queues operations into `workflow_queue`
 
 ## Network split

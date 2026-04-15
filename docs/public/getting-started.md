@@ -10,6 +10,6 @@ apple_color: Blue
 
 1. Install Node.js **18+** and **npm 9+** (see root [README.md](../../README.md) Quickstart).
 2. Run the **launcher** or **`sonic-express install`** — one workspace install at the repo root.
-3. **`do init`** then **`do tour`** and **`do doctor`**.
+3. **`udo init`** then **`udo tour`** and **`udo doctor`**.
 
 **Full policy:** [../documentation-policy.md](../documentation-policy.md)

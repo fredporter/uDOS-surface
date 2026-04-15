@@ -8,6 +8,6 @@ slot: 5
 
 # Font system — canonical index
 
-**Canonical spec:** [font-system-obf.md](font-system-obf.md) (Monaspace, OBF, CDN, `do font`).
+**Canonical spec:** [font-system-obf.md](font-system-obf.md) (Monaspace, OBF, CDN, `udo font`).
 
 This filename exists for stable URLs (`docs/specs/font-system.md`).

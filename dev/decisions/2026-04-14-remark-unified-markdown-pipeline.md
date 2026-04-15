@@ -18,12 +18,12 @@ Adopt Remark/unified as the shared markdown processing engine for formatting, li
   - `udos-ucode`
   - `udos-teletext`
 - Rust command bridge in `core-rs`:
-  - `do md format`
-  - `do md lint`
-  - `do md toc`
-  - `do md render --format html|teletext`
-  - `do md frontmatter`
-  - `do md check`
+  - `udo md format`
+  - `udo md lint`
+  - `udo md toc`
+  - `udo md render --format html|teletext`
+  - `udo md frontmatter`
+  - `udo md check`
 
 ## Notes
 

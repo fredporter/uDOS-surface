@@ -131,7 +131,7 @@ export async function runInstall(opts: InstallOptions): Promise<void> {
   console.log(chalk.cyan("Building packages…"));
   await buildWorkspace(silent);
 
-  console.log(chalk.cyan("Linking global `do` command…"));
+  console.log(chalk.cyan("Linking global `udo` command…"));
   await npm(["link"], coreDir(), silent);
 
   if (process.platform === "darwin" && !opts.skipDesktopLauncher) {
@@ -146,7 +146,7 @@ export async function runInstall(opts: InstallOptions): Promise<void> {
   }
 
   console.log(chalk.green("Install complete."));
-  console.log(chalk.dim("Try: do version && do doctor && do help"));
+  console.log(chalk.dim("Try: udo version && udo doctor && udo help"));
 }
 
 export interface UpdateOptions {

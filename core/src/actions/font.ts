@@ -36,7 +36,7 @@ export async function cmdFontList(): Promise<void> {
   const active = await readActiveFontConfig();
   const m = await loadManifest();
   console.log(chalk.bold("Cached fonts"), chalk.dim(`(~/.cache/udos/fonts/)`));
-  if (cached.length === 0) console.log(chalk.dim("(none — run: do font install retro)"));
+  if (cached.length === 0) console.log(chalk.dim("(none — run: udo font install retro)"));
   else cached.forEach((f) => console.log(" ", f));
   if (active) {
     console.log(chalk.bold("\nActive (publish / preview)"));
@@ -62,7 +62,7 @@ export async function cmdFontActivate(name: string): Promise<void> {
   try {
     const cfg = await activateFont(name);
     console.log(chalk.green(`Active font: ${cfg.id} (${cfg.cssFamily})`));
-    console.log(chalk.dim("Applies on `do publish build` / `do publish preview`"));
+    console.log(chalk.dim("Applies on `udo publish build` / `udo publish preview`"));
   } catch (e) {
     console.error(chalk.red(String(e)));
     process.exitCode = 1;
@@ -78,6 +78,6 @@ export async function cmdFontPreview(name: string): Promise<void> {
     console.log("");
     console.log("  " + chalk.green("█") + chalk.greenBright("░") + chalk.hex("#00FF00")("▒ Teletext sample strip"));
   } else {
-    console.log(chalk.yellow("Not in cache — run: do font install retro"));
+    console.log(chalk.yellow("Not in cache — run: udo font install retro"));
   }
 }

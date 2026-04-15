@@ -24,7 +24,7 @@ function contentType(file: string): string {
 export async function previewSite(vaultRoot: string, port: number): Promise<void> {
   const root = siteOutputDir(vaultRoot);
   if (!(await fs.pathExists(path.join(root, "index.html")))) {
-    throw new Error("No build in .site — run: do publish build");
+    throw new Error("No build in .site — run: udo publish build");
   }
 
   const server = http.createServer(async (req, res) => {

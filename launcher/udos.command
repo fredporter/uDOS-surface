@@ -16,14 +16,14 @@ fi
 
 node "$SONIC" install
 
-DO_BIN="$UDOS_ROOT/core/bin/do.mjs"
-if [[ ! -f "$DO_BIN" ]]; then
+UDO_BIN="$UDOS_ROOT/core/bin/udo.mjs"
+if [[ ! -f "$UDO_BIN" ]]; then
   echo "Core not built — sonic-express should have installed it."
   read -r -n 1 -s
   exit 1
 fi
 
-node "$DO_BIN" "$@"
+node "$UDO_BIN" "$@"
 exit_code=$?
 
 if [[ $exit_code -ne 0 ]]; then

@@ -12,7 +12,7 @@ Locked reference material for **Open Box Format (OBF)**, **grid**, **display siz
 | Spec | Purpose |
 | --- | --- |
 | [va1-style-guide.md](va1-style-guide.md) | **VA1** consolidated style (colours, type, grid summary, OBF UI) |
-| [obf-grid-spec.md](obf-grid-spec.md) | **OBF Grid** (` ```grid`), **`do grid`**, module **`@udos/obf-grid`** |
+| [obf-grid-spec.md](obf-grid-spec.md) | **OBF Grid** (` ```grid`), **`udo grid`**, module **`@udos/obf-grid`** |
 | [obf-spec.md](obf-spec.md) | Alias → [open-box-format.md](open-box-format.md) |
 | [font-system.md](font-system.md) | Alias → [font-system-obf.md](font-system-obf.md) |
 | [usxd-spec.md](usxd-spec.md) | USXD index → templates + commands |
@@ -24,7 +24,7 @@ Locked reference material for **Open Box Format (OBF)**, **grid**, **display siz
 | [grid-spec.md](grid-spec.md) | Teletext **text** grid: 2×6 chars, 12×12 default |
 | [grid-cell-cube-maths.md](grid-cell-cube-maths.md) | **Pixel/QR** cell (24×24 default), cube, bricks, size variants |
 | [display-sizes.md](display-sizes.md) | Text-terminal profiles + **pixel cell** table |
-| [font-system-obf.md](font-system-obf.md) | Monaspace, OBF font sources, CDN, **`do font`** |
+| [font-system-obf.md](font-system-obf.md) | Monaspace, OBF font sources, CDN, **`udo font`** |
 | [style-guide-obf.md](style-guide-obf.md) | Wireframe style tokens in **`obf-style`** form |
 | [workflow-network-a1-a2.md](workflow-network-a1-a2.md) | A1 local workflow vs A2 always-on server/network split |
 | [usxd-ascii-blocks.md](usxd-ascii-blocks.md) | USXD ASCII surface authoring reference |
@@ -32,5 +32,12 @@ Locked reference material for **Open Box Format (OBF)**, **grid**, **display siz
 | [LOCKED-REGISTRY.md](LOCKED-REGISTRY.md) | Source-of-truth lock registry + exception whitelist |
 | [version-ladder-a1-a2.md](version-ladder-a1-a2.md) | Locked A1/A2 version ladder (A1.0→A2.1) |
 | [version-mapping-a1.md](version-mapping-a1.md) | A1 release mapping guidance (1.0→1.3 alignment) |
+| [vault-workspaces.md](vault-workspaces.md) | `@` / `#` workspaces, `.local/`, compost — **A2+** model; VA1 init scaffold |
+| [markdownify-integration.md](markdownify-integration.md) | MarkItDown / MCP integration path (A1 spec, A2 implementation) |
+| [feeds-and-spool.md](feeds-and-spool.md) | Feeds (watchers) + spools (text processors); `.local/*.yaml` model |
+| [commonmark-reference.md](commonmark-reference.md) | CommonMark canonical links + uDos markdown pointers |
+| [docker-integration.md](docker-integration.md) | Docker use patterns for uDos (A2/A3) |
+| [vector-db-research.md](vector-db-research.md) | Foam → vector / WordPress cloud (A3 planning) |
+| [usxd-go.md](usxd-go.md) | USXD-GO draft architecture (CHASIS/WIDGET/SKIN/LENS) |
 
 Parent policy overview: [../documentation-policy.md](../documentation-policy.md).

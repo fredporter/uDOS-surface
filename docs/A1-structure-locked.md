@@ -13,10 +13,10 @@ slot: 5
 
 | Area | Path | Role |
 | --- | --- | --- |
-| VA1 CLI | `core/` | **`do`** — TypeScript vault / md / feeds / publish (static `.site/`), sync stubs |
+| VA1 CLI | `core/` | **`udo`** — TypeScript vault / md / feeds / publish (static `.site/`), sync stubs |
 | UI views | `ui/` | Vue peer package **`@udos/views`** (vault shell views; consumed by host apps) |
 | External tools | `tools/` | Go/Python/Node processes spawned by core (`ucode-cli`, `sonic-express`, `usxd-express`, …) |
-| Libraries | `modules/` | TS/Node packages consumed by `core/` (incl. **`@udos/obf-grid`** for OBF Grid / `do grid`) |
+| Libraries | `modules/` | TS/Node packages consumed by `core/` (incl. **`@udos/obf-grid`** for OBF Grid / `udo grid`) |
 | Contributors | `dev/` | Governance and workflow: **`TASKS.md`**, **`vibe/`** (VibeCLI), **`workflow/`** (imports, **beta**-era process snapshots), **`local/`** (gitignored scratch); CDN deploy notes **`cdn-cloud-setup.md`** |
 | Student entry | `launcher/` | One-click **`udos.command`** (macOS), **`install.sh`** / **`install.ps1`** — delegate to **`tools/sonic-express/`** (no manual `npm install` in `core/` alone) |
 | Docs | `docs/public/`, `docs/student/`, `docs/contributor/`, `docs/specs/` | Tagged audiences; technical specs and OBF in **`docs/specs/`**; policy in **`documentation-policy.md`** |

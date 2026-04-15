@@ -12,19 +12,19 @@ const steps: { title: string; body: string }[] = [
   },
   {
     title: "Create your vault",
-    body: `Run ${chalk.green("do init")} once. That creates folders like content/, system/, and spool/.`,
+    body: `Run ${chalk.green("udo init")} once. That creates folders like content/, system/, and spool/.`,
   },
   {
     title: "First note",
-    body: `Add a file under ${chalk.cyan("content/")}, for example ${chalk.green("content/hello.md")}. Open it with ${chalk.green("do open content/hello.md")}.`,
+    body: `Add a file under ${chalk.cyan("content/")}, for example ${chalk.green("content/hello.md")}. Open it with ${chalk.green("udo open content/hello.md")}.`,
   },
   {
     title: "Templates",
-    body: `List templates: ${chalk.green("do template list")}. Apply one: ${chalk.green("do template apply <name>")}. Templates ship from ${chalk.dim(templatesDir())}.`,
+    body: `List templates: ${chalk.green("udo template list")}. Apply one: ${chalk.green("udo template apply <name>")}. Templates ship from ${chalk.dim(templatesDir())}.`,
   },
   {
     title: "Health",
-    body: `Run ${chalk.green("do doctor")} anytime. ${chalk.green("do help")} lists every command.`,
+    body: `Run ${chalk.green("udo doctor")} anytime. ${chalk.green("udo help")} lists every command.`,
   },
 ];
 
@@ -45,7 +45,7 @@ export async function cmdTour(): Promise<void> {
   const vault = getVaultRoot();
   const hasVault = await fs.pathExists(vault);
   if (!hasVault) {
-    console.log(chalk.yellow("Next: run `do init` to create your vault."));
+    console.log(chalk.yellow("Next: run `udo init` to create your vault."));
   } else {
     console.log(chalk.green(`Vault found: ${path.resolve(vault)}`));
   }

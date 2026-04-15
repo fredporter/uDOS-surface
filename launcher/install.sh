@@ -12,4 +12,4 @@ fi
 
 node "$SONIC" install "$@"
 echo ""
-echo "Try: do version && do doctor && do help"
+echo "Try: udo version && udo doctor && udo help"

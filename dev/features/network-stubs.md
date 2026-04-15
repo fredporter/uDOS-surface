@@ -11,6 +11,6 @@ A2 Network Features:
 - OAuth2 provider
 
 A1 Stubs:
-- `do sync pull/push` -> calls A2 if configured
-- `do workflow webhook` -> queues for A2
-- `do beacon scan` -> discovers A2 servers on LAN (future)
+- `udo sync pull/push` -> calls A2 if configured
+- `udo workflow webhook` -> queues for A2
+- `udo beacon scan` -> discovers A2 servers on LAN (future)

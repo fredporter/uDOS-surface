@@ -11,9 +11,9 @@ apple_color: Blue
 
 **Commands:** [ucode-commands.md](ucode-commands.md) (publishing section).
 
-- **`do publish build`** — writes HTML + assets under **`$UDOS_VAULT/.site/`** (default vault **`~/vault`** → **`~/vault/.site/`**).
-- **`do publish preview`** — local server; port **`DO_PREVIEW_PORT`** (default **4173**).
-- **`do publish status`** — last build metadata when present.
+- **`udo publish build`** — writes HTML + assets under **`$UDOS_VAULT/.site/`** (default vault **`~/vault`** → **`~/vault/.site/`**).
+- **`udo publish preview`** — local server; port **`DO_PREVIEW_PORT`** (default **4173**).
+- **`udo publish status`** — last build metadata when present.
 
 ## A1 publish subset (current)
 
@@ -21,7 +21,7 @@ apple_color: Blue
 - Frontmatter currently uses `title` (other Jekyll-style keys are ignored in A1 build output).
 - Markdown is rendered to static `.html` files plus `.site/index.html` and `.site/build.json`.
 - Active USXD theme CSS and active font injection are included in `.site/assets/theme.css`.
-- `do publish deploy` pushes `.site` output to GitHub Pages `gh-pages`.
+- `udo publish deploy` pushes `.site` output to GitHub Pages `gh-pages`.
 
 ## Jekyll compatibility notes
 

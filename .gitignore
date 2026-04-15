@@ -64,3 +64,8 @@ modules/obf-grid/dist/
 
 # Optional local vendor clones (nested upstream repos; not part of monorepo history)
 vendor/
+
+# Optional toybox experiment clones (see dev/toybox-experiments/README.md)
+dev/toybox-experiments/markdown-runtime/rnmd/
+dev/toybox-experiments/markdown-runtime/marki/
+dev/toybox-experiments/foam/foam/

@@ -18,8 +18,8 @@ Adopt FIGlet as an external-tool reference in A1 to generate ASCII banners that 
 
 - Document usage in `docs/tools/figlet.md`.
 - Add CLI lane proposal:
-  - `do ascii banner`
-  - `do ascii fonts list`
+  - `udo ascii banner`
+  - `udo ascii fonts list`
 - Map banner output into existing Teletext conversion in `core-rs`.
 
 ## A2 Considerations

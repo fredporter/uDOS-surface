@@ -38,7 +38,7 @@ export async function cmdUninstall(opts: {
 }): Promise<void> {
   if (!opts.yes) {
     const ok = await confirm(
-      chalk.yellow("Remove global `do` (npm rm -g @udos/core)? [y/N] ")
+      chalk.yellow("Remove global `udo` (npm rm -g @udos/core)? [y/N] ")
     );
     if (!ok) {
       console.log(chalk.dim("Cancelled."));
@@ -56,7 +56,7 @@ export async function cmdUninstall(opts: {
   if (r.status !== 0) {
     console.log(
       chalk.yellow(
-        "Global remove reported an error (maybe `do` was not linked). Continuing."
+        "Global remove reported an error (maybe `udo` was not linked). Continuing."
       )
     );
   } else {

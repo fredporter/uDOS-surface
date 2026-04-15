@@ -10,7 +10,7 @@ apple_color: Blue
 
 **Where is the tagging policy?** [documentation-policy.md](../documentation-policy.md) and [specs/audience-tags.md](../specs/audience-tags.md).
 
-**Where is the `do` command list?** [ucode-commands.md](ucode-commands.md).
+**Where is the `udo` command list?** [ucode-commands.md](ucode-commands.md).
 
 **What is Open Box Format?** UI and style live only in markdown code fences — [specs/open-box-format.md](../specs/open-box-format.md).
 

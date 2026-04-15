@@ -8,7 +8,7 @@
 | --- | --- |
 | [`shared-types/`](shared-types/) | Shared TypeScript types (`SemverParts`, …) |
 | [`shared-utils/`](shared-utils/) | Shared helpers (`parseSemver`, …); depends on `shared-types` |
-| [`obf-grid/`](obf-grid/) | **OBF Grid** — parse ` ```grid` fences, terminal render; used by **`do grid`** (surface design, `--public`) |
+| [`obf-grid/`](obf-grid/) | **OBF Grid** — parse ` ```grid` fences, terminal render; used by **`udo grid`** (surface design, `--public`) |
 
 ## A1 packages (TS stubs — port from uDosGo)
 

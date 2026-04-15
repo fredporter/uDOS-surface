@@ -7,7 +7,7 @@ slot: 7
 
 # Architecture — contributor pointer
 
-**Locked layout:** [`../A1-structure-locked.md`](../A1-structure-locked.md) — `core/` (VA1 `do` CLI), `tools/`, `modules/`, `dev/`, `templates/`, `seed/`.
+**Locked layout:** [`../A1-structure-locked.md`](../A1-structure-locked.md) — `core/` (VA1 `udo` CLI), `tools/`, `modules/`, `dev/`, `templates/`, `seed/`.
 
 **npm workspaces:** root [`../../package.json`](../../package.json); shared packages [`../../modules/shared-types/`](../../modules/shared-types/), [`../../modules/shared-utils/`](../../modules/shared-utils/).
 

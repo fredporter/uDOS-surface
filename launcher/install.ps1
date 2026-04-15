@@ -9,4 +9,4 @@ if (-not (Test-Path $Sonic)) {
 
 & node $Sonic install @args
 Write-Host ""
-Write-Host "Try: do version; do doctor; do help"
+Write-Host "Try: udo version; udo doctor; udo help"

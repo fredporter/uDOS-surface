@@ -2,6 +2,7 @@ import { Command } from "commander";
 import { VA1_HELP } from "./help-text.js";
 import {
   cmdInit,
+  cmdVaultInit,
   cmdList,
   cmdOpen,
   cmdEdit,
@@ -12,8 +13,24 @@ import {
 import { cmdMdFormat, cmdMdLint, cmdMdToc } from "./actions/markdown.js";
 import { cmdFmAdd, cmdFmList, cmdFmEdit } from "./actions/frontmatter.js";
 import { cmdTemplateList, cmdTemplateShow, cmdTemplateApply } from "./actions/templates.js";
-import { cmdFeedList, cmdFeedView, cmdFeedExport } from "./actions/feed.js";
-import { cmdSpoolList, cmdSpoolInfo, cmdSpoolExtract } from "./actions/spool.js";
+import {
+  cmdFeedList,
+  cmdFeedView,
+  cmdFeedExport,
+  cmdFeedShow,
+  cmdFeedEnable,
+  cmdFeedDisable,
+  cmdFeedTest,
+} from "./actions/feed.js";
+import {
+  cmdSpoolList,
+  cmdSpoolInfo,
+  cmdSpoolExtract,
+  cmdSpoolShow,
+  cmdSpoolRun,
+  cmdSpoolRunAll,
+  cmdSpoolStatus,
+} from "./actions/spool.js";
 import {
   cmdPublishBuild,
   cmdPublishDeploy,
@@ -26,24 +43,23 @@ import {
   cmdUsxdApply,
   cmdUsxdShow,
 } from "./actions/publish-sync-usxd.js";
-import { cmdUsxdEdit, runUsxdExpress } from "./actions/usxd-express-tool.js";
-import { cmdVersion, cmdStatus, cmdDoctor, cmdCleanup, readPackageVersion } from "./actions/util.js";
+import { cmdGuiDemos, cmdGuiOpen, cmdUsxdEdit, runUsxdExpress } from "./actions/usxd-express-tool.js";
+import {
+  cmdVersion,
+  cmdStatus,
+  cmdDoctor,
+  cmdCleanup,
+  cmdClean,
+  cmdTidy,
+  cmdPing,
+  cmdPong,
+  cmdHealth,
+  readPackageVersion,
+} from "./actions/util.js";
+import { getVaultRoot } from "./paths.js";
 import { cmdTour } from "./actions/tour.js";
 import { cmdUpdate, cmdUninstall } from "./actions/self-manage.js";
 import { cmdFontActivate, cmdFontInstall, cmdFontList, cmdFontPreview } from "./actions/font.js";
-import {
-  cmdWorkflowCreate,
-  cmdWorkflowList,
-  cmdWorkflowLogs,
-  cmdWorkflowQueueList,
-  cmdWorkflowRun,
-  cmdWorkflowSchedule,
-  cmdWorkflowServerStart,
-  cmdWorkflowServerStatus,
-  cmdWorkflowStatus,
-  cmdWorkflowWebhookAdd,
-  cmdWorkflowWebhookList,
-} from "./actions/workflow.js";
 import {
   cmdServerConfigure,
   cmdServerLogs,
@@ -97,10 +113,16 @@ export async function main(argv: string[]): Promise<void> {
   }
 
   const program = new Command();
-  program.name("do").description("uDos VA1 — pure TypeScript CLI");
+  program.name("udo").description("uDos VA1 — pure TypeScript CLI");
   program.version(await readPackageVersion(), "-V, --version");
 
-  program.command("init").description("Initialize vault").action(async () => cmdInit());
+  program.command("init").description("Initialize vault (full scaffold)").action(async () => cmdInit());
+  const vaultCmd = program.command("vault").description("Vault layout and workspace scaffold");
+  vaultCmd
+    .command("init")
+    .argument("[path]", "Vault root (default: UDOS_VAULT or ~/vault)")
+    .description("Initialize vault — same layout as udo init, optional explicit path")
+    .action(async (p: string | undefined) => cmdVaultInit(p));
   program.command("list").description("List vault contents").action(async () => cmdList());
   program.command("open").argument("<file>").description("Open in $EDITOR").action(async (f) => cmdOpen(f));
   program.command("edit").argument("<file>").description("Edit via editor").action(async (f) => cmdEdit(f));
@@ -129,6 +151,14 @@ export async function main(argv: string[]): Promise<void> {
   const feed = program.command("feed").description("Feeds (read-only)");
   feed.command("list").action(async () => cmdFeedList());
   feed.command("view").argument("<name>").action(async (n) => cmdFeedView(n));
+  feed.command("show").argument("<name>").action(async (n) => cmdFeedShow(n));
+  feed.command("enable").argument("<name>").action(async (n) => cmdFeedEnable(n));
+  feed.command("disable").argument("<name>").action(async (n) => cmdFeedDisable(n));
+  feed
+    .command("test")
+    .argument("<name>")
+    .option("--dry-run", "Inspect action only")
+    .action(async (n, o: { dryRun?: boolean }) => cmdFeedTest(n, Boolean(o.dryRun)));
   feed
     .command("export")
     .argument("<name>")
@@ -138,7 +168,69 @@ export async function main(argv: string[]): Promise<void> {
   const spool = program.command("spool").description("Spools");
   spool.command("list").action(async () => cmdSpoolList());
   spool.command("info").argument("<name>").action(async (n) => cmdSpoolInfo(n));
+  spool.command("show").argument("<name>").action(async (n) => cmdSpoolShow(n));
   spool.command("extract").argument("<name>").action(async (n) => cmdSpoolExtract(n));
+  spool
+    .command("run")
+    .argument("[name]")
+    .option("--all", "Run all enabled spools")
+    .option("--dry-run", "Show impact only")
+    .action(async (name: string | undefined, o: { all?: boolean; dryRun?: boolean }) => {
+      if (o.all) return cmdSpoolRunAll(Boolean(o.dryRun));
+      if (!name) throw new Error("spool run requires <name> unless --all is used");
+      return cmdSpoolRun(name, Boolean(o.dryRun));
+    });
+  spool.command("status").action(async () => cmdSpoolStatus());
+
+  const trash = program.command("trash").description("Trash/composer operations");
+  trash.command("move").argument("<file>").action(async (f) => {
+    const t = await import("./actions/trash.js");
+    return t.cmdTrashMove(getVaultRoot(), f);
+  });
+  trash
+    .command("restore")
+    .argument("<idOrPath>")
+    .option("--to <path>", "Restore destination")
+    .action(async (id: string, o: { to?: string }) => {
+      const t = await import("./actions/trash.js");
+      return t.cmdTrashRestore(getVaultRoot(), id, o.to);
+    });
+  trash.command("list").action(async () => {
+    const t = await import("./actions/trash.js");
+    return t.cmdTrashList(getVaultRoot());
+  });
+  trash.command("search").argument("<query>").action(async (q) => {
+    const t = await import("./actions/trash.js");
+    return t.cmdTrashSearch(getVaultRoot(), q);
+  });
+  trash
+    .command("clean")
+    .option("--older-than <d>", "Age cutoff, e.g. 30d")
+    .option("--priority-binary", "Delete binary entries first")
+    .option("--dry-run", "Show candidates only")
+    .action(async (o: { olderThan?: string; priorityBinary?: boolean; dryRun?: boolean }) => {
+      const t = await import("./actions/trash.js");
+      return t.cmdTrashClean(getVaultRoot(), {
+        olderThan: o.olderThan,
+        priorityBinary: Boolean(o.priorityBinary),
+        dryRun: Boolean(o.dryRun),
+      });
+    });
+
+  const compost = program.command("compost").description("Compost index operations");
+  const compostIndex = compost.command("index").description("Compost index");
+  compostIndex.command("rebuild").action(async () => {
+    const t = await import("./actions/trash.js");
+    return t.cmdCompostIndexRebuild(getVaultRoot());
+  });
+  compostIndex.command("verify").action(async () => {
+    const t = await import("./actions/trash.js");
+    return t.cmdCompostIndexVerify(getVaultRoot());
+  });
+  compostIndex.command("stats").action(async () => {
+    const t = await import("./actions/trash.js");
+    return t.cmdCompostIndexStats(getVaultRoot());
+  });
 
   const pub = program.command("publish").description("Publishing");
   pub.command("build").action(async () => cmdPublishBuild());
@@ -231,32 +323,65 @@ export async function main(argv: string[]): Promise<void> {
     .action(async (p?: string, o?: { target?: string; pr?: string }) => cmdApprove(p, o?.target, o?.pr));
 
   const workflow = program.command("workflow").description("A1 local workflow engine (SQLite) + A2 bridge stubs");
-  workflow.command("list").action(async () => cmdWorkflowList());
+  workflow.command("list").action(async () => {
+    const w = await import("./actions/workflow.js");
+    return w.cmdWorkflowList();
+  });
   workflow
     .command("create")
     .argument("<name>")
     .requiredOption("--step <action...>", "Step action(s), e.g. --step 'shell:echo hi' --step 'spool:create'")
-    .action(async (name: string, o: { step: string[] }) => cmdWorkflowCreate(name, o.step));
-  workflow.command("run").argument("<name>").action(async (name: string) => cmdWorkflowRun(name));
+    .action(async (name: string, o: { step: string[] }) => {
+      const w = await import("./actions/workflow.js");
+      return w.cmdWorkflowCreate(name, o.step);
+    });
+  workflow.command("run").argument("<name>").action(async (name: string) => {
+    const w = await import("./actions/workflow.js");
+    return w.cmdWorkflowRun(name);
+  });
   workflow
     .command("schedule")
     .argument("<name>")
     .requiredOption("--cron <expr>", "Cron expression, e.g. '0 2 * * *'")
-    .action(async (name: string, o: { cron: string }) => cmdWorkflowSchedule(name, o.cron));
-  workflow.command("status").argument("<name>").action(async (name: string) => cmdWorkflowStatus(name));
-  workflow.command("logs").argument("<name>").action(async (name: string) => cmdWorkflowLogs(name));
+    .action(async (name: string, o: { cron: string }) => {
+      const w = await import("./actions/workflow.js");
+      return w.cmdWorkflowSchedule(name, o.cron);
+    });
+  workflow.command("status").argument("<name>").action(async (name: string) => {
+    const w = await import("./actions/workflow.js");
+    return w.cmdWorkflowStatus(name);
+  });
+  workflow.command("logs").argument("<name>").action(async (name: string) => {
+    const w = await import("./actions/workflow.js");
+    return w.cmdWorkflowLogs(name);
+  });
   const workflowServer = workflow.command("server").description("A2 workflow server stubs");
-  workflowServer.command("start").action(async () => cmdWorkflowServerStart());
-  workflowServer.command("status").action(async () => cmdWorkflowServerStatus());
+  workflowServer.command("start").action(async () => {
+    const w = await import("./actions/workflow.js");
+    return w.cmdWorkflowServerStart();
+  });
+  workflowServer.command("status").action(async () => {
+    const w = await import("./actions/workflow.js");
+    return w.cmdWorkflowServerStatus();
+  });
   const workflowWebhook = workflow.command("webhook").description("A2 webhook stubs");
   workflowWebhook
     .command("add")
     .argument("<name>")
     .requiredOption("--url <url>", "Webhook URL")
-    .action(async (name: string, o: { url: string }) => cmdWorkflowWebhookAdd(name, o.url));
-  workflowWebhook.command("list").action(async () => cmdWorkflowWebhookList());
+    .action(async (name: string, o: { url: string }) => {
+      const w = await import("./actions/workflow.js");
+      return w.cmdWorkflowWebhookAdd(name, o.url);
+    });
+  workflowWebhook.command("list").action(async () => {
+    const w = await import("./actions/workflow.js");
+    return w.cmdWorkflowWebhookList();
+  });
   const workflowQueue = workflow.command("queue").description("A2 bridge queue");
-  workflowQueue.command("list").action(async () => cmdWorkflowQueueList());
+  workflowQueue.command("list").action(async () => {
+    const w = await import("./actions/workflow.js");
+    return w.cmdWorkflowQueueList();
+  });
 
   const a2 = program.command("a2").description("A2 bridge config");
   a2.command("status").action(async () => cmdA2Status());
@@ -335,6 +460,30 @@ export async function main(argv: string[]): Promise<void> {
     .action(async (f: string) => {
       await runUsxdExpress(["validate", f]);
     });
+
+  const gui = program.command("gui").description("Open browser GUI index (USXD-Express)");
+  gui
+    .option("-p, --port <port>", "HTTP port")
+    .option("--no-open", "Disable startup browser-open prompt")
+    .action(async (o: { port?: string; open?: boolean }) =>
+      cmdGuiOpen({ port: o.port, noOpen: o.open === false })
+    );
+  gui
+    .command("demos")
+    .description("Open bundled demo surfaces in browser GUI")
+    .option("-p, --port <port>", "HTTP port")
+    .option("--no-open", "Disable startup browser-open prompt")
+    .action(async (o: { port?: string; open?: boolean }) =>
+      cmdGuiDemos({ port: o.port, noOpen: o.open === false })
+    );
+  gui
+    .command("index")
+    .description("Alias: open browser GUI index")
+    .option("-p, --port <port>", "HTTP port")
+    .option("--no-open", "Disable startup browser-open prompt")
+    .action(async (o: { port?: string; open?: boolean }) =>
+      cmdGuiOpen({ port: o.port, noOpen: o.open === false })
+    );
 
   const grid = program.command("grid").description("OBF grid — text surfaces (see docs/specs/obf-grid-spec.md)");
   grid
@@ -416,6 +565,20 @@ export async function main(argv: string[]): Promise<void> {
   program.command("status").description("System status").action(async () => cmdStatus());
   program.command("doctor").description("Health checks").action(async () => cmdDoctor());
   program.command("cleanup").description("Remove cache").action(async () => cmdCleanup());
+  program
+    .command("clean")
+    .description("Clean vault-local .local cache/tmp/logs")
+    .option("--logs", "Also clean .local/logs")
+    .option("--dry-run", "Show targets only")
+    .action(async (o: { logs?: boolean; dryRun?: boolean }) => cmdClean({ logs: Boolean(o.logs), dryRun: Boolean(o.dryRun) }));
+  program.command("tidy").description("List cwd entries sorted").action(async () => cmdTidy());
+  program.command("ping").description("Respond with ping").action(async () => cmdPing());
+  program.command("pong").description("Respond with pong").action(async () => cmdPong());
+  program
+    .command("health")
+    .description("Health report (doctor alias)")
+    .option("--quick", "Quick pass/fail")
+    .action(async (o: { quick?: boolean }) => cmdHealth(Boolean(o.quick)));
   program.command("version").description("Show version").action(async () => cmdVersion());
   program
     .command("tour")
@@ -424,7 +587,7 @@ export async function main(argv: string[]): Promise<void> {
   program.command("update").description("Rebuild core via sonic-express").action(async () => cmdUpdate());
   program
     .command("uninstall")
-    .description("Remove global do and optionally delete vault")
+    .description("Remove global udo and optionally delete vault")
     .option("--yes", "Skip confirmation prompts")
     .option("--delete-vault", "Also delete the vault directory (destructive)")
     .action(async (o: { yes?: boolean; deleteVault?: boolean }) =>

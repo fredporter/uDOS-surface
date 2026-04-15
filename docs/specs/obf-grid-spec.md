@@ -10,7 +10,7 @@ slot: 5
 
 # OBF Grid specification
 
-**Audience:** public — design-time tool for surfaces (not dev-only). **Implementation:** npm workspace [`@udos/obf-grid`](../../modules/obf-grid/) · CLI **`do grid`**.
+**Audience:** public — design-time tool for surfaces (not dev-only). **Implementation:** npm workspace [`@udos/obf-grid`](../../modules/obf-grid/) · CLI **`udo grid`**.
 
 ## Principle
 
@@ -69,12 +69,12 @@ Add **`compact`** to the header. One character per column; one row per line:
 
 | Command | Status |
 | --- | --- |
-| `do grid render <file> [--mode]` | Terminal ANSI (teletext / mono / wireframe) |
-| `do grid export <file> --format ascii\|obf` | Plain text or fenced OBF |
-| `do grid export --format svg\|png` | **P1** — not yet |
-| `do grid validate <file>` | Dimension check |
-| `do grid edit <file>` | Opens `$EDITOR`; creates minimal grid if missing |
-| `do grid resize` / `rotate` / `layer …` | **P1** — planned |
+| `udo grid render <file> [--mode]` | Terminal ANSI (teletext / mono / wireframe) |
+| `udo grid export <file> --format ascii\|obf` | Plain text or fenced OBF |
+| `udo grid export --format svg\|png` | **P1** — not yet |
+| `udo grid validate <file>` | Dimension check |
+| `udo grid edit <file>` | Opens `$EDITOR`; creates minimal grid if missing |
+| `udo grid resize` / `rotate` / `layer …` | **P1** — planned |
 
 Full-screen **h/j/k/l** TUI is **planned**; until then, editing is **plain text** (open box).
 

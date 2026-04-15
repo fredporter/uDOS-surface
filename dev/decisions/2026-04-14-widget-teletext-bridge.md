@@ -21,9 +21,9 @@ Implement an A1 widget integration test harness for external tools and establish
   - `vendor/edit.tf/README.md` placeholder (upstream URL unresolved)
 - Teletext bridge:
   - `core-rs/src/teletext/{ascii,blocks,colour,grid,mod}.rs`
-  - `do teletext convert`
-  - `do teletext render`
-  - `do teletext grid render`
+  - `udo teletext convert`
+  - `udo teletext render`
+  - `udo teletext grid render`
   - integration tests in `core-rs/tests/teletext_tests.rs`
 
 ## Notes

@@ -5,6 +5,8 @@ import chokidar from "chokidar";
 import path from "node:path";
 import fs from "fs-extra";
 import { fileURLToPath } from "node:url";
+import { spawn } from "node:child_process";
+import readline from "node:readline";
 import { buildSurfaceIndex, buildSurfaceIndexFromFile, bundleForSurface } from "./surface-index.js";
 import { renderToHTML } from "./renderer.js";
 
@@ -12,6 +14,7 @@ export type ServeOptions = {
   file?: string;
   dir?: string;
   port: number;
+  open?: boolean;
 };
 
 function escapeHtml(s: string): string {
@@ -20,8 +23,10 @@ function escapeHtml(s: string): string {
 
 export async function serve(opts: ServeOptions): Promise<void> {
   const port = opts.port;
+  const shouldPromptOpen = opts.open ?? true;
   const singleFile = opts.file ? path.resolve(opts.file) : undefined;
   const watchDir = singleFile ? path.dirname(singleFile) : path.resolve(opts.dir ?? process.cwd());
+  const baseUrl = `http://localhost:${port}`;
 
   let index = singleFile
     ? await buildSurfaceIndexFromFile(singleFile)
@@ -31,6 +36,37 @@ export async function serve(opts: ServeOptions): Promise<void> {
     index = singleFile
       ? await buildSurfaceIndexFromFile(singleFile)
       : await buildSurfaceIndex(watchDir);
+  }
+
+  function openInBrowser(url: string): void {
+    const platform = process.platform;
+    if (platform === "darwin") {
+      spawn("open", [url], { stdio: "ignore", detached: true }).unref();
+      return;
+    }
+    if (platform === "win32") {
+      spawn("cmd", ["/c", "start", "", url], { stdio: "ignore", detached: true }).unref();
+      return;
+    }
+    spawn("xdg-open", [url], { stdio: "ignore", detached: true }).unref();
+  }
+
+  function askOpenPrompt(defaultUrl: string): void {
+    const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
+    rl.question(`[OK|Enter] Open preview in browser (${defaultUrl})? `, (ans) => {
+      const v = ans.trim().toLowerCase();
+      if (v === "" || v === "ok" || v === "y" || v === "yes") {
+        try {
+          openInBrowser(defaultUrl);
+          console.log(`Opened ${defaultUrl}`);
+        } catch (e) {
+          console.log(`Could not open browser automatically: ${e instanceof Error ? e.message : String(e)}`);
+        }
+      } else {
+        console.log(`Open manually: ${defaultUrl}`);
+      }
+      rl.close();
+    });
   }
 
   const app = express();
@@ -86,9 +122,19 @@ export async function serve(opts: ServeOptions): Promise<void> {
   });
 
   server.listen(port, () => {
-    console.log(`USXD-Express — http://localhost:${port}`);
-    console.log(
-      singleFile ? `Watching file: ${singleFile}` : `Watching: ${path.join(watchDir, "**/*.md")}`
-    );
+    const ids = [...index.keys()].sort();
+    const firstSurfaceUrl = ids.length > 0 ? `${baseUrl}/surface/${encodeURIComponent(ids[0]!)}` : baseUrl;
+    console.log(`USXD-Express ready`);
+    console.log(`  URL: ${baseUrl}`);
+    console.log(`  Surfaces: ${ids.length}`);
+    console.log(`  ${singleFile ? `Watching file: ${singleFile}` : `Watching: ${path.join(watchDir, "**/*.md")}`}`);
+    if (ids.length > 0) {
+      console.log(`  First surface: ${firstSurfaceUrl}`);
+    } else {
+      console.log(`  Tip: add a \`\`\`usxd fence to a .md file under the watch path.`);
+    }
+    if (shouldPromptOpen && process.stdin.isTTY && process.stdout.isTTY && !process.env.CI) {
+      askOpenPrompt(firstSurfaceUrl);
+    }
   });
 }

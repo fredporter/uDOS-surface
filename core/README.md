@@ -1,4 +1,4 @@
-# `@udos/core` — VA1 `do` CLI
+# `@udos/core` — VA1 `udo` CLI
 
 **Pure TypeScript, Node ≥ 20.** No Go, no TUI, no uCode runtime — those belong to **VA2** (see [`VA2.md`](VA2.md)).
 
@@ -9,17 +9,17 @@ This package is part of the **repo-root npm workspace**. From **`uDosConnect/`**
 ```bash
 npm ci
 npm run build -w @udos/core
-node core/bin/do.mjs help
+node core/bin/udo.mjs help
 ```
 
-## Global `do` on your PATH
+## Global `udo` on your PATH
 
 From this directory (still works with `"private": true` — local link only):
 
 ```bash
 npm run link:global
 # or: npm link
-do help
+udo help
 ```
 
 ## Test & CI
@@ -33,28 +33,28 @@ From repo root: **`npm test`** (builds workspace, then runs these tests).
 Non-interactive command sweep (skips blocking `publish preview`):
 
 ```bash
-bash scripts/smoke-do.sh
+bash scripts/smoke-udo.sh
 ```
 
 GitHub Actions: [`.github/workflows/core-ci.yml`](../.github/workflows/core-ci.yml) runs **`npm ci && npm test`** at the repo root when workspace paths change.
 
 ## Publishing (static site)
 
-- **`do publish build`** — reads `content/**/*.md`, writes HTML + `index.html` + `build.json` under **`$UDOS_VAULT/.site/`** (default vault `~/vault` → **`~/vault/.site/`**).
-- **`do publish preview`** — serves `.site` at **`http://127.0.0.1:4173`** until Ctrl+C. Override port: **`DO_PREVIEW_PORT`**.
-- **`do publish status`** — prints last `build.json` if present.
+- **`udo publish build`** — reads `content/**/*.md`, writes HTML + `index.html` + `build.json` under **`$UDOS_VAULT/.site/`** (default vault `~/vault` → **`~/vault/.site/`**).
+- **`udo publish preview`** — serves `.site` at **`http://127.0.0.1:4173`** until Ctrl+C. Override port: **`DO_PREVIEW_PORT`**.
+- **`udo publish status`** — prints last `build.json` if present.
 
 ## USXD themes
 
 Themes live in the repo at **`templates/usxd/<name>/`** (see [`templates/usxd/README.md`](../templates/usxd/README.md)). VA1 ships **`default`** (`theme.css`, `usxd.yaml`).
 
 ```bash
-do usxd list
-do usxd apply default
-do usxd show
+udo usxd list
+udo usxd apply default
+udo usxd show
 ```
 
-Applied files are copied to **`vault/system/usxd/current/`**; metadata in **`vault/system/usxd/active.json`**. The active theme’s `theme.css` is copied into **`.site/assets/theme.css`** on **`do publish build`**.
+Applied files are copied to **`vault/system/usxd/current/`**; metadata in **`vault/system/usxd/active.json`**. The active theme’s `theme.css` is copied into **`.site/assets/theme.css`** on **`udo publish build`**.
 
 ## Environment
 
@@ -62,7 +62,7 @@ Applied files are copied to **`vault/system/usxd/current/`**; metadata in **`vau
 | --- | --- |
 | `UDOS_VAULT` | Vault root (default: `~/vault`) |
 | `UDOS_TEMPLATES_ROOT` | Override templates directory (default: `../templates` from this repo) |
-| `DO_PREVIEW_PORT` | Port for `do publish preview` (default `4173`) |
+| `DO_PREVIEW_PORT` | Port for `udo publish preview` (default `4173`) |
 
 ## Stack
 
@@ -70,4 +70,4 @@ Applied files are copied to **`vault/system/usxd/current/`**; metadata in **`vau
 
 ## VA2
 
-Commands such as `do run` (uCode), `do tui`, `do ucoin`, hardware, 3D, etc. are **not** in VA1. See [`VA2.md`](VA2.md).
+Commands such as `udo run` (uCode), `udo tui`, `udo ucoin`, hardware, 3D, etc. are **not** in VA1. See [`VA2.md`](VA2.md).

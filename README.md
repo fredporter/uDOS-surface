@@ -3,7 +3,7 @@
 Public **uDos** family monorepo: **A1 runtime scaffold**, governance, documentation, shared helper scripts, and a read-only **v2 reference** tree.  
 **uDos** = **Universal Device Operating Surface** (capital **D** in new prose — see [`dev/workflow/migrated-round1/process/dev-process-beta.md`](dev/workflow/migrated-round1/process/dev-process-beta.md)).
 
-This repository was previously published under other names (including **`uDOS-surface`**). **A1 (locked):** **`uDosConnect` is the only uDos project tree** for implementation — see **[`docs/A1-structure-locked.md`](docs/A1-structure-locked.md)**. VA1 work lives in **`core/`** (`do` CLI) and related packages under this monorepo.
+This repository was previously published under other names (including **`uDOS-surface`**). **A1 (locked):** **`uDosConnect` is the only uDos project tree** for implementation — see **[`docs/A1-structure-locked.md`](docs/A1-structure-locked.md)**. VA1 work lives in **`core/`** (`udo` CLI) and related packages under this monorepo.
 
 ## Quickstart (students — one entry point)
 
@@ -13,7 +13,7 @@ You need **Node.js 18+** and **npm 9+** on your PATH (install from [nodejs.org](
 
 1. Clone or download this repo.
 2. In Finder, open **`launcher/`** and double-click **`udos.command`** (first run may ask to allow Terminal). If macOS blocks execution: `chmod +x launcher/udos.command` once in Terminal.
-3. After setup, use **`do help`**, **`do doctor`**, and **`do tour`** in Terminal.
+3. After setup, use **`udo help`**, **`udo doctor`**, and **`udo tour`** in Terminal.
 
 The installer also copies **`udos.command`** to your **Desktop** so you can reopen uDos from there later.
 
@@ -22,7 +22,7 @@ The installer also copies **`udos.command`** to your **Desktop** so you can reop
 ```bash
 chmod +x launcher/install.sh   # once
 ./launcher/install.sh
-do help
+udo help
 ```
 
 ### Windows (PowerShell, after clone)
@@ -30,18 +30,18 @@ do help
 ```powershell
 Set-ExecutionPolicy -Scope CurrentUser RemoteSigned   # if scripts are blocked
 .\launcher\install.ps1
-do help
+udo help
 ```
 
 ### What happens
 
-[`tools/sonic-express/bin/sonic-express.mjs`](tools/sonic-express/bin/sonic-express.mjs) checks Node/npm, installs dependencies at the **repository root** (all workspace packages: **`core/`**, **`tools/sonic-express/`**, **`tools/usxd-express/`**, **`modules/*`**), runs **`npm run build`**, then **`npm link`** in **`core/`** for the global **`do`** command. **`do doctor`** can verify the install.
+[`tools/sonic-express/bin/sonic-express.mjs`](tools/sonic-express/bin/sonic-express.mjs) checks Node/npm, installs dependencies at the **repository root** (all workspace packages: **`core/`**, **`tools/sonic-express/`**, **`tools/usxd-express/`**, **`modules/*`**), runs **`npm run build`**, then **`npm link`** in **`core/`** for the global **`udo`** command. **`udo doctor`** can verify the install.
 
 **Long-term:** ship a **single bundled binary** (e.g. `pkg` / `esbuild`) so end users need not install Node — tracked as a follow-on; workspace layout keeps one build graph until then.
 
 ### First vault
 
-After install: **`do init`** (creates `~/vault` by default), then **`do tour`** for a short walkthrough.
+After install: **`udo init`** (creates `~/vault` by default), then **`udo tour`** for a short walkthrough.
 
 ### Remote install URL (placeholder)
 
@@ -51,13 +51,13 @@ When **`https://udos.sh/install`** is published, it can point at this repo’s `
 
 | Path | Role |
 | --- | --- |
-| [`core/`](core/) | **VA1 `do` CLI** — pure TypeScript (`npm run build` → `do`). No Go / TUI; see [`core/VA2.md`](core/VA2.md). |
+| [`core/`](core/) | **VA1 `udo` CLI** — pure TypeScript (`npm run build` → `udo`). No Go / TUI; see [`core/VA2.md`](core/VA2.md). |
 | [`tools/`](tools/) | **Spawned tools** — **sonic-express** (install), **usxd-express** (USXD preview); VA2+ Go stubs (`ucode-cli`, …). See [`tools/README.md`](tools/README.md). |
 | [`modules/`](modules/) | **TS libraries** — shared **`@udos/shared-types`**, **`@udos/shared-utils`**, plus `vault-manager`, `feed-engine`, `spool-archiver`, `publish-gateway`, `usxd-renderer` (+ ucoin, udos-db-schema, … outside npm workspaces). |
 | [`launcher/`](launcher/) | **Student entry** — `udos.command` (macOS), `install.sh` / `install.ps1` — call **sonic-express**; no manual `npm install` in `core/`. |
 | [`dev/`](dev/) | **Contributor-only** — `vibe/` (VibeCLI rules + config); `local/` gitignored scratch — see [`dev/README.md`](dev/README.md). |
 | [`docs/public/`](docs/public/) / [`docs/student/`](docs/student/) | **--public** vs **--student** doc landing zones. |
-| [`templates/`](templates/) | Open-box templates for `do init` / `do template`. |
+| [`templates/`](templates/) | Open-box templates for `udo init` / `udo template`. |
 | [`seed/`](seed/) | Default vault content for first run. |
 
 ## Planning spine (optional coding root)
@@ -91,7 +91,7 @@ From the **repo root** (single lockfile, hoisted deps):
 npm ci          # or: npm install
 npm run build   # all workspace packages
 cd core && npm link
-do doctor
+udo doctor
 ```
 
 Run tests from root: **`npm test`**. Per-package: **`npm run build -w @udos/core`**.

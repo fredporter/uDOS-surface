@@ -22,7 +22,7 @@ On **Windows**, **Git Bash** and many tools expand `~/`; use a consistent logica
 
 ## Single active uDos repo
 
-**Primary checkout (illustrated):** **`~/Code/uDosConnect/`** — **`do`** CLI in **`core/`**, **`tools/`**, **`modules/`**, **`dev/`**, **`templates/`**, **`seed/`**, **`docs/`**, **`courses/`**, **`scripts/`** — **monorepo** (no Git submodules).
+**Primary checkout (illustrated):** **`~/Code/uDosConnect/`** — **`udo`** CLI in **`core/`**, **`tools/`**, **`modules/`**, **`dev/`**, **`templates/`**, **`seed/`**, **`docs/`**, **`courses/`**, **`scripts/`** — **monorepo** (no Git submodules).
 
 - **`…/uDosConnect/dev/`** — contributor workflow, tasks, imported snapshots  
 - **`…/uDosConnect/docs/`** — tagged documentation corpus  

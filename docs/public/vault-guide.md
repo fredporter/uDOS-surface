@@ -11,6 +11,6 @@ apple_color: Blue
 
 **Commands:** [ucode-commands.md](ucode-commands.md) (vault section).
 
-**Layout:** `do init` creates `content/`, `system/`, `spool/`, `feeds/`, `.compost/`, `ucode/` under your vault (`UDOS_VAULT` or `~/vault`).
+**Layout:** `udo init` creates `content/`, `system/`, `spool/`, `feeds/`, `.compost/`, `ucode/` under your vault (`UDOS_VAULT` or `~/vault`).
 
-**Compost:** `do delete` moves files to `.compost/`; `do restore <id>` brings them back.
+**Compost:** `udo delete` moves files to `.compost/`; `udo restore <id>` brings them back.

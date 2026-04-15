@@ -2,7 +2,7 @@
 
 Unified markdown processor for uDos CLI and editor surfaces.
 
-## Commands (invoked by `do md`)
+## Commands (invoked by `udo md`)
 
 - `format <file>`
 - `lint <file>`

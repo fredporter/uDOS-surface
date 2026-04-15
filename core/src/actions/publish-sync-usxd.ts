@@ -31,7 +31,7 @@ export async function cmdPublishStatus(): Promise<void> {
   const vault = getVaultRoot();
   const buildJson = path.join(siteOutputDir(vault), "build.json");
   if (!(await fs.pathExists(buildJson))) {
-    console.log({ publish: "not built", hint: "do publish build" });
+    console.log({ publish: "not built", hint: "udo publish build" });
     return;
   }
   const j = JSON.parse(await fs.readFile(buildJson, "utf8"));
@@ -53,7 +53,7 @@ export async function cmdPublishDeploy(): Promise<void> {
   const vault = getVaultRoot();
   const outDir = siteOutputDir(vault);
   if (!(await fs.pathExists(outDir))) {
-    console.log(chalk.yellow("Site not built yet; running do publish build first."));
+    console.log(chalk.yellow("Site not built yet; running udo publish build first."));
     await cmdPublishBuild();
   }
   if (!(await fs.pathExists(outDir))) {
@@ -113,7 +113,7 @@ export async function cmdUsxdShow(): Promise<void> {
   const vault = getVaultRoot();
   const active = await readActiveUsxd(vault);
   if (!active) {
-    console.log(chalk.dim("No theme applied — run: do usxd apply <name>"));
+    console.log(chalk.dim("No theme applied — run: udo usxd apply <name>"));
     return;
   }
   console.log(active);

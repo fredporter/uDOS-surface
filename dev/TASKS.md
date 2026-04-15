@@ -18,10 +18,10 @@
 | --- | --- | --- | --- | --- | --- |
 | T001 | Create `core-rs/` crate and module scaffold | P0 | done | @cursor | 2026-04-14 |
 | T002 | Implement P0 vault commands (`init/list/open/delete/restore/search`) | P0 | done | @cursor | 2026-04-14 |
-| T003 | Add `do usxd render --mode teletext|mono|wireframe` | P0 | done | @cursor | 2026-04-14 |
-| T004 | Add grid bridge commands (`do grid import` / `do grid export --format xp`) | P0 | done | @cursor | 2026-04-14 |
+| T003 | Add `udo usxd render --mode teletext|mono|wireframe` | P0 | done | @cursor | 2026-04-14 |
+| T004 | Add grid bridge commands (`udo grid import` / `udo grid export --format xp`) | P0 | done | @cursor | 2026-04-14 |
 | T005 | Add integration tests for CLI P0 flows | P1 | done | @cursor | 2026-04-14 |
-| T006 | Wire uCode runtime command surface (`do run`, `do fmt`) | P2 | done | @cursor | 2026-04-15 |
+| T006 | Wire uCode runtime command surface (`udo run`, `udo fmt`) | P2 | done | @cursor | 2026-04-15 |
 | T007 | Create locked decision docs for Rust/USXD/REXPaint | P1 | done | @cursor | 2026-04-14 |
 | T008 | Start Milkdown OBF/USXD plugin package scaffold | P1 | done | @cursor | 2026-04-14 |
 | T009 | Capture IronPad inspiration patterns (no integration/fork) | P1 | done | @cursor | 2026-04-14 |
@@ -29,14 +29,14 @@
 | T011 | Create widget-test harness for edit.tf + NextChat | P1 | done | @cursor | 2026-04-14 |
 | T012 | Run phased migration rounds — governance into `dev/` | P0 | done | @cursor | 2026-04-15 |
 | T013 | Run phased migration rounds — documentation into `docs/` | P0 | done | @cursor | 2026-04-15 |
-| T014 | Add `do ascii banner` (FIGlet external tool lane) | P1 | done | @cursor | 2026-04-15 |
+| T014 | Add `udo ascii banner` (FIGlet external tool lane) | P1 | done | @cursor | 2026-04-15 |
 | T015 | Add FIGlet->Teletext conversion support | P1 | done | @cursor | 2026-04-15 |
 | T016 | Implement FIGlet external command surface in `core-rs` | P1 | done | @cursor | 2026-04-15 |
 | T017 | Implement FIGlet font management commands | P1 | done | @cursor | 2026-04-15 |
 | T018 | Implement unified MCP registry scaffold (`core-rs/src/mcp`) | P0 | done | @cursor | 2026-04-14 |
-| T019 | Add `do server` always-on control surface | P0 | done | @cursor | 2026-04-14 |
+| T019 | Add `udo server` always-on control surface | P0 | done | @cursor | 2026-04-14 |
 | T020 | Implement orchestrator command surface (`mcp/agent/personality/chat/workflow`) | P0 | done | @cursor | 2026-04-14 |
-| T021 | Implement unified Remark markdown pipeline bridge (`do md`) | P0 | done | @cursor | 2026-04-14 |
+| T021 | Implement unified Remark markdown pipeline bridge (`udo md`) | P0 | done | @cursor | 2026-04-14 |
 
 ## Task Details
 
@@ -60,12 +60,12 @@
 
 **Acceptance Criteria**:
 
-- [x] `do init` creates `content/`, `ucode/`, `.compost/`, `system/`, and `config.md`
-- [x] `do list` prints vault tree
-- [x] `do open` launches `$EDITOR`
-- [x] `do delete` moves files to `.compost` with index
-- [x] `do restore` restores by compost id
-- [x] `do search` scans vault text
+- [x] `udo init` / `udo vault init` create `content/`, `ucode/`, `.compost/`, `system/`, `@toybox/`, `@sandbox/`, `.local/`, and `content/config.md` (from seed)
+- [x] `udo list` prints vault tree
+- [x] `udo open` launches `$EDITOR`
+- [x] `udo delete` moves files to `.compost` with index
+- [x] `udo restore` restores by compost id
+- [x] `udo search` scans vault text
 
 **Dependencies**: T001
 
@@ -77,7 +77,7 @@
 
 **Acceptance Criteria**:
 
-- [x] `do usxd render <file> --mode teletext|mono|wireframe` works
+- [x] `udo usxd render <file> --mode teletext|mono|wireframe` works
 - [x] USXD parser accepts JSON and YAML
 - [x] Teletext mode uses green-on-black style output
 
@@ -91,8 +91,8 @@
 
 **Acceptance Criteria**:
 
-- [x] `do grid import file.xp` writes OBF output
-- [x] `do grid export file.obf --format xp` writes XP output
+- [x] `udo grid import file.xp` writes OBF output
+- [x] `udo grid export file.obf --format xp` writes XP output
 - [x] Unsupported format values fail with explicit A1 message
 
 **Dependencies**: T001
@@ -113,15 +113,15 @@
 
 **Related**: `core-rs/tests/`
 
-### T006: uCode `do run` / `do fmt`
+### T006: uCode `udo run` / `udo fmt`
 
-**Description**: Wire the mini **uCode** runtime in `core-rs` to top-level **`do run`** and **`do fmt`** (clap).
+**Description**: Wire the mini **uCode** runtime in `core-rs` to top-level **`udo run`** and **`udo fmt`** (clap).
 
 **Acceptance Criteria**:
 
-- [x] `do run --file <path>` reads source and executes via `UCodeRuntime`
-- [x] `do run --eval <snippet>` runs inline uCode
-- [x] `do fmt <path>` formats `.ucode` files (trim line ends; trailing newline); `--check` for CI-style verification
+- [x] `udo run --file <path>` reads source and executes via `UCodeRuntime`
+- [x] `udo run --eval <snippet>` runs inline uCode
+- [x] `udo fmt <path>` formats `.ucode` files (trim line ends; trailing newline); `--check` for CI-style verification
 - [x] `core-rs/tests/ucode_tests.rs` covers eval, file, fmt, fmt --check
 
 **Dependencies**: T001 (`UCodeRuntime` in `core-rs/src/ucode/mod.rs`)
@@ -197,13 +197,13 @@
 
 ### T014: FIGlet external command lane
 
-**Description**: Add `do ascii banner` command that shells out to FIGlet when available.
+**Description**: Add `udo ascii banner` command that shells out to FIGlet when available.
 
 **Acceptance Criteria**:
 
-- [x] `do ascii banner "Hello" --font slant` when `figlet` is installed (`core-rs`)
+- [x] `udo ascii banner "Hello" --font slant` when `figlet` is installed (`core-rs`)
 - [x] Boxed fallback when `figlet` is missing
-- [x] `do ascii fonts list` (`showfigfonts` / `figlet -I2` / stub)
+- [x] `udo ascii fonts list` (`showfigfonts` / `figlet -I2` / stub)
 
 **Dependencies**: teletext bridge baseline
 
@@ -215,7 +215,7 @@
 
 **Acceptance Criteria**:
 
-- [x] `do ascii banner "Title" --to-teletext` emits hex lines (`core-rs/tests/ascii_tests.rs`)
+- [x] `udo ascii banner "Title" --to-teletext` emits hex lines (`core-rs/tests/ascii_tests.rs`)
 - [x] Uses `teletext::ascii::convert_ascii_text_to_codes` per line
 - [x] Integration tests for `--to-teletext` with `PATH` empty (fallback path)
 
@@ -225,11 +225,11 @@
 
 ### T016: FIGlet external command implementation
 
-**Description**: Implement `do ascii …` in `core-rs`, shelling out to `figlet` when available.
+**Description**: Implement `udo ascii …` in `core-rs`, shelling out to `figlet` when available.
 
 **Acceptance Criteria**:
 
-- [x] `do ascii banner` wired in `main.rs` → `cli/ascii.rs`
+- [x] `udo ascii banner` wired in `main.rs` → `cli/ascii.rs`
 - [x] Graceful fallback when `figlet` is missing
 - [x] `--to-teletext` supported
 
@@ -243,9 +243,9 @@
 
 **Acceptance Criteria**:
 
-- [x] `do ascii fonts install <name>` (A1 stub — manual `.flf` instructions)
-- [x] `do ascii fonts preview --font <name> <text>`
-- [x] `do ascii fonts list`
+- [x] `udo ascii fonts install <name>` (A1 stub — manual `.flf` instructions)
+- [x] `udo ascii fonts preview --font <name> <text>`
+- [x] `udo ascii fonts list`
 
 **Dependencies**: T016
 
@@ -272,10 +272,10 @@
 
 **Acceptance Criteria**:
 
-- [x] `do server start`
-- [x] `do server stop`
-- [x] `do server status`
-- [x] `do server logs`
+- [x] `udo server start`
+- [x] `udo server stop`
+- [x] `udo server status`
+- [x] `udo server logs`
 - [x] daemon entrypoint scaffold exists
 
 **Dependencies**: T018
@@ -289,11 +289,11 @@
 **Acceptance Criteria**:
 
 - [x] `core-rs/src/orchestrator/` module set exists
-- [x] `do mcp start|list|call` works as scaffold
-- [x] `do agent query|hivemind|status|rankings` exists (A2 stubs)
-- [x] `do personality list|set` exists
-- [x] `do chat` and `do chat --history` persist and read history
-- [x] `do workflow list|add|queue-status|retry` exists
+- [x] `udo mcp start|list|call` works as scaffold
+- [x] `udo agent query|hivemind|status|rankings` exists (A2 stubs)
+- [x] `udo personality list|set` exists
+- [x] `udo chat` and `udo chat --history` persist and read history
+- [x] `udo workflow list|add|queue-status|retry` exists
 
 **Dependencies**: T018, T019
 
@@ -307,7 +307,7 @@
 
 - [x] `modules/remark-pipeline` package scaffold with required deps
 - [x] custom uDos plugin stubs for OBF/USXD/uCode/teletext
-- [x] `do md format|lint|toc|render|frontmatter|check` command surface wired in `core-rs`
+- [x] `udo md format|lint|toc|render|frontmatter|check` command surface wired in `core-rs`
 - [x] render supports `--format html|teletext`
 
 **Dependencies**: none
@@ -321,8 +321,8 @@
 
 | ID | Task | Priority | Status | Assignee | ETA |
 | --- | --- | --- | --- | --- | --- |
-| T001 | Implement `do usxd render` terminal ASCII renderer | P0 | done | @cursor | 2026-04-15 |
-| T002 | Add explicit `do usxd export --format html|png` parity | P0 | done | @cursor | 2026-04-15 |
+| T001 | Implement `udo usxd render` terminal ASCII renderer | P0 | done | @cursor | 2026-04-15 |
+| T002 | Add explicit `udo usxd export --format html|png` parity | P0 | done | @cursor | 2026-04-15 |
 | T003 | Implement OBF UI renderer for `obf` blocks (A1.2 scope) | P0 | done | @cursor | 2026-04-15 |
 | T004 | Clarify publish/Jekyll gap and document supported subset | P1 | done | @cursor | 2026-04-15 |
 | T005 | Harden boundary CI checks (imports + registry validation) | P1 | done | @cursor | 2026-04-15 |
@@ -331,13 +331,13 @@
 
 ## Task Details
 
-### T001: `do usxd render` terminal ASCII renderer
+### T001: `udo usxd render` terminal ASCII renderer
 
-**Description**: Add a terminal renderer for USXD surfaces (header/content/status + optional grid) using markdown as source, exposed through `usxd-express render` and `do usxd render`.
+**Description**: Add a terminal renderer for USXD surfaces (header/content/status + optional grid) using markdown as source, exposed through `usxd-express render` and `udo usxd render`.
 
 **Acceptance Criteria**:
 - [x] `usxd-express render <file.md>` prints ASCII/teletext-friendly surface in terminal
-- [x] `do usxd render <file.md>` delegates correctly
+- [x] `udo usxd render <file.md>` delegates correctly
 - [x] Works with docs/content markdown containing ` ```usxd` and optional ` ```grid`
 - [x] Help/docs updated
 
@@ -347,12 +347,12 @@
 
 **Notes**: Keep A1 local-only and open-box; no cloud dependency.
 
-### T002: `do usxd export --format` parity
+### T002: `udo usxd export --format` parity
 
 **Description**: Extend export command UX to support explicit format selection (`html` now, `png` target).
 
 **Acceptance Criteria**:
-- [x] `do usxd export ... --format html` works
+- [x] `udo usxd export ... --format html` works
 - [x] `--format png` either implemented or explicit A1 stub with clear message
 - [x] Docs reflect exact support
 
@@ -425,3 +425,16 @@
 **Dependencies**: None
 
 **Related**: `core/test/commands-smoke.test.mjs`
+
+---
+
+## A2 tracked (not A1 closure scope)
+
+| ID | Task | Notes |
+| --- | --- | --- |
+| **T-A2-MCP** | Integrate Markdownify MCP server | Connect to uDos MCP orchestrator; implement `udo import` (or equivalent); progress for long conversions — spec: [docs/specs/markdownify-integration.md](../docs/specs/markdownify-integration.md), template: [dev/tools/markdownify-config.yaml.example](../dev/tools/markdownify-config.yaml.example) |
+| **T-A2-RUN** | `udo run` / literate markdown | Informed by rnmd + marki experiments — [commonmark-reference.md](../docs/specs/commonmark-reference.md), clones: [dev/toybox-experiments/README.md](toybox-experiments/README.md) |
+| **T-A3-VECTOR** | Vector DB + Cloud WordPress | Foam → embedding graph hypotheses — [vector-db-research.md](../docs/specs/vector-db-research.md) |
+| **T-A2-DOCKER** | `udo docker` patterns | CLI/compose/SDK per [docker-integration.md](../docs/specs/docker-integration.md) |
+| **T-A2-WIDGET** | USXD interactive widgets | Experiment brief: [seed/toybox/experiments/usxd-widget/BRIEF.md](../seed/toybox/experiments/usxd-widget/BRIEF.md) |
+| **T-A2-ADAPTORS** | Adaptor schema + sandbox foundation | Experiment brief: [seed/toybox/experiments/adaptors/BRIEF.md](../seed/toybox/experiments/adaptors/BRIEF.md) |

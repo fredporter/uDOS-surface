@@ -23,14 +23,14 @@ node bin/usxd-express.mjs serve --dir ./surfaces
 # → http://localhost:3000/surface/teletext-console
 ```
 
-## `do` integration
+## `udo` integration
 
-- `do usxd serve` — forwards to USXD-Express `serve`
-- `do usxd export` — static export
-- `do usxd render` — terminal render of markdown surface
-- `do usxd edit` — preview; prefers `~/vault/surfaces` when present, else current directory
+- `udo usxd serve` — forwards to USXD-Express `serve`
+- `udo usxd export` — static export
+- `udo usxd render` — terminal render of markdown surface
+- `udo usxd edit` — preview; prefers `~/vault/surfaces` when present, else current directory
 
-Theme commands **`do usxd list` / `apply` / `show`** (templates under `templates/usxd/`) are unchanged.
+Theme commands **`udo usxd list` / `apply` / `show`** (templates under `templates/usxd/`) are unchanged.
 
 ## Stack
 

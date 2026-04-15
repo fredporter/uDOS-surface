@@ -10,7 +10,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const repoTemplates = path.resolve(__dirname, "..", "..", "templates");
 
 test("applyUsxdTheme copies theme and writes active.json", async () => {
-  const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "do-usxd-"));
+  const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "udo-usxd-"));
   process.env.UDOS_TEMPLATES_ROOT = repoTemplates;
   await applyUsxdTheme(tmp, "default");
   assert.ok(await fs.pathExists(path.join(tmp, "system", "usxd", "current", "theme.css")));

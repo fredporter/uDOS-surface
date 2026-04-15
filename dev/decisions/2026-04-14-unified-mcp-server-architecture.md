@@ -18,7 +18,7 @@ Use one registry to expose vault/feed/spool/publish/grid/usxd/diagram/image name
 - `core-rs/src/mcp/registry.rs` tool registry + handlers
 - `core-rs/src/mcp/server.rs` stdio transport + minimal HTTP JSON-RPC transport
 - `core-rs/src/server/mod.rs` background process controls and config loading
-- `do server start|stop|status|logs|mcp-stdio` command surface
+- `udo server start|stop|status|logs|mcp-stdio` command surface
 
 ## A2 Direction (stubbed)
 

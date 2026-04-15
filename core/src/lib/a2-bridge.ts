@@ -70,7 +70,7 @@ export async function callA2(
 ): Promise<unknown> {
   const bridge = await getA2Bridge();
   if (!bridge) {
-    throw new Error("A2 not configured. Run `do a2 configure --url <url>`");
+    throw new Error("A2 not configured. Run `udo a2 configure --url <url>`");
   }
   const url = `${bridge.baseUrl}/api/v1/${endpoint.replace(/^\/+/, "")}`;
   const r = await fetch(url, {

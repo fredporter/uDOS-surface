@@ -9,4 +9,4 @@
 ████████████
 ```
 
-Try: `do grid render templates/obf-grid/example.grid.md`
+Try: `udo grid render templates/obf-grid/example.grid.md`

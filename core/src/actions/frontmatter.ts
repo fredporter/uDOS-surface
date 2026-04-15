@@ -5,7 +5,7 @@ import { getVaultRoot, resolveInVault } from "../paths.js";
 
 export async function cmdFmAdd(file: string, tag?: string): Promise<void> {
   if (!tag) {
-    console.error(chalk.red("Use: do fm add <file> --tag <name>"));
+    console.error(chalk.red("Use: udo fm add <file> --tag <name>"));
     process.exitCode = 1;
     return;
   }
@@ -30,5 +30,5 @@ export async function cmdFmList(file: string): Promise<void> {
 }
 
 export async function cmdFmEdit(file: string): Promise<void> {
-  console.log(chalk.yellow("VA1: edit frontmatter in your editor — `do open " + file + "` then save YAML between --- fences."));
+  console.log(chalk.yellow("VA1: edit frontmatter in your editor — `udo open " + file + "` then save YAML between --- fences."));
 }

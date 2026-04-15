@@ -7,7 +7,7 @@ slot: 5
 
 # USXD ASCII blocks
 
-USXD surfaces can be authored as text/ASCII blocks and rendered in terminal or exported through tooling (`usxd-express`, `do usxd ...` integrations).
+USXD surfaces can be authored as text/ASCII blocks and rendered in terminal or exported through tooling (`usxd-express`, `udo usxd ...` integrations).
 
 ## Example
 
@@ -26,6 +26,6 @@ REGIONS
 
 ## Commands
 
-- `do usxd serve`
-- `do usxd export`
-- `do usxd validate <file>`
+- `udo usxd serve`
+- `udo usxd export`
+- `udo usxd validate <file>`

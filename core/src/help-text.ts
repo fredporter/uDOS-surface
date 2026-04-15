@@ -1,138 +1,164 @@
-/** Full help for `do help` / empty invocation — VA1 pure TypeScript (locked). */
-export const VA1_HELP = `do — uDos VA1 (Pure TypeScript)
+/** Full help for `udo help` / empty invocation — VA1 pure TypeScript (locked). */
+export const VA1_HELP = `udo — uDos VA1 (Pure TypeScript)
 
 Usage:
-  do <command> [options]
+  udo <command> [options]
 
 VAULT:
-  do init                 Initialize vault
-  do list                 List vault contents
-  do open <file>          Open in $EDITOR
-  do edit <file>          Edit in terminal
-  do delete <file>        Move to .compost/
-  do restore <id>         Restore from compost
-  do search <query>       Search vault
+  udo init                 Initialize vault (full scaffold: content/, @toybox/, @sandbox/, .local/, …)
+  udo vault init [path]    Same bootstrap; optional explicit vault root path
+  udo list                 List vault contents
+  udo open <file>          Open in $EDITOR
+  udo edit <file>          Edit in terminal
+  udo delete <file>        Move to .compost/
+  udo restore <id>         Restore from compost
+  udo search <query>       Search vault
 
 MARKDOWN:
-  do md format <file>     Format markdown
-  do md lint <file>       Check syntax
-  do md toc <file>        Generate table of contents
+  udo md format <file>     Format markdown
+  udo md lint <file>       Check syntax
+  udo md toc <file>        Generate table of contents
 
 FRONTMATTER:
-  do fm add <file> --tag <tag>   Add frontmatter tag
-  do fm list <file>       List frontmatter fields
-  do fm edit <file>       Edit frontmatter
+  udo fm add <file> --tag <tag>   Add frontmatter tag
+  udo fm list <file>       List frontmatter fields
+  udo fm edit <file>       Edit frontmatter
 
 TEMPLATES:
-  do template list        List templates
-  do template apply <name> Apply template
-  do template show <name> Show template
+  udo template list        List templates
+  udo template apply <name> Apply template
+  udo template show <name> Show template
 
-FEEDS (read-only):
-  do feed list            List feed sources
-  do feed view <name>     View feed items
-  do feed export <name>   Export as JSON
+FEEDS:
+  udo feed list            List feed sources/configured feeds
+  udo feed view <name>     View feed items or configured feed
+  udo feed show <name>     Show configured feed
+  udo feed enable <name>   Enable feed (A2 stub)
+  udo feed disable <name>  Disable feed (A2 stub)
+  udo feed test <name> --dry-run  Inspect configured feed action
+  udo feed export <name>   Export JSONL feed as JSON
 
 SPOOLS:
-  do spool list           List spools
-  do spool info <name>    Show metadata
-  do spool extract <name> Extract contents
+  udo spool list           List spools
+  udo spool info <name>    Show metadata/config
+  udo spool show <name>    Show configured spool
+  udo spool run <name> [--dry-run]
+  udo spool run --all [--dry-run]
+  udo spool status         Show last run status
+  udo spool extract <name> Extract contents
 
 PUBLISHING:
-  do publish build        Build static site
-  do publish preview      Preview locally
-  do publish status       Show status
-  do publish deploy       Deploy to GitHub Pages only (gh-pages)
+  udo publish build        Build static site
+  udo publish preview      Preview locally
+  udo publish status       Show status
+  udo publish deploy       Deploy to GitHub Pages only (gh-pages)
 
 GITHUB:
-  do github clone <repo>  Clone vault/repo from GitHub
-  do github pull          Pull from origin
-  do github push          Commit + push local changes
-  do github status        Git status summary
-  do github sync          Pull then push
-  do github fork [repo]   Fork repo with gh
-  do github release <tag> Create GitHub release
-  do github configure     Save github defaults
-  do issue create --title <t> [--body]
-  do issue list [--limit]
-  do pr create [--title|--body|--base]
-  do pr list [--limit]
-  do pr checkout <id>
-  do pr review <id>
-  do pr approve <id>
-  do pr merge <id>
-  do submit [path] [--target code|docs]
-  do review [path] [--target code|docs] [--pr <id>]
-  do approve [path] [--target code|docs] [--pr <id>]
-  do wp sync|publish|review (A1 stubs)
+  udo github clone <repo>  Clone vault/repo from GitHub
+  udo github pull          Pull from origin
+  udo github push          Commit + push local changes
+  udo github status        Git status summary
+  udo github sync          Pull then push
+  udo github fork [repo]   Fork repo with gh
+  udo github release <tag> Create GitHub release
+  udo github configure     Save github defaults
+  udo issue create --title <t> [--body]
+  udo issue list [--limit]
+  udo pr create [--title|--body|--base]
+  udo pr list [--limit]
+  udo pr checkout <id>
+  udo pr review <id>
+  udo pr approve <id>
+  udo pr merge <id>
+  udo submit [path] [--target code|docs]
+  udo review [path] [--target code|docs] [--pr <id>]
+  udo approve [path] [--target code|docs] [--pr <id>]
+  udo wp sync|publish|review (A1 stubs)
 
 SYNC:
-  do sync status          WP cloud sync status (stub; Universe/uDos.space)
-  do sync pull            WP cloud pull (stub; Universe/uDos.space)
-  do sync push            WP cloud push (stub; Universe/uDos.space)
+  udo sync status          WP cloud sync status (stub; Universe/uDos.space)
+  udo sync pull            WP cloud pull (stub; Universe/uDos.space)
+  udo sync push            WP cloud push (stub; Universe/uDos.space)
 
 WORKFLOW:
-  do workflow list
-  do workflow create <name> --step 'action'
-  do workflow run <name>
-  do workflow schedule <name> --cron '0 2 * * *'
-  do workflow status <name>
-  do workflow logs <name>
-  do workflow webhook add <name> --url <url>
-  do workflow webhook list
-  do workflow queue list
+  udo workflow list
+  udo workflow create <name> --step 'action'
+  udo workflow run <name>
+  udo workflow schedule <name> --cron '0 2 * * *'
+  udo workflow status <name>
+  udo workflow logs <name>
+  udo workflow webhook add <name> --url <url>
+  udo workflow webhook list
+  udo workflow queue list
 
 A2 SERVER / BRIDGE:
-  do a2 configure --url <url> [--api-key]
-  do a2 status
-  do a2 server start|stop|status|logs
-  do a2 server configure --port 8080
-  do workflow server start|status
-  do beacon scan
+  udo a2 configure --url <url> [--api-key]
+  udo a2 status
+  udo a2 server start|stop|status|logs
+  udo a2 server configure --port 8080
+  udo workflow server start|status
+  udo beacon scan
 
 USXD:
-  do usxd list            List theme packs (templates/usxd/)
-  do usxd apply <name>    Apply theme to vault
-  do usxd show            Show active theme
-  do usxd serve [--file|--dir] [--port]   USXD-Express preview (live reload)
-  do usxd export [--file|--dir] -o <dir> [--format html|svg]
+  udo usxd list            List theme packs (templates/usxd/)
+  udo usxd apply <name>    Apply theme to vault
+  udo usxd show            Show active theme
+  udo usxd serve [--file|--dir] [--port]   USXD-Express preview (live reload)
+  udo usxd export [--file|--dir] -o <dir> [--format html|svg]
                            Export markdown surfaces (svg is [A2 stub])
-  do usxd render <file> [--mode] Terminal render from markdown surface
-  do usxd edit [file]     Preview (prefers ~/vault/surfaces)
-  do usxd validate <file> Validate usxd + optional grid fences in .md
+  udo usxd render <file> [--mode] Terminal render from markdown surface
+  udo usxd edit [file]     Preview (prefers ~/vault/surfaces)
+  udo usxd validate <file> Validate usxd + optional grid fences in .md
+
+GUI:
+  udo gui                  Open browser GUI index (vault surfaces or bundled demos)
+  udo gui index            Alias for \`udo gui\` (explicit "open index" wording)
+  udo gui demos            Open bundled demo surfaces index
 
 GRID (OBF — see docs/specs/obf-grid-spec.md):
-  do grid render <file> [--mode]   Render grid (ANSI)
-  do grid export <file> --format ascii|obf|…
-  do grid validate <file>          Check dimensions
-  do grid edit <file>              Open in $EDITOR (creates stub if missing)
-  do grid resize <file> --size WxH Resize grid
-  do grid rotate <file> --degrees 90|180|270
-  do grid flip <file> [--horizontal|--vertical]
-  do grid layer add <file> --name <name>
-  do grid layer list <file>
-  do grid layer show <file> --layer <index>
-  do grid layer merge <file> --layers 0,1,2
+  udo grid render <file> [--mode]   Render grid (ANSI)
+  udo grid export <file> --format ascii|obf|…
+  udo grid validate <file>          Check dimensions
+  udo grid edit <file>              Open in $EDITOR (creates stub if missing)
+  udo grid resize <file> --size WxH Resize grid
+  udo grid rotate <file> --degrees 90|180|270
+  udo grid flip <file> [--horizontal|--vertical]
+  udo grid layer add <file> --name <name>
+  udo grid layer list <file>
+  udo grid layer show <file> --layer <index>
+  udo grid layer merge <file> --layers 0,1,2
 
 OBF UI BLOCKS:
-  do obf render <file> [--format terminal|html]
+  udo obf render <file> [--format terminal|html]
                            Render obf CARD/COLUMNS/TABS/ACCORDION/GRID blocks
 
 FONT:
-  do font install [retro] Download/cache bundle (CDN or cdn/fonts/seed/)
-  do font list            List cache + active font
-  do font activate <name> Set active font for publish preview/build
-  do font preview <name>  Cache path + teletext strip (terminal)
+  udo font install [retro] Download/cache bundle (CDN or cdn/fonts/seed/)
+  udo font list            List cache + active font
+  udo font activate <name> Set active font for publish preview/build
+  udo font preview <name>  Cache path + teletext strip (terminal)
+
+TRASH / COMPOST:
+  udo trash move <file>    Move file to .compost/objects + index.db
+  udo trash restore <idOrPath> [--to <path>]
+  udo trash list           List indexed trash entries
+  udo trash search <query> Search indexed trash entries
+  udo trash clean [--older-than 30d] [--priority-binary] [--dry-run]
+  udo compost index rebuild|verify|stats
 
 UTILITY:
-  do status               System status
-  do doctor               Health check
-  do cleanup              Clean cache
-  do version              Show version
-  do tour                 Quickstart walkthrough
-  do update               Rebuild / relink via sonic-express
-  do uninstall            Remove global do (see --delete-vault)
-  do help                 Show this help
+  udo status               System status
+  udo doctor               Health check
+  udo cleanup              Clean cache
+  udo clean [--logs] [--dry-run]   Clean vault-local .local cache/tmp/logs
+  udo tidy                 Print sorted cwd entries
+  udo ping / udo pong      Simple responsiveness checks
+  udo health [--quick]     Health report (doctor alias)
+  udo version              Show version
+  udo tour                 Quickstart walkthrough
+  udo update               Rebuild / relink via sonic-express
+  udo uninstall            Remove global udo (see --delete-vault)
+  udo help                 Show this help
 
 VA2 adds: uCode execution, TUI, uCoin, device scanning, 3D worlds, AR portals, trading, multiplayer.
 `;

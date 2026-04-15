@@ -92,7 +92,7 @@ pub fn fonts_list() -> Result<()> {
 
 /// A1 stub: document manual install; no network/package manager automation.
 pub fn fonts_install(name: &str) -> Result<()> {
-    println!("A1 stub: copy `{name}.flf` into FIGLET_FONTDIR or your figlet fonts path; then `do ascii fonts list`.");
+    println!("A1 stub: copy `{name}.flf` into FIGLET_FONTDIR or your figlet fonts path; then `udo ascii fonts list`.");
     Ok(())
 }
 

@@ -27,13 +27,13 @@
 
 - [x] Unit tests — `core/npm test` (`core/test/*.test.mjs`)
 - [x] CI — `.github/workflows/core-ci.yml`
-- [x] `do publish build` — `core/src/lib/publish-build.ts` → `~/vault/.site/`
-- [x] `do usxd apply` — `core/src/lib/usxd-theme.ts`, `templates/usxd/default/`
+- [x] `udo publish build` — `core/src/lib/publish-build.ts` → `~/vault/.site/`
+- [x] `udo usxd apply` — `core/src/lib/usxd-theme.ts`, `templates/usxd/default/`
 - [x] `npm link` — `core/package.json` script `link:global` + `core/README.md`
 - [ ] **VA2 Go tools** (`tools/ucode-cli/`, …) — deferred phase (next milestone, not A1)
 
 ## Part 4 — A1 operator acceptance (next gate)
 
 - [ ] Run **`npm run verify:a1`** at repo root (build + `@udos/core` tests + `./scripts/shakedown.sh` + `core-rs` `cargo test`)
-- [ ] Walk **[`dev/OPERATOR-LIVE-TEST-A1.md`](../dev/OPERATOR-LIVE-TEST-A1.md)** manual smoke (`do help`, optional `cargo run` in `core-rs`)
+- [ ] Walk **[`dev/OPERATOR-LIVE-TEST-A1.md`](../dev/OPERATOR-LIVE-TEST-A1.md)** manual smoke (`udo help`, optional `cargo run` in `core-rs`)
 - [ ] Record pass + git SHA in PR or dev notes when promoting the milestone

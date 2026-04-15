@@ -17,16 +17,16 @@ slot: 5
 
 ## A1.1.x — GitHub Native
 
-- `do issue create/list`
-- `do pr create/list/checkout/review/approve/merge`
-- `do github clone/push/pull/status/sync`
+- `udo issue create/list`
+- `udo pr create/list/checkout/review/approve/merge`
+- `udo github clone/push/pull/status/sync`
 - Contributor workflow on GitHub
 
 ## A1.2.x — OBF UI Renderer
 
 - OBF UI blocks renderer targets
 - USXD ASCII terminal render targets
-- `do usxd render/export` expansion targets
+- `udo usxd render/export` expansion targets
 
 ## A1.3.x — Orchestration Contracts
 

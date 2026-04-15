@@ -18,11 +18,11 @@ Adopt a single orchestrator architecture with:
 
 - `core-rs/src/orchestrator/{ok_handler,hivemind,personality,workflow,chat}.rs`
 - CLI groups:
-  - `do mcp ...`
-  - `do agent ...`
-  - `do personality ...`
-  - `do chat ...`
-  - `do workflow ...`
+  - `udo mcp ...`
+  - `udo agent ...`
+  - `udo personality ...`
+  - `udo chat ...`
+  - `udo workflow ...`
 
 ## A1 vs A2 split
 

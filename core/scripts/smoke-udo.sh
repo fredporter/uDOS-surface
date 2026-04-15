@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
-# Non-interactive smoke: exercises `do` commands (VA1). Skips `publish preview` (blocking server).
+# Non-interactive smoke: exercises `udo` commands (VA1). Skips `publish preview` (blocking server).
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 export PATH="$ROOT/node_modules/.bin:$PATH"
-VAULT="${UDOS_VAULT:-$(mktemp -d "${TMPDIR:-/tmp}/do-smoke-XXXXXX")}"
+VAULT="${UDOS_VAULT:-$(mktemp -d "${TMPDIR:-/tmp}/udo-smoke-XXXXXX")}"
 export UDOS_VAULT="$VAULT"
-BIN="node $ROOT/bin/do.mjs"
+BIN="node $ROOT/bin/udo.mjs"
 cd "$ROOT"
 npm run build --silent
 
@@ -36,4 +36,4 @@ $BIN spool list
 $BIN sync status
 $BIN status
 $BIN cleanup || true
-echo "OK smoke (preview not run — use: do publish preview)"
+echo "OK smoke (preview not run — use: udo publish preview)"

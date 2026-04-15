@@ -13,11 +13,20 @@
 | [documentation-policy.md](documentation-policy.md) | **Master policy** + links to all specs |
 | [DOCUMENTATION-MAINTENANCE.md](DOCUMENTATION-MAINTENANCE.md) | PR workflow, when to update style + commands |
 | [specs/va1-style-guide.md](specs/va1-style-guide.md) | **VA1** consolidated style (OBF, colours, layout blocks) |
-| [specs/obf-grid-spec.md](specs/obf-grid-spec.md) | **OBF Grid** / `do grid` / `@udos/obf-grid` |
-| [public/ucode-commands.md](public/ucode-commands.md) | **`do` CLI** reference + **`--public`** command table (source of truth) |
+| [specs/obf-grid-spec.md](specs/obf-grid-spec.md) | **OBF Grid** / `udo grid` / `@udos/obf-grid` |
+| [public/ucode-commands.md](public/ucode-commands.md) | **`udo` CLI** reference + **`--public`** command table (source of truth) |
 | [specs/grid-cell-cube-maths.md](specs/grid-cell-cube-maths.md) | **Locked** 24×24 px cell, QR 8×8, cube, bricks |
-| [specs/font-system-obf.md](specs/font-system-obf.md) | **Locked** Monaspace, OBF fonts, CDN, `do font` |
+| [specs/font-system-obf.md](specs/font-system-obf.md) | **Locked** Monaspace, OBF fonts, CDN, `udo font` |
 | [specs/workflow-network-a1-a2.md](specs/workflow-network-a1-a2.md) | **A1/A2 split:** local workflow + A2 bridge/server/network stubs |
+| [specs/vault-workspaces.md](specs/vault-workspaces.md) | **Vault workspaces** (`@toybox`, `@sandbox`, `.local/`, compost) |
+| [specs/markdownify-integration.md](specs/markdownify-integration.md) | **Markdownify / MarkItDown** MCP — A1 spec, A2 wiring |
+| [specs/feeds-and-spool.md](specs/feeds-and-spool.md) | **Feeds + spool** — text processors, `.local` config, A2 watchers |
+| [specs/commonmark-reference.md](specs/commonmark-reference.md) | **CommonMark** — canonical spec links, `udo run` context |
+| [specs/docker-integration.md](specs/docker-integration.md) | **Docker** — CLI / compose / SDK patterns (no GUI scope) |
+| [specs/vector-db-research.md](specs/vector-db-research.md) | **Vector DB + WordPress** — Foam-informed A3 notes |
+| [specs/usxd-go.md](specs/usxd-go.md) | **USXD-GO** — CHASIS/WIDGET/SKIN/LENS draft architecture + implementation checklist |
+| [themes/nord.md](themes/nord.md) | **Nord** optional theme reference |
+| [design/material-design-notes.md](design/material-design-notes.md) | **Material Design 3** principles notes (reference only) |
 | [A1-structure-locked.md](A1-structure-locked.md) | **Locked A1 layout:** `core/`, `tools/`, `modules/`, `dev/`, `templates/`, `seed/` |
 | [A1-CLEANUP-CHECKLIST.md](A1-CLEANUP-CHECKLIST.md) | **Status:** cleanup + path pass + VA1 deliverables |
 | [public/README.md](public/README.md) | **`--public`** user-facing landing |

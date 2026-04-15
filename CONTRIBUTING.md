@@ -19,7 +19,7 @@ If this tree is not yet a Git repository locally, run `git init` at the repo roo
 
 7. **Family checks** — scripts under **`scripts/`** may assume paths described in [`docs/family-workspace-layout.md`](docs/family-workspace-layout.md); if optional paths are absent, a script may stop early — that is normal on a partial environment.
 
-8. **Node / npm** — this repo uses **npm workspaces** at the root (`package.json` + `package-lock.json`). Install with **`npm ci`** (or **`npm install`**) at the repo root, then **`npm run build`** or **`npm test`**. Do not rely on per-package lockfiles under `core/` or `tools/sonic-express/`.
+8. **Node / npm** — this repo uses **npm workspaces** at the root (`package.json` + `package-lock.json`). Install with **`npm ci`** (or **`npm install`**) at the repo root, then **`npm run build`** or **`npm test`**. Do not rely on per-package lockfiles under `core/` or `tools/sonic-express/`. The VA1 CLI is **`udo`** (from workspace `@udos/core` after `npm link` in `core/`); see [docs/public/ucode-commands.md](docs/public/ucode-commands.md).
 
 9. **Dev scaffold (`--devonly` templates)** — contributor tiers, VibeCLI ↔ Cursor handover, and ignored scratch: [`dev/README.md`](dev/README.md). Do not commit personal notes under **`dev/local/`**; roadmaps/features in-repo are **template-only** (see `dev/.gitignore`).
 

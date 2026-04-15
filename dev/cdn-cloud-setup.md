@@ -11,7 +11,7 @@ tags:
 
 ## Goal
 
-Serve **`https://cdn.udo.space/fonts/*`** with the same paths as [`cdn/fonts/manifest.json`](../cdn/fonts/manifest.json) so `do font install` works without a local `seed/`.
+Serve **`https://cdn.udo.space/fonts/*`** with the same paths as [`cdn/fonts/manifest.json`](../cdn/fonts/manifest.json) so `udo font install` works without a local `seed/`.
 
 ## Wireframe vs production
 
@@ -32,7 +32,7 @@ Clients resolve fonts from **`${UDOS_CDN_BASE}`** + `path` in `manifest.json`.
 
 1. Upload **`manifest.json`** bundles’ files to the bucket/path that backs **`cdn.udo.space/fonts/`** (preserve paths like `/fonts/Teletext50.woff2`).
 2. Set **long-cache** for versioned filenames; **immutable** if you use content hashes later.
-3. **CORS:** allow `GET` from sites that embed previews (`do publish preview`) if browsers fetch cross-origin fonts (same-origin is easiest if site and fonts share a parent domain).
+3. **CORS:** allow `GET` from sites that embed previews (`udo publish preview`) if browsers fetch cross-origin fonts (same-origin is easiest if site and fonts share a parent domain).
 4. **TLS:** HTTPS only in production.
 5. Document the **staging** base URL for contributors who should not hit prod.
 

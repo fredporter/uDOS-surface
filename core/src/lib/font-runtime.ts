@@ -120,7 +120,7 @@ export async function activateFont(fontId: string): Promise<ActiveFontConfig> {
   const resolved = await resolveFontFileById(fontId);
   if (!resolved) {
     throw new Error(
-      `Font "${fontId}" not in cache — run: do font install retro (or place file in ~/.cache/udos/fonts/)`
+      `Font "${fontId}" not in cache — run: udo font install retro (or place file in ~/.cache/udos/fonts/)`
     );
   }
   const m = await loadManifest();

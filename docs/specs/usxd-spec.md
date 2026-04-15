@@ -10,9 +10,9 @@ slot: 5
 
 **In-repo themes:** [`../../templates/usxd/README.md`](../../templates/usxd/README.md)
 
-**CLI (themes):** `do usxd list` · `do usxd apply <name>` · `do usxd show` — [../public/ucode-commands.md](../public/ucode-commands.md)
+**CLI (themes):** `udo usxd list` · `udo usxd apply <name>` · `udo usxd show` — [../public/ucode-commands.md](../public/ucode-commands.md)
 
-**USXD-Express (markdown surfaces → HTML):** [`../../tools/usxd-express/README.md`](../../tools/usxd-express/README.md) — `do usxd serve` · `do usxd export` · `do usxd validate <file>`.
+**USXD-Express (markdown surfaces → HTML):** [`../../tools/usxd-express/README.md`](../../tools/usxd-express/README.md) — `udo usxd serve` · `udo usxd export` · `udo usxd validate <file>`.
 
 **OBF / font examples:** [font-system-obf.md](font-system-obf.md) (USXD fenced block).
 

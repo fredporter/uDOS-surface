@@ -9,7 +9,7 @@ import { buildStaticSite } from "../dist/lib/publish-build.js";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 test("buildStaticSite writes .site with index and build.json", async () => {
-  const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "do-site-"));
+  const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "udo-site-"));
   await fs.mkdir(path.join(tmp, "content"), { recursive: true });
   await fs.writeFile(path.join(tmp, "content", "hello.md"), "---\ntitle: Hi\n---\n# Hello\n");
   const r = await buildStaticSite(tmp);
@@ -22,7 +22,7 @@ test("buildStaticSite writes .site with index and build.json", async () => {
 });
 
 test("relativePathToAssets via build output links css", async () => {
-  const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "do-site-"));
+  const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "udo-site-"));
   await fs.mkdir(path.join(tmp, "content", "a"), { recursive: true });
   await fs.writeFile(path.join(tmp, "content", "a", "b.md"), "# nested\n");
   const r = await buildStaticSite(tmp);

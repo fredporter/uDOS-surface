@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 mod cli;
 mod github;
 mod mcp;
@@ -15,7 +17,7 @@ use clap::{Parser, Subcommand, ValueEnum};
 use std::path::PathBuf;
 
 #[derive(Parser, Debug)]
-#[command(name = "do")]
+#[command(name = "udo")]
 #[command(about = "uDos core CLI (Rust rewrite)", long_about = None)]
 struct Args {
     #[command(subcommand)]
@@ -448,7 +450,7 @@ async fn main() -> Result<()> {
             (Some(path), None) => cli::ucode::run_file(path)?,
             (None, Some(code)) => cli::ucode::run_eval(code)?,
             (Some(_), Some(_)) => anyhow::bail!("pass either --file or --eval, not both"),
-            (None, None) => anyhow::bail!("usage: do run --file <path.ucode> | do run --eval <snippet>"),
+            (None, None) => anyhow::bail!("usage: udo run --file <path.ucode> | udo run --eval <snippet>"),
         },
         Command::Fmt { path, check } => cli::ucode::fmt_path(&path, check)?,
     }

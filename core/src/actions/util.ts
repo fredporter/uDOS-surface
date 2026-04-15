@@ -22,7 +22,7 @@ export async function readPackageVersion(): Promise<string> {
 }
 
 export async function cmdVersion(): Promise<void> {
-  console.log(`do ${await readPackageVersion()} (VA1 TypeScript)`);
+  console.log(`udo ${await readPackageVersion()} (VA1 TypeScript)`);
 }
 
 export async function cmdStatus(): Promise<void> {
@@ -72,7 +72,7 @@ export async function cmdDoctor(): Promise<void> {
   else bad.push("core not built — run launcher or: sonic-express install");
 
   if (await fs.pathExists(vault)) ok.push("Vault path reachable");
-  else bad.push("Vault missing — run do init");
+  else bad.push("Vault missing — run udo init");
   try {
     await fs.access(vault, FS.W_OK);
     ok.push("Vault writable");
@@ -90,4 +90,48 @@ export async function cmdCleanup(): Promise<void> {
     await fs.remove(cache);
     console.log(chalk.green(`Removed ${cache}`));
   } else console.log(chalk.dim("Nothing to clean."));
+}
+
+export async function cmdClean(opts: { logs?: boolean; dryRun?: boolean }): Promise<void> {
+  const vault = getVaultRoot();
+  const targets = [path.join(vault, ".local", "cache"), path.join(vault, ".local", "tmp")];
+  if (opts.logs) targets.push(path.join(vault, ".local", "logs"));
+  const existing = [];
+  for (const t of targets) {
+    if (await fs.pathExists(t)) existing.push(t);
+  }
+  if (opts.dryRun) {
+    console.log({ mode: "dry-run", targets: existing });
+    return;
+  }
+  for (const t of existing) {
+    await fs.remove(t);
+    await fs.mkdir(t, { recursive: true });
+  }
+  console.log(chalk.green(`Cleaned ${existing.length} path(s)`));
+}
+
+export async function cmdTidy(): Promise<void> {
+  const entries = await fs.readdir(process.cwd());
+  const sorted = [...entries].sort((a, b) => a.localeCompare(b));
+  sorted.forEach((e) => console.log(e));
+}
+
+export async function cmdPing(): Promise<void> {
+  console.log("ping");
+}
+
+export async function cmdPong(): Promise<void> {
+  console.log("pong");
+}
+
+export async function cmdHealth(quick: boolean): Promise<void> {
+  if (quick) {
+    const vault = getVaultRoot();
+    const ok = await fs.pathExists(vault);
+    console.log(ok ? "healthy" : "unhealthy");
+    if (!ok) process.exitCode = 1;
+    return;
+  }
+  await cmdDoctor();
 }

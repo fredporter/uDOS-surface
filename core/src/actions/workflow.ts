@@ -12,7 +12,7 @@ import { upgradeMessage } from "../cloud-stubs/upgrade.js";
 export async function cmdWorkflowList(): Promise<void> {
   const rows = await listWorkflows();
   if (rows.length === 0) {
-    console.log(chalk.dim("No workflows. Create one with: do workflow create <name> --step 'shell:echo hi'"));
+    console.log(chalk.dim("No workflows. Create one with: udo workflow create <name> --step 'shell:echo hi'"));
     return;
   }
   for (const r of rows) {

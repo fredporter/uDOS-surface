@@ -23,12 +23,14 @@ export async function main(argv: string[]): Promise<void> {
     .option("-f, --file <file>", "Watch a single markdown file")
     .option("-d, --dir <dir>", "Watch all **/*.md under this directory (default: current directory)")
     .option("-p, --port <port>", "HTTP port", String(portFromEnv("3000")))
-    .action(async (o: { file?: string; dir?: string; port: string }) => {
+    .option("--no-open", "Disable startup browser-open prompt")
+    .action(async (o: { file?: string; dir?: string; port: string; open?: boolean }) => {
       const port = parseInt(o.port, 10) || 3000;
       await serve({
         file: o.file,
         dir: o.file ? undefined : (o.dir ?? process.cwd()),
         port,
+        open: o.open !== false,
       });
     });
 
