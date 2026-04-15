@@ -1,0 +1,11 @@
+{
+  "name": "@udos/feed-engine",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Feed ingestion and pipeline — port from uDosGo host + unified-pipeline",
+  "type": "module",
+  "main": "./dist/index.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.json"
+  }
+}

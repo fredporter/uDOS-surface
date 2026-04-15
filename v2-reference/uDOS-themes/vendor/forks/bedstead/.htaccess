@@ -1,4 +1,0 @@
-DirectoryIndex index.xhtml
-AddType application/xhtml+xml;charset=UTF-8 .xhtml
-AddType font/otf;outlines=CFF .otf
-AddType application/vnd.font-fontforge-sfd .sfd

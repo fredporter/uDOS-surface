@@ -1,8 +1,0 @@
-{
-  "skin_id": "empire-editorial",
-  "overrides": {
-    "tone": "editorial",
-    "accent": "#7f4a1e",
-    "prose_preset": "prose-tailwind-story"
-  }
-}

@@ -11,7 +11,7 @@
 
 **Family contracts:** feed / task / event shapes in [uDosGo `docs/DATA-MODEL.md`](https://github.com/fredporter/uDosGo/blob/main/docs/DATA-MODEL.md) and uDosDev task spec — automation must **respect vault as truth**.
 
-**Suite doc:** [v4-retro-course-suite](https://github.com/fredporter/uDosDocs/blob/main/docs/educational-content/v4-retro-course-suite.md)
+**Suite & pathway:** [courses/README.md](../README.md) (retro suite + catalog links).
 
 ---
 

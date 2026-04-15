@@ -1,18 +1,325 @@
-# TASKS.md — A1 Remaining Work Punch List
+# TASKS.md — Rust Core (A1) Milestone
 
-## Status: in-progress
+## Status: **A1 milestone complete** (automated); **operator live test** — [`OPERATOR-LIVE-TEST-A1.md`](OPERATOR-LIVE-TEST-A1.md); one command: `npm run verify:a1` (repo root).
+
+**Migration (T012 / T013):** **phase closed** — [`dev/decisions/2026-04-15-migration-phase-closure.md`](decisions/2026-04-15-migration-phase-closure.md), intentional gaps [`dev/workflow/migration-intentional-gaps-v1.md`](workflow/migration-intentional-gaps-v1.md). Governance → **`dev/`**, product/docs → **`docs/`** (canonical; no root `uDosDev/` / `uDosDocs/`). See also `dev/workflow/2026-04-15-docs-migration-restart.md`, `dev/workflow/imported/2026-04-15-uDosDev-snapshot/`, `dev/roadmaps/2026-04-14-submodule-migration-round-plan.md`.
 
 ## Tasks
 
 | ID | Task | Priority | Status | Assignee | ETA |
 | --- | --- | --- | --- | --- | --- |
-| T001 | Implement `do usxd render` terminal ASCII renderer | P0 | review | @cursor | complete (pending acceptance) |
-| T002 | Add explicit `do usxd export --format html|png` parity | P0 | review | @cursor | complete (pending acceptance) |
-| T003 | Implement OBF UI renderer for `obf` blocks (A1.2 scope) | P0 | review | @cursor | complete (pending acceptance) |
-| T004 | Clarify publish/Jekyll gap and document supported subset | P1 | review | @cursor | complete (pending acceptance) |
-| T005 | Harden boundary CI checks (imports + registry validation) | P1 | review | @cursor | complete (pending acceptance) |
-| T006 | Add release/version mapping for A1.0→A1.3 ladder | P1 | review | @cursor | complete (pending acceptance) |
-| T007 | Add command-level smoke tests for github/pr/wp/collab flows | P2 | review | @cursor | complete (pending acceptance) |
+| T001 | Create `core-rs/` crate and module scaffold | P0 | done | @cursor | 2026-04-14 |
+| T002 | Implement P0 vault commands (`init/list/open/delete/restore/search`) | P0 | done | @cursor | 2026-04-14 |
+| T003 | Add `do usxd render --mode teletext|mono|wireframe` | P0 | done | @cursor | 2026-04-14 |
+| T004 | Add grid bridge commands (`do grid import` / `do grid export --format xp`) | P0 | done | @cursor | 2026-04-14 |
+| T005 | Add integration tests for CLI P0 flows | P1 | done | @cursor | 2026-04-14 |
+| T006 | Wire uCode runtime command surface (`do run`, `do fmt`) | P2 | done | @cursor | 2026-04-15 |
+| T007 | Create locked decision docs for Rust/USXD/REXPaint | P1 | done | @cursor | 2026-04-14 |
+| T008 | Start Milkdown OBF/USXD plugin package scaffold | P1 | done | @cursor | 2026-04-14 |
+| T009 | Capture IronPad inspiration patterns (no integration/fork) | P1 | done | @cursor | 2026-04-14 |
+| T010 | Add ASCII↔Teletext bridge commands in `core-rs` | P0 | done | @cursor | 2026-04-14 |
+| T011 | Create widget-test harness for edit.tf + NextChat | P1 | done | @cursor | 2026-04-14 |
+| T012 | Run phased migration rounds for `uDosDev` -> `dev` | P0 | done | @cursor | 2026-04-15 |
+| T013 | Run phased migration rounds for `uDosDocs` -> `docs` | P0 | done | @cursor | 2026-04-15 |
+| T014 | Add `do ascii banner` (FIGlet external tool lane) | P1 | done | @cursor | 2026-04-15 |
+| T015 | Add FIGlet->Teletext conversion support | P1 | done | @cursor | 2026-04-15 |
+| T016 | Implement FIGlet external command surface in `core-rs` | P1 | done | @cursor | 2026-04-15 |
+| T017 | Implement FIGlet font management commands | P1 | done | @cursor | 2026-04-15 |
+| T018 | Implement unified MCP registry scaffold (`core-rs/src/mcp`) | P0 | done | @cursor | 2026-04-14 |
+| T019 | Add `do server` always-on control surface | P0 | done | @cursor | 2026-04-14 |
+| T020 | Implement orchestrator command surface (`mcp/agent/personality/chat/workflow`) | P0 | done | @cursor | 2026-04-14 |
+| T021 | Implement unified Remark markdown pipeline bridge (`do md`) | P0 | done | @cursor | 2026-04-14 |
+
+## Task Details
+
+### T001: `core-rs` scaffold
+
+**Description**: Create fresh Rust backend crate to replace TypeScript core over time.
+
+**Acceptance Criteria**:
+
+- [x] `core-rs/Cargo.toml` created with baseline dependencies
+- [x] `src/` contains requested module layout
+- [x] `cargo check` passes
+
+**Dependencies**: None
+
+**Related**: Rust core decision lane (A1)
+
+### T002: Vault P0 command surface
+
+**Description**: Implement local-first vault operations required for day-one CLI usage.
+
+**Acceptance Criteria**:
+
+- [x] `do init` creates `content/`, `ucode/`, `.compost/`, `system/`, and `config.md`
+- [x] `do list` prints vault tree
+- [x] `do open` launches `$EDITOR`
+- [x] `do delete` moves files to `.compost` with index
+- [x] `do restore` restores by compost id
+- [x] `do search` scans vault text
+
+**Dependencies**: T001
+
+**Related**: A1 local-first boundary
+
+### T003: USXD render command
+
+**Description**: Add terminal render surface for USXD JSON/YAML with mode switching.
+
+**Acceptance Criteria**:
+
+- [x] `do usxd render <file> --mode teletext|mono|wireframe` works
+- [x] USXD parser accepts JSON and YAML
+- [x] Teletext mode uses green-on-black style output
+
+**Dependencies**: T001
+
+**Related**: USXD-RS decision lane
+
+### T004: Grid bridge command
+
+**Description**: Add initial REXPaint bridge commands to import/export between `.xp` and OBF.
+
+**Acceptance Criteria**:
+
+- [x] `do grid import file.xp` writes OBF output
+- [x] `do grid export file.obf --format xp` writes XP output
+- [x] Unsupported format values fail with explicit A1 message
+
+**Dependencies**: T001
+
+**Related**: REXPaint integration lane
+
+### T005: Integration tests (core-rs/tests)
+
+**Description**: Add CLI-level integration tests for vault, usxd, and grid command flows.
+
+**Acceptance Criteria**:
+
+- [x] `vault_tests.rs` covers `init`, `list`, `delete`, `restore`, `search`
+- [x] `usxd_tests.rs` covers render mode routing
+- [x] `grid_tests.rs` verifies import/export output files
+
+**Dependencies**: T001-T004
+
+**Related**: `core-rs/tests/`
+
+### T006: uCode `do run` / `do fmt`
+
+**Description**: Wire the mini **uCode** runtime in `core-rs` to top-level **`do run`** and **`do fmt`** (clap).
+
+**Acceptance Criteria**:
+
+- [x] `do run --file <path>` reads source and executes via `UCodeRuntime`
+- [x] `do run --eval <snippet>` runs inline uCode
+- [x] `do fmt <path>` formats `.ucode` files (trim line ends; trailing newline); `--check` for CI-style verification
+- [x] `core-rs/tests/ucode_tests.rs` covers eval, file, fmt, fmt --check
+
+**Dependencies**: T001 (`UCodeRuntime` in `core-rs/src/ucode/mod.rs`)
+
+**Related**: `core-rs/src/cli/ucode.rs`, `docs/public/ucode-commands.md`
+
+### T007: Decision docs
+
+**Description**: Create missing decision records in `dev/decisions/`.
+
+**Acceptance Criteria**:
+
+- [x] `dev/decisions/2026-04-14-rust-core.md`
+- [x] `dev/decisions/2026-04-14-usxd-rs.md`
+- [x] `dev/decisions/2026-04-14-rexpaint.md`
+
+**Dependencies**: None
+
+**Related**: A1 locked architecture lane
+
+### T008: Milkdown plugin scaffold
+
+**Description**: Start OBF/USXD plugin package under `modules/` for editor integration.
+
+**Acceptance Criteria**:
+
+- [x] `modules/milkdown-plugins/` package scaffold exists
+- [x] OBF fence parse/render starter implemented
+- [x] USXD fence parse/render starter implemented
+
+**Dependencies**: None
+
+**Related**: Milkdown editor lane
+
+### T012: `uDosDev` migration rounds
+
+**Description**: Execute round-based migration from `uDosDev` into `dev` with mapping and validation gates.
+
+**Acceptance Criteria**:
+
+- [x] Round plan documented in `dev/roadmaps/2026-04-14-submodule-migration-round-plan.md`
+- [x] Round 1 moved and indexed high-value docs/process assets (first batch)
+- [x] Restart assessment 2026-04-15 (fresh delta snapshot + re-entry protocol): `dev/workflow/2026-04-15-docs-migration-restart.md`
+- [x] Dry-run delta reduced to **intentional** paths — catalogued in [`dev/workflow/migration-intentional-gaps-v1.md`](workflow/migration-intentional-gaps-v1.md) (Round 4 closure)
+- [x] **Filtered** upstream compare scripted — [`dev/workflow/compare-upstream-migration-delta.sh`](workflow/compare-upstream-migration-delta.sh) (excludes `.git/`, `.compost/`, `.cursor/`, `.github/`, `node_modules/`); spot check **2026-04-15:** `uDosDev`→`dev/` **~852** lines, `uDosDocs`→`docs/` **~398** lines (rsync item lines, not file counts)
+- [x] Delete-safe checklist completed — [`dev/decisions/2026-04-14-round5-deletion-readiness-checklist.md`](decisions/2026-04-14-round5-deletion-readiness-checklist.md) + [`dev/decisions/2026-04-15-migration-phase-closure.md`](decisions/2026-04-15-migration-phase-closure.md)
+- [x] Pre-v5 **single-lane** + public notes: [`dev/workflow/imported/2026-04-15-uDosDev-snapshot/future/PRE_V5_ROADMAP_SINGLE_LANE_v1.md`](workflow/imported/2026-04-15-uDosDev-snapshot/future/PRE_V5_ROADMAP_SINGLE_LANE_v1.md), [`dev/workflow/family-pre-v5-index.md`](workflow/family-pre-v5-index.md), [`docs/roadmap/pre-v5-family-notes.md`](../docs/roadmap/pre-v5-family-notes.md)
+
+**Dependencies**: migration audit decision
+
+**Related**: `dev/decisions/2026-04-14-submodule-migration-audit.md`
+
+### T013: `uDosDocs` migration rounds
+
+**Description**: Execute round-based migration from `uDosDocs` into `docs` with triage of legacy/valuable content.
+
+**Acceptance Criteria**:
+
+- [x] Round plan documented in `dev/roadmaps/2026-04-14-submodule-migration-round-plan.md`
+- [x] Architecture/spec/reference content triaged and migrated (first batch)
+- [x] Archive-only content mapped into `/archive/v2-reference` (target sections documented)
+- [x] Delete-safe checklist drafted (`dev/decisions/2026-04-14-round5-deletion-readiness-checklist.md`)
+- [x] **Restart 2026-04-15:** fresh assessment + delta snapshot — `dev/workflow/2026-04-15-docs-migration-restart.md`
+- [x] Round 2 / 2b triage **re-validated** for **post-submodule** workflow (canonical **`docs/`** + **`dev/`** per `2026-04-15-docs-migration-restart.md`; nested `uDosDocs/` / `uDosDev/` paths retired)
+- [x] Next promotion batch **partial:** roadmap snapshot + uDosDocs scripts import — indexed from `docs/README.md` + `dev/workflow/uDos*-migration-map.md` (2026-04-15)
+- [x] **`site/`** snapshot: `docs/contributor/migrated-round2/site/` (upstream `uDosDocs` main, 2026-04-15); index [`docs/contributor/migrated-round2/README.md`](../docs/contributor/migrated-round2/README.md)
+- [x] Knowledge bank **topic trees** → archive path (Round 2C): `~/Code/archive/v2-reference/uDosDocs/knowledge/bank/` (upstream `uDosDocs` `1208a02`, 2026-04-15); pointer [`docs/contributor/migrated-round2/knowledge/README.md`](../docs/contributor/migrated-round2/knowledge/README.md)
+- [x] **Filtered** `rsync -ani` delta **closed for phase** — remaining lines explained in [`dev/workflow/migration-intentional-gaps-v1.md`](workflow/migration-intentional-gaps-v1.md); tool: [`dev/workflow/compare-upstream-migration-delta.sh`](workflow/compare-upstream-migration-delta.sh); counts in [`dev/workflow/migration-progress-2026-04.md`](workflow/migration-progress-2026-04.md)
+
+**Dependencies**: migration audit decision
+
+**Related**: `dev/decisions/2026-04-14-submodule-migration-audit.md`
+
+### T014: FIGlet external command lane
+
+**Description**: Add `do ascii banner` command that shells out to FIGlet when available.
+
+**Acceptance Criteria**:
+
+- [x] `do ascii banner "Hello" --font slant` when `figlet` is installed (`core-rs`)
+- [x] Boxed fallback when `figlet` is missing
+- [x] `do ascii fonts list` (`showfigfonts` / `figlet -I2` / stub)
+
+**Dependencies**: teletext bridge baseline
+
+**Related**: [`docs/tools/figlet.md`](../docs/tools/figlet.md)
+
+### T015: FIGlet to Teletext bridge
+
+**Description**: Convert FIGlet (or fallback) banner lines into teletext hex streams.
+
+**Acceptance Criteria**:
+
+- [x] `do ascii banner "Title" --to-teletext` emits hex lines (`core-rs/tests/ascii_tests.rs`)
+- [x] Uses `teletext::ascii::convert_ascii_text_to_codes` per line
+- [x] Integration tests for `--to-teletext` with `PATH` empty (fallback path)
+
+**Dependencies**: T014
+
+**Related**: [`docs/tools/figlet.md`](../docs/tools/figlet.md)
+
+### T016: FIGlet external command implementation
+
+**Description**: Implement `do ascii …` in `core-rs`, shelling out to `figlet` when available.
+
+**Acceptance Criteria**:
+
+- [x] `do ascii banner` wired in `main.rs` → `cli/ascii.rs`
+- [x] Graceful fallback when `figlet` is missing
+- [x] `--to-teletext` supported
+
+**Dependencies**: teletext bridge baseline
+
+**Related**: [`docs/tools/figlet.md`](../docs/tools/figlet.md)
+
+### T017: FIGlet font management
+
+**Description**: Font helpers for FIGlet workflow.
+
+**Acceptance Criteria**:
+
+- [x] `do ascii fonts install <name>` (A1 stub — manual `.flf` instructions)
+- [x] `do ascii fonts preview --font <name> <text>`
+- [x] `do ascii fonts list`
+
+**Dependencies**: T016
+
+**Related**: [`docs/tools/figlet.md`](../docs/tools/figlet.md)
+
+### T018: Unified MCP scaffold
+
+**Description**: Implement single MCP registry and transports for A1/A2 architecture.
+
+**Acceptance Criteria**:
+
+- [x] `core-rs/src/mcp/registry.rs` includes unified tool registry
+- [x] stdio MCP transport implemented for A1
+- [x] HTTP MCP transport scaffold implemented for A2
+- [x] A2-only namespaces return explicit stubs
+
+**Dependencies**: none
+
+**Related**: `dev/decisions/2026-04-14-unified-mcp-server-architecture.md`
+
+### T019: uDosServer controls
+
+**Description**: Add server lifecycle command group for background operations.
+
+**Acceptance Criteria**:
+
+- [x] `do server start`
+- [x] `do server stop`
+- [x] `do server status`
+- [x] `do server logs`
+- [x] daemon entrypoint scaffold exists
+
+**Dependencies**: T018
+
+**Related**: `core-rs/src/server/mod.rs`
+
+### T020: Unified orchestrator command surface
+
+**Description**: Implement orchestrator modules and CLI groups for OK Handler, Personality, Chat, Agent, and Workflow lanes.
+
+**Acceptance Criteria**:
+
+- [x] `core-rs/src/orchestrator/` module set exists
+- [x] `do mcp start|list|call` works as scaffold
+- [x] `do agent query|hivemind|status|rankings` exists (A2 stubs)
+- [x] `do personality list|set` exists
+- [x] `do chat` and `do chat --history` persist and read history
+- [x] `do workflow list|add|queue-status|retry` exists
+
+**Dependencies**: T018, T019
+
+**Related**: `dev/decisions/2026-04-14-unified-orchestrator-agent-system.md`
+
+### T021: Unified Remark markdown pipeline
+
+**Description**: Implement remark/unified-based markdown processing via shared pipeline and CLI bridge.
+
+**Acceptance Criteria**:
+
+- [x] `modules/remark-pipeline` package scaffold with required deps
+- [x] custom uDos plugin stubs for OBF/USXD/uCode/teletext
+- [x] `do md format|lint|toc|render|frontmatter|check` command surface wired in `core-rs`
+- [x] render supports `--format html|teletext`
+
+**Dependencies**: none
+
+**Related**: `dev/decisions/2026-04-14-remark-unified-markdown-pipeline.md`
+# A1 — TypeScript / product punch list (legacy section)
+
+**Status:** acceptance criteria below are **met**; tracking lives with **`@udos/core`** tests and docs. For milestone closure, run **`npm run verify:a1`** and [`OPERATOR-LIVE-TEST-A1.md`](OPERATOR-LIVE-TEST-A1.md).
+
+## Tasks
+
+| ID | Task | Priority | Status | Assignee | ETA |
+| --- | --- | --- | --- | --- | --- |
+| T001 | Implement `do usxd render` terminal ASCII renderer | P0 | done | @cursor | 2026-04-15 |
+| T002 | Add explicit `do usxd export --format html|png` parity | P0 | done | @cursor | 2026-04-15 |
+| T003 | Implement OBF UI renderer for `obf` blocks (A1.2 scope) | P0 | done | @cursor | 2026-04-15 |
+| T004 | Clarify publish/Jekyll gap and document supported subset | P1 | done | @cursor | 2026-04-15 |
+| T005 | Harden boundary CI checks (imports + registry validation) | P1 | done | @cursor | 2026-04-15 |
+| T006 | Add release/version mapping for A1.0→A1.3 ladder | P1 | done | @cursor | 2026-04-15 |
+| T007 | Add command-level smoke tests for github/pr/wp/collab flows | P2 | done | @cursor | 2026-04-15 |
 
 ## Task Details
 

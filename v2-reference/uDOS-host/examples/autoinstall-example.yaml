@@ -1,8 +1,0 @@
-#cloud-config
-autoinstall:
-  version: 1
-  identity:
-    hostname: udos-host
-    username: udos
-  ssh:
-    install-server: true

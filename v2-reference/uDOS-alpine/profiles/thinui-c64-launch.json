@@ -1,9 +1,0 @@
-{
-  "runtime": "thinui",
-  "entryView": "boot-loader",
-  "mode": "fullscreen",
-  "themeId": "thinui-c64",
-  "loaderId": "c64-boot-seq",
-  "title": "uDOS Alpine Boot",
-  "subtitle": "C64-style startup handoff"
-}

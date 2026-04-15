@@ -1,8 +1,0 @@
-{
-  "schema": "udos.host.budget-status.lane1",
-  "implementation": "lane1-aggregated",
-  "operation_id": "runtime.host.budget.status",
-  "budget_enforcement": "github-action-policy-example",
-  "live_counters_source": "config/policy/github-action-policy.json.example",
-  "notes": "github_policy_repo_rules_count and github_policy_github_rules_count are merged at runtime from the policy file when present."
-}

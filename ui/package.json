@@ -1,0 +1,24 @@
+{
+  "name": "@udos/views",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Single-source Vue views for uDos Connect (vault, tasks, contacts, workflows, dashboard, chat)",
+  "exports": {
+    ".": "./src/views/index.ts",
+    "./package.json": "./package.json"
+  },
+  "peerDependencies": {
+    "vue": "^3.4.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.2.1",
+    "typescript": "^5.7.3",
+    "vite": "^6.0.3",
+    "vue": "^3.5.13",
+    "vue-tsc": "^2.2.0"
+  },
+  "scripts": {
+    "typecheck": "vue-tsc --noEmit -p tsconfig.json"
+  }
+}

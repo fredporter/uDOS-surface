@@ -1,7 +1,0 @@
-{
-  "theme_id": "thinui-nes-sonic",
-  "adapters": [
-    "thinui-default"
-  ],
-  "default_skin": "sonic-boot"
-}

@@ -1,7 +1,0 @@
-{
-  "theme_id": "thinui-c64",
-  "adapters": [
-    "thinui-default"
-  ],
-  "default_skin": "sonic-boot"
-}

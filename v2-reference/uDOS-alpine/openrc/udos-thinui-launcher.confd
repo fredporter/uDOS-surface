@@ -1,3 +1,0 @@
-# Optional overrides for the uDOS Alpine ThinUI launcher handoff.
-# The initial repo-owned profile lives at:
-#   /usr/share/udos-alpine/profiles/thinui-c64-launch.json

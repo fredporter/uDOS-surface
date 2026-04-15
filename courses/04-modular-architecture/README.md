@@ -11,7 +11,7 @@
 
 **Boundaries (normative):** [ROUND_A_CORE_ARCHITECTURE_v4](https://github.com/fredporter/uDosDev/blob/main/docs/specs/v4/ROUND_A_CORE_ARCHITECTURE_v4.md) · [ROUND_B_PRODUCT_BOUNDARIES_v4](https://github.com/fredporter/uDosDev/blob/main/docs/specs/v4/ROUND_B_PRODUCT_BOUNDARIES_v4.md).
 
-**Suite doc:** [v4-retro-course-suite](https://github.com/fredporter/uDosDocs/blob/main/docs/educational-content/v4-retro-course-suite.md)
+**Suite & pathway:** [courses/README.md](../README.md) (retro suite + catalog links).
 
 ---
 

@@ -1,8 +1,0 @@
-{
-  "skin_id": "dev-lab",
-  "overrides": {
-    "tone": "developer-lab",
-    "accent": "#8e5ed8",
-    "focus_ring": "#8e5ed8"
-  }
-}

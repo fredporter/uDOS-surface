@@ -21,7 +21,7 @@
 
 | Codename | Folder | Role |
 | --- | --- | --- |
-| **Build Your Own Social Media Manager** (Postiz) | [`postiz-beginner/`](postiz-beginner/README.md) | Optional **AGPL** self-host; open-box config + clone helper — pairs [uDosDev Postiz lock](../uDosDev/docs/specs/v4/UDOS_TOOL_FAMILY_POSTIZ_NAME_GENERATOR_UCOIN_LOCKED_v1.md) |
+| **Build Your Own Social Media Manager** (Postiz) | [`postiz-beginner/`](postiz-beginner/README.md) | Optional **AGPL** self-host; open-box config + clone helper — pairs [Postiz lock (uDosDev)](https://github.com/fredporter/uDosDev/blob/main/docs/specs/v4/UDOS_TOOL_FAMILY_POSTIZ_NAME_GENERATOR_UCOIN_LOCKED_v1.md) |
 | **How Does Crypto Work?** (uCoin intake) | [`ucoin-crypto-intake/`](ucoin-crypto-intake/README.md) | Required reading before **uCoin** crypto mode — pairs [`modules/ucoin/`](../modules/ucoin/) |
 
 ## Validate
@@ -34,4 +34,4 @@ bash scripts/validate-courses.sh
 
 ## Principle
 
-One connect checkout: **governance** (`uDosDev`), **docs** (`uDosDocs` submodule), **courses** (this tree), **scripts** — versioned together.
+One **uDosConnect** checkout holds **`dev/`**, **`docs/`**, **`courses/`** (this tree), **`scripts/`**, **`modules/`** — versioned together (no Git submodules). Upstream **[uDosDev](https://github.com/fredporter/uDosDev)** / **[uDosDocs](https://github.com/fredporter/uDosDocs)** remain archives for cherry-picks; do **not** recreate **`uDosDev/`** / **`uDosDocs/`** folders at the repo root ([CONTRIBUTING.md](../CONTRIBUTING.md)).

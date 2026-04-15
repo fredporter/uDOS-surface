@@ -1,9 +1,0 @@
-{
-  "preset_id": "prose-tailwind-default",
-  "owner": "uDOS-themes",
-  "version": "v2.2.1",
-  "description": "Shared Tailwind prose class contract for publish surfaces.",
-  "classes": {
-    "article": "prose prose-slate prose-headings:font-semibold prose-a:text-[var(--udos-accent)] max-w-3xl"
-  }
-}

@@ -1,9 +1,0 @@
-{
-  "pattern": "public-publishing-cycle",
-  "owner": "udos-empire",
-  "mode": "reviewed",
-  "capabilities": [
-    "lead.track",
-    "content.publish"
-  ]
-}

@@ -1,0 +1,40 @@
+name: VA1 core (do CLI)
+
+on:
+  pull_request:
+    paths:
+      - "package.json"
+      - "package-lock.json"
+      - "core/**"
+      - "tools/sonic-express/**"
+      - "tools/usxd-express/**"
+      - "modules/**"
+      - "launcher/**"
+      - "templates/usxd/**"
+      - ".github/workflows/core-ci.yml"
+  push:
+    branches:
+      - main
+    paths:
+      - "package.json"
+      - "package-lock.json"
+      - "core/**"
+      - "tools/sonic-express/**"
+      - "tools/usxd-express/**"
+      - "modules/**"
+      - "launcher/**"
+      - "templates/usxd/**"
+      - ".github/workflows/core-ci.yml"
+
+jobs:
+  workspace:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: package-lock.json
+      - name: Install workspace and test
+        run: npm ci && npm test

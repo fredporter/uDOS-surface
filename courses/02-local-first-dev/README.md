@@ -11,7 +11,7 @@
 
 **Reference implementation:** [uDosGo](https://github.com/fredporter/uDosGo) — ThinUI + Host + vault-backed loop (`npm run dev` / `npm run launch` per repo docs).
 
-**Suite doc:** [v4-retro-course-suite](https://github.com/fredporter/uDosDocs/blob/main/docs/educational-content/v4-retro-course-suite.md)
+**Suite & pathway:** [courses/README.md](../README.md) (retro suite + catalog links).
 
 ---
 

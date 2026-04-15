@@ -1,0 +1,93 @@
+import fs from "fs-extra";
+import path from "node:path";
+import os from "node:os";
+import { constants as FS } from "node:fs";
+import { fileURLToPath } from "node:url";
+import { execSync } from "node:child_process";
+import chalk from "chalk";
+import { parseSemver } from "@udos/shared-utils";
+import { getVaultRoot, udosConnectRoot } from "../paths.js";
+
+export async function readPackageVersion(): Promise<string> {
+  const here = path.dirname(fileURLToPath(import.meta.url));
+  const pkgPath = path.join(here, "..", "..", "package.json");
+  const alt = path.join(process.cwd(), "package.json");
+  for (const p of [pkgPath, alt]) {
+    if (await fs.pathExists(p)) {
+      const j = JSON.parse(await fs.readFile(p, "utf8"));
+      if (j.version) return j.version as string;
+    }
+  }
+  return "0.0.0";
+}
+
+export async function cmdVersion(): Promise<void> {
+  console.log(`do ${await readPackageVersion()} (VA1 TypeScript)`);
+}
+
+export async function cmdStatus(): Promise<void> {
+  const vault = getVaultRoot();
+  console.log({
+    vault,
+    exists: await fs.pathExists(vault),
+    cwd: process.cwd(),
+    node: process.version,
+  });
+}
+
+function gitPresent(): boolean {
+  try {
+    execSync("git --version", { stdio: "ignore" });
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+export async function cmdDoctor(): Promise<void> {
+  const vault = getVaultRoot();
+  const ok: string[] = [];
+  const bad: string[] = [];
+  const sem = parseSemver(process.version);
+  const nodeMajor = sem?.major ?? 0;
+  if (nodeMajor >= 20) ok.push(`Node ${process.version} (>= 20)`);
+  else if (nodeMajor >= 18) {
+    ok.push(`Node ${process.version} (>= 18; 20+ recommended)`);
+  } else bad.push("Node should be >= 18");
+
+  try {
+    const nv = execSync("npm --version", { encoding: "utf8" }).trim();
+    const nMajor = parseInt(nv.split(".")[0]!, 10);
+    if (!Number.isNaN(nMajor) && nMajor >= 9) ok.push(`npm ${nv} (>= 9)`);
+    else bad.push(`npm should be >= 9 (found ${nv})`);
+  } catch {
+    bad.push("npm not found");
+  }
+
+  if (gitPresent()) ok.push("git present");
+  else console.log(chalk.dim("○ git optional — not in PATH"));
+
+  const coreCli = path.join(udosConnectRoot(), "core", "dist", "cli.js");
+  if (await fs.pathExists(coreCli)) ok.push("core built (dist/cli.js)");
+  else bad.push("core not built — run launcher or: sonic-express install");
+
+  if (await fs.pathExists(vault)) ok.push("Vault path reachable");
+  else bad.push("Vault missing — run do init");
+  try {
+    await fs.access(vault, FS.W_OK);
+    ok.push("Vault writable");
+  } catch {
+    bad.push("Vault not writable");
+  }
+  ok.forEach((m) => console.log(chalk.green("✓"), m));
+  bad.forEach((m) => console.log(chalk.red("✗"), m));
+  if (bad.length) process.exitCode = 1;
+}
+
+export async function cmdCleanup(): Promise<void> {
+  const cache = path.join(os.homedir(), ".cache", "udos");
+  if (await fs.pathExists(cache)) {
+    await fs.remove(cache);
+    console.log(chalk.green(`Removed ${cache}`));
+  } else console.log(chalk.dim("Nothing to clean."));
+}

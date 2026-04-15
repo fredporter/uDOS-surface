@@ -1,0 +1,35 @@
+{
+  "name": "@udos/core",
+  "version": "1.0.0-va1",
+  "private": true,
+  "description": "uDos VA1 — pure TypeScript `do` CLI (no Go, no TUI)",
+  "type": "module",
+  "bin": {
+    "do": "./bin/do.mjs"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsc -p tsconfig.json --watch",
+    "test": "node --test test/*.test.mjs",
+    "link:global": "npm link"
+  },
+  "dependencies": {
+    "@udos/obf-grid": "*",
+    "@udos/shared-types": "*",
+    "@udos/shared-utils": "*",
+    "chalk": "^5.4.1",
+    "commander": "^12.1.0",
+    "fs-extra": "^11.3.0",
+    "glob": "^10.4.5",
+    "gray-matter": "^4.0.3",
+    "marked": "^15.0.6",
+    "pngjs": "^7.0.0"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@types/pngjs": "^6.0.5"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

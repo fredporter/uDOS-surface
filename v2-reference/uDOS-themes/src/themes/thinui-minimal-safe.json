@@ -1,8 +1,0 @@
-{
-  "theme_id": "thinui-minimal-safe",
-  "adapters": [
-    "thinui-default",
-    "tui-default"
-  ],
-  "default_skin": "alpine-safe"
-}

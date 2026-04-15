@@ -1,23 +1,29 @@
 # Local machine pointer (written by scripts/bootstrap-family-python.sh)
 .udos-family-python
 
-# macOS
+# macOS / Windows noise
 .DS_Store
 .AppleDouble
 .LSOverride
+Thumbs.db
 
 # Editor / IDE
 *.swp
 *.swo
 .idea/
-.vscode/*
-!.vscode/extensions.json
+.vscode/
 
 # Local workspace overrides (keep *.code-workspace committed)
 *.local.code-workspace
+*.code-workspace.local
+
+# Local override filename patterns (machine-specific)
+*.local.*
+*-local.*
 
 # Scratch (family convention)
 .local/
+# A1 contributor-only scratch under dev/ — see dev/.gitignore (`local/`)
 .compost/*
 !.compost/README.md
 
@@ -34,3 +40,27 @@ venv/
 
 # Logs
 *.log
+
+# Rust / Cargo (workspace: core-rs/)
+core-rs/target/
+
+# Ad-hoc test run artefacts (optional; narrow if these extensions are used for real sources)
+*.test
+*.fail
+
+# A1 TypeScript build artefacts (core, tools, modules)
+node_modules/
+core/dist/
+tools/sonic-express/dist/
+tools/usxd-express/dist/
+modules/vault-manager/dist/
+modules/feed-engine/dist/
+modules/spool-archiver/dist/
+modules/publish-gateway/dist/
+modules/usxd-renderer/dist/
+modules/shared-types/dist/
+modules/shared-utils/dist/
+modules/obf-grid/dist/
+
+# Optional local vendor clones (nested upstream repos; not part of monorepo history)
+vendor/

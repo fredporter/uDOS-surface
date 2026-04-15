@@ -1,9 +1,0 @@
-# Base package profile for uDOS-host
-ubuntu-minimal
-cloud-init
-curl
-git
-python3
-python3-venv
-xfce4
-network-manager

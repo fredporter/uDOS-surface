@@ -1,9 +1,0 @@
-{
-  "theme_id": "browser-default",
-  "adapters": [
-    "browser-default",
-    "workflow-default",
-    "publish-tailwind-prose"
-  ],
-  "default_skin": "empire-editorial"
-}

@@ -1,6 +1,6 @@
 # Shared resources architecture (family)
 
-**Git checkouts:** see **[`family-workspace-layout.md`](family-workspace-layout.md)** — integration at **`~/Code/uDosGo/`**, extension family under **`~/Code/uDosConnect/`**.
+**Git checkouts:** **[`family-workspace-layout.md`](family-workspace-layout.md)** — optional coding root and paths (this file covers **`~/.udos`** only).
 
 ## Goal
 

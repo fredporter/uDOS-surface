@@ -1,9 +1,0 @@
-{
-  "theme_id": "workflow-default",
-  "adapters": [
-    "workflow-default",
-    "browser-default",
-    "tui-default"
-  ],
-  "default_skin": "dev-lab"
-}

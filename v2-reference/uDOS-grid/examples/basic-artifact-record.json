@@ -1,9 +1,0 @@
-{
-  "artifact_id": "binder.crypt.south",
-  "artifact_type": "compiled-binder",
-  "places": [
-    "EARTH:SUB:L300-AJ11-Z-3"
-  ],
-  "visibility": "discoverable",
-  "seed": false
-}

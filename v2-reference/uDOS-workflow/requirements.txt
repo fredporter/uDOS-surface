@@ -1,2 +1,0 @@
-# No pinned Python dependencies yet. When a workflow engine or CLI lands here,
-# list packages with version ranges and keep activation notes in README.md.

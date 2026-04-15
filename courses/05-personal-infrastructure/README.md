@@ -11,7 +11,7 @@
 
 **Tools in the story:** [SonicScrewdriver](https://github.com/fredporter/SonicScrewdriver) (USB / device lanes) · uHOME / media narratives per family docs · [uDos-Dev Vibe plugin](https://github.com/fredporter/uDosDev/tree/main/vibe-plugin-udos-dev) for **budget / workflow** discipline where relevant.
 
-**Suite doc:** [v4-retro-course-suite](https://github.com/fredporter/uDosDocs/blob/main/docs/educational-content/v4-retro-course-suite.md)
+**Suite & pathway:** [courses/README.md](../README.md) (retro suite + catalog links).
 
 ---
 

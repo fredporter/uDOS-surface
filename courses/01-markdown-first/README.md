@@ -11,7 +11,7 @@
 
 **Engineering spine:** [GFM Enhanced](https://github.com/fredporter/uDosDev/blob/main/docs/specs/v4/GFM_Enhanced_Specification_v4.md) · [TASK_SPEC_v4](https://github.com/fredporter/uDosDev/blob/main/docs/specs/v4/TASK_SPEC_v4.md) · [CONTACT_SCHEMA_v4](https://github.com/fredporter/uDosDev/blob/main/docs/specs/v4/CONTACT_SCHEMA_v4.md).
 
-**Suite doc:** [v4-retro-course-suite](https://github.com/fredporter/uDosDocs/blob/main/docs/educational-content/v4-retro-course-suite.md)
+**Suite & pathway:** [courses/README.md](../README.md) (retro suite + catalog links).
 
 ---
 

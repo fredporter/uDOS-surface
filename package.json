@@ -1,10 +1,24 @@
 {
   "name": "udos-connect",
   "private": true,
-  "description": "uDos family monorepo — uDosDev (governance), uDosDocs, v2-reference, shared scripts",
+  "description": "uDos family monorepo — npm workspaces (core, ui, tools/sonic-express, tools/usxd-express, modules/*)",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/fredporter/uDosConnect.git"
+  },
+  "type": "module",
+  "workspaces": ["core", "ui", "tools/sonic-express", "tools/usxd-express", "modules/*"],
+  "scripts": {
+    "build": "npm run build -w @udos/shared-types && npm run build -w @udos/shared-utils && npm run build -w @udos/obf-grid && npm run build -w @udos/core && npm run build -w @udos/sonic-express && npm run build -w @udos/usxd-express && npm run build -w @udos/feed-engine && npm run build -w @udos/publish-gateway && npm run build -w @udos/spool-archiver && npm run build -w @udos/vault-manager && npm run build -w @udos/usxd-renderer",
+    "test": "npm run build && npm run test -w @udos/core",
+    "verify:a1": "npm test && ./scripts/shakedown.sh && (cd core-rs && cargo test)"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "typescript": "^5.7.3"
+  },
+  "engines": {
+    "node": ">=18"
   }
 }

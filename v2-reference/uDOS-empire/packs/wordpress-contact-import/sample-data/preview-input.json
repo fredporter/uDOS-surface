@@ -1,5 +1,0 @@
-{
-  "import_batch_name": "brisbane-launch-leads-01",
-  "source_file_name": "brisbane-launch.csv",
-  "target_workspace": "@workspace/marketing/brisbane-launch"
-}

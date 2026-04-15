@@ -43,11 +43,11 @@ done
 for name in "${OPTIONAL[@]}"; do
   check_repo "$name" 0
 done
-# uDosConnect uses uDosDev/TASKS.md as primary governance surface
-if [[ -f "$CODE_ROOT/uDosConnect/uDosDev/TASKS.md" ]]; then
-  echo "OK  uDosConnect/uDosDev/TASKS.md"
+# uDosConnect canonical Task surface (no root uDosDev/ submodule)
+if [[ -f "$CODE_ROOT/uDosConnect/dev/TASKS.md" ]]; then
+  echo "OK  uDosConnect/dev/TASKS.md"
 else
-  echo "MISSING  uDosConnect/uDosDev/TASKS.md"
+  echo "MISSING  uDosConnect/dev/TASKS.md"
   missing=1
 fi
 exit "$missing"

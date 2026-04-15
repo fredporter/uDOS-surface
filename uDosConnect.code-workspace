@@ -2,24 +2,60 @@
   "name": "uDosConnect",
   "folders": [
     {
+      "name": "uDosConnect (repo root)",
+      "path": "."
+    },
+    {
+      "name": "core (VA1 do CLI)",
+      "path": "core"
+    },
+    {
+      "name": "ui (Vue views)",
+      "path": "ui"
+    },
+    {
+      "name": "tools",
+      "path": "tools"
+    },
+    {
+      "name": "modules",
+      "path": "modules"
+    },
+    {
+      "name": "dev",
+      "path": "dev"
+    },
+    {
+      "name": "templates",
+      "path": "templates"
+    },
+    {
+      "name": "launcher (student entry)",
+      "path": "launcher"
+    },
+    {
+      "name": "seed",
+      "path": "seed"
+    },
+    {
+      "name": "docs",
+      "path": "docs"
+    },
+    {
+      "name": "courses",
+      "path": "courses"
+    },
+    {
       "name": "scripts (family helpers)",
       "path": "scripts"
     },
     {
-      "name": "uDosDev",
-      "path": "uDosDev"
-    },
-    {
-      "name": "uDosDocs",
-      "path": "uDosDocs"
-    },
-    {
       "name": "v2-reference (archived)",
-      "path": "v2-reference"
+      "path": "/Users/fredbook/Code/archive/v2-reference"
     },
     {
-      "name": "uDosGo (integration — alongside)",
-      "path": "../apps/uDosGo"
+      "name": "archive (retired repos)",
+      "path": "/Users/fredbook/Code/archive"
     }
   ],
   "settings": {

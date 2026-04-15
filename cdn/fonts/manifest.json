@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "cdnBaseDefault": "https://cdn.udo.space",
+  "bundles": {
+    "retro": {
+      "description": "Retro terminal / teletext faces (CDN or seed/)",
+      "files": [
+        {
+          "id": "Teletext50",
+          "filename": "Teletext50.woff2",
+          "path": "/fonts/Teletext50.woff2"
+        },
+        {
+          "id": "VT323",
+          "filename": "VT323.woff2",
+          "path": "/fonts/VT323.woff2"
+        },
+        {
+          "id": "PressStart2P",
+          "filename": "PressStart2P.woff2",
+          "path": "/fonts/PressStart2P.woff2"
+        }
+      ]
+    }
+  }
+}

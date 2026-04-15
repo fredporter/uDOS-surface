@@ -1,9 +1,0 @@
-{
-  "mode": "tutorial-run",
-  "state_owner": "udos-gameplay",
-  "loop": "turn-based",
-  "capabilities": [
-    "state.advance",
-    "map.render"
-  ]
-}

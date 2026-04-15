@@ -1,1 +1,0 @@
-EXPORT ACTION RULE (v2.1): When EXPORT is used and the export action is available, package the generated code-binder files into a ZIP and return the download link from the action result. For scope that belongs in uDOS Developer (full app/backend/deployment), follow `docs/udos-developer-export-integration.md` and keep Agent Digital on brief + handoff only.

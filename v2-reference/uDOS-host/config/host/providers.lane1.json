@@ -1,6 +1,0 @@
-{
-  "schema": "udos.host.providers.lane1",
-  "operation_id": "runtime.host.providers.list",
-  "providers": [],
-  "notes": "Add ~/.udos/state/host/providers.json with a providers array to register bridges; lane 1 defaults to empty."
-}

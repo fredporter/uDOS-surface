@@ -11,7 +11,7 @@ apple_color: Blue
 
 # uDos A1 `do` command reference (VA1)
 
-**Scope:** commands implemented by **`@udos/core`** (TypeScript). This file is the **public** source of truth for behaviour summaries; run **`do <command> --help`** (Commander) for flags.
+**Scope:** commands implemented by **`@udos/core`** (TypeScript) for the default npm workspace CLI. The **`udos-core`** Rust binary adds **`do run`** / **`do fmt`** for the mini uCode runtime (see **uCode runtime** below). Run **`do <command> --help`** for flags.
 
 **Style / tokens:** [../specs/va1-style-guide.md](../specs/va1-style-guide.md)
 
@@ -26,6 +26,29 @@ apple_color: Blue
 | `do delete <file>` | Move to `.compost/` | `do delete draft.md` |
 | `do restore <id>` | Restore from compost | `do restore abc123` |
 | `do search <query>` | Search `.md` / `.txt` in vault | `do search hello` |
+
+## uCode runtime (Rust `udos-core`)
+
+Implemented by **`core-rs`** (`udos-core`). Language subset: `PRINT`, `LET`, `IF … THEN`, `FOR … DO` (see `core-rs/src/ucode/mod.rs`).
+
+| Command | Description | Example |
+| --- | --- | --- |
+| `do run --file <path>` | Execute a `.ucode` file | `do run -f ucode/hello.ucode` |
+| `do run --eval <snippet>` | Inline uCode (quote as needed) | `do run --eval 'PRINT "hello"'` |
+| `do fmt <path>` | Format `.ucode` under a file or directory (trim trailing spaces; ensure final newline) | `do fmt ucode/` |
+| `do fmt --check <path>` | Exit with error if any file would change (CI-style) | `do fmt --check script.ucode` |
+
+## ASCII / FIGlet (`udos-core`)
+
+Requires external **`figlet`** on `PATH` for large banners; boxed fallback if missing. Details: [`../tools/figlet.md`](../tools/figlet.md).
+
+| Command | Description | Example |
+| --- | --- | --- |
+| `do ascii banner <text>` | FIGlet banner (`--font`, default `standard`) | `do ascii banner Hi --font slant` |
+| `do ascii banner <text> --to-teletext` | Hex teletext codes per line | `do ascii banner Hi --to-teletext` |
+| `do ascii fonts list` | List fonts (`showfigfonts` / `figlet -I2` / stub) | `do ascii fonts list` |
+| `do ascii fonts install <name>` | A1 stub (manual `.flf` install hint) | `do ascii fonts install mine` |
+| `do ascii fonts preview --font <f> <text>` | Preview font | `do ascii fonts preview --font standard OK` |
 
 ## Markdown
 

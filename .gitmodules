@@ -1,6 +1,0 @@
-[submodule "uDosDocs"]
-	path = uDosDocs
-	url = git@github.com:fredporter/uDosDocs.git
-[submodule "uDosDev"]
-	path = uDosDev
-	url = git@github.com:fredporter/uDosDev.git

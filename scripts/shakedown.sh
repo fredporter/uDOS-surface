@@ -10,16 +10,17 @@ CODE_ROOT="${UDOS_CODE_ROOT:-$HOME/Code}"
 echo "==> uDosConnect shakedown (v4 Round E)"
 cd "$ROOT_DIR"
 
-if [[ ! -f "$ROOT_DIR/uDosDev/TASKS.md" ]]; then
-  echo "FAIL: uDosDev/TASKS.md missing (init submodules?)"
+# Canonical monorepo paths (no root uDosDev/ / uDosDocs/ submodules — see dev/workflow/migration-intentional-gaps-v1.md)
+if [[ ! -f "$ROOT_DIR/dev/TASKS.md" ]]; then
+  echo "FAIL: dev/TASKS.md missing"
   exit 1
 fi
-if [[ ! -f "$ROOT_DIR/uDosDocs/TASKS.md" ]]; then
-  echo "FAIL: uDosDocs/TASKS.md missing (init submodules?)"
+if [[ ! -f "$ROOT_DIR/docs/README.md" ]]; then
+  echo "FAIL: docs/README.md missing"
   exit 1
 fi
-if [[ ! -f "$ROOT_DIR/uDosDev/docs/specs/v4/README.md" ]]; then
-  echo "FAIL: uDosDev/docs/specs/v4/README.md missing"
+if [[ ! -f "$ROOT_DIR/dev/workflow/imported/2026-04-15-uDosDev-snapshot/README.md" ]]; then
+  echo "FAIL: dev/workflow/imported/2026-04-15-uDosDev-snapshot/README.md missing (governance snapshot)"
   exit 1
 fi
 

@@ -1,7 +1,0 @@
-local_static_publish:
-  output_root: "~/.udos/publish/static"
-  mode: wiki-style
-  include_index: true
-cms_bridge:
-  wordpress_enabled: false
-  mirror_static_output: true

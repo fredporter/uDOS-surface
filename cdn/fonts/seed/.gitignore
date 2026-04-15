@@ -1,0 +1,5 @@
+# Drop local font binaries here for offline `do font install` (never commit binaries)
+*.woff2
+*.ttf
+*.otf
+!.gitignore

@@ -1,7 +1,0 @@
-{
-  "theme_id": "publish-prose-default",
-  "adapters": [
-    "publish-tailwind-prose"
-  ],
-  "default_skin": "empire-editorial"
-}
