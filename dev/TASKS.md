@@ -1,5 +1,17 @@
 # TASKS.md — Rust Core (A1) Milestone
 
+## Dev flow (where to work)
+
+| What | Where |
+| --- | --- |
+| Planning spine (paths, single repo) | [`docs/family-workspace-layout.md`](../docs/family-workspace-layout.md) |
+| This file | Task IDs (T001–T021), TypeScript punch list, **Alpha roadmap** table (forward queue) |
+| Process + devlog/summary | [`dev/workflow/dev-summary-and-devlog.md`](workflow/dev-summary-and-devlog.md) |
+| Beta-era reconciliation backlog (historical queue) | [`dev/BACKLOG-A1-branch.md`](BACKLOG-A1-branch.md) |
+| Semver alpha versioning (replaces A1/A2/A3 labels for USXD lanes) | [`docs/specs/version-mapping-a1.md`](../docs/specs/version-mapping-a1.md), [`docs/specs/version-ladder-a1-a2.md`](../docs/specs/version-ladder-a1-a2.md) |
+
+**Remote hygiene:** legacy standalone repos (`uDosDev`, `uDosDocs`, template forks, etc.) were removed from GitHub in favor of **this monorepo only** — do not recreate those remotes for active work.
+
 ## Status: **A1 milestone complete** (automated); **operator live test** — [`OPERATOR-LIVE-TEST-A1.md`](OPERATOR-LIVE-TEST-A1.md); one command: `npm run verify:a1` (repo root).
 
 ## A1 branch — merge before **alpha** A1 closes (beta backlog reconciled)
@@ -439,4 +451,8 @@
 | **T-ALPHA-WIDGET** | USXD interactive widgets | Target lane: `v0.1.0-alpha.1`; experiment brief: [seed/toybox/experiments/usxd-widget/BRIEF.md](../seed/toybox/experiments/usxd-widget/BRIEF.md) |
 | **T-ALPHA-ADAPTORS** | Adaptor schema + sandbox foundation | Target lane: `v0.1.0-alpha.1`; experiment brief: [seed/toybox/experiments/adaptors/BRIEF.md](../seed/toybox/experiments/adaptors/BRIEF.md) |
 | **T-ALPHA-SKIN-TAILWIND** | Tailwind + Tailwind Plus browser surfaces | Target lane: `v0.5.0-alpha.1`; build browser index/demo surfaces on USXD skin tokens |
-| **T-ALPHA-USXD-GO-SCAFFOLD** | `usxd-go` runtime scaffold | Target lane: `v0.1.0-alpha.1`; initial module skeleton + IO layer contracts per [usxd-go.md](../docs/specs/usxd-go.md) |
+| **T-ALPHA-USXD-GO-SCAFFOLD** | `usxd-go` runtime scaffold | Target lane: `v0.1.0-alpha.1`; module in [`modules/usxd-go/`](../modules/usxd-go/); spec [usxd-go.md](../docs/specs/usxd-go.md) |
+| **T-ALPHA-STORY** | Story format (narrative spine) + TUI + live GUI | Target lane: `v0.2.0-alpha.1` story JSON; engine + Bubble Tea in [`modules/usxd-go/story/`](../modules/usxd-go/story/); demos `/demo`, `/demo/final` on `usxd-server` |
+| **T-ALPHA-UDO-GUI-SVC** | Single-terminal browser surfaces | **Done (baseline):** `udo gui` / `udo gui start` runs USXD-Express in background with port fallback; `udo gui status|logs|open|stop` — see [`core/src/actions/usxd-express-tool.ts`](../core/src/actions/usxd-express-tool.ts) |
+| **T-ALPHA-UOS** | External app launcher (`uos`) | Scaffold: [`modules/uos/`](../modules/uos/) — `uos apps list`, `uos launch <app> --dry-run`; **next:** wire `udo app …` → `uos`, optional real `docker`/`podman` exec |
+| **T-ALPHA-VENTOY** | Boot branding pack | Scaffold: [`distro/ventoy/`](../distro/ventoy/) — OBX config, `apply-branding.sh`, `build-ventoy.sh` (operator completes against a real Ventoy checkout in `base/`) |

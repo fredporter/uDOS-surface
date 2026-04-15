@@ -1,7 +1,9 @@
 # A1 branch backlog — alpha reconciliation (was beta-era queue)
 
 **Audience:** `--devonly`  
-**Status:** **Operator-test ready** — automated + manual gate passed; pending human sign-off/merge notes before A2 start.
+**Status:** **Reconciled** — A1 operator + automated checks passed; **active forward work** is tracked in [`TASKS.md`](TASKS.md) under **“Alpha roadmap tracked”** (semver lanes, Story, `usxd-go`, `uos`, Ventoy, GUI service).
+
+**Return here for:** beta-era import pointers, execution-round references, and merge archaeology. **Do not** treat this file as the live day-to-day queue unless you are closing a beta reconciliation thread.
 
 **Alpha vs beta:** **A1** and **A2** are **alpha** milestones (product line). This file listed **beta**-program work (historical v3–v5 / “pre-v5” tracks, imported checklists). **This reconciliation task folds that beta backlog into alpha execution** under one monorepo; remaining rows here are what still ships before A1 closes.
 
@@ -55,8 +57,14 @@ This backlog is an **A1 side branch**: work listed here ships **before** A1 is f
 ## **Alpha A2** (after A1 accepted)
 
 - [`docs/specs/workflow-network-a1-a2.md`](../docs/specs/workflow-network-a1-a2.md)  
-- [`docs/specs/version-ladder-a1-a2.md`](../docs/specs/version-ladder-a1-a2.md)  
+- [`docs/specs/version-ladder-a1-a2.md`](../docs/specs/version-ladder-a1-a2.md) *(semver alpha ladder; filename is historical)*  
 - [`docs/specs/a1-a2-boundary.md`](../docs/specs/a1-a2-boundary.md)  
+
+---
+
+## Next execution (live backlog)
+
+Use **[`TASKS.md`](TASKS.md) → Alpha roadmap tracked** for ordered implementation (Markdownify, `udo run`, Docker, widgets, adaptors, Story, `uos`, Ventoy, Tailwind SKIN lane, etc.).
 
 ---
 
