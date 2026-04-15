@@ -2,6 +2,13 @@
 
 **Principle:** This tree holds **templates and policy text**, not personal project state. Scratch work stays under **`local/`** (ignored). **VibeCLI** lives in **`vibe/`**; CDN deploy notes: [`cdn-cloud-setup.md`](cdn-cloud-setup.md).
 
+## Start dev flow (daily)
+
+1. **One repo:** work only in **uDosConnect** — planning spine: [`docs/family-workspace-layout.md`](../docs/family-workspace-layout.md).
+2. **Live queue:** open **[`TASKS.md`](TASKS.md)** — section **Dev flow** + table **Alpha roadmap tracked** (semver lanes, Story, `usxd-go`, `uos`, Ventoy, GUI service).
+3. **Beta-era backlog (reference):** [`BACKLOG-A1-branch.md`](BACKLOG-A1-branch.md) — reconciled; not the primary execution list.
+4. **Verify:** `npm run verify:a1` (repo root) and [`OPERATOR-LIVE-TEST-A1.md`](OPERATOR-LIVE-TEST-A1.md) when touching CLI surfaces.
+
 ## Contributor tiers (tags)
 
 | Tier | Role | Tag | Notes |
