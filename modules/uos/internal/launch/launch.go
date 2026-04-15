@@ -3,6 +3,7 @@ package launch
 import (
 	"fmt"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"strings"
 
@@ -44,23 +45,29 @@ func RepoFallbackManifestPath(app string) (string, error) {
 	return "", fmt.Errorf("manifest not found for app %q", app)
 }
 
-func DryRunDocker(app string, passthroughArgs []string) error {
+func loadManifestAndCommand(app string, passthroughArgs []string) (*manifest.BodyModel, string, string, error) {
 	p := ManifestPath(app)
 	if _, err := os.Stat(p); err != nil {
 		fallback, ferr := RepoFallbackManifestPath(app)
 		if ferr != nil {
-			return ferr
+			return nil, "", "", ferr
 		}
 		p = fallback
 	}
-
 	_, body, err := manifest.LoadOBX(p)
+	if err != nil {
+		return nil, "", "", err
+	}
+	cmd := pickCommand(body, passthroughArgs)
+	cmd = expandSimplePlaceholders(cmd, passthroughArgs)
+	return body, p, cmd, nil
+}
+
+func DryRunDocker(app string, passthroughArgs []string) error {
+	body, p, cmd, err := loadManifestAndCommand(app, passthroughArgs)
 	if err != nil {
 		return err
 	}
-
-	cmd := pickCommand(body, passthroughArgs)
-	cmd = expandSimplePlaceholders(cmd, passthroughArgs)
 
 	fmt.Printf("app: %s\n", app)
 	fmt.Printf("manifest: %s\n", p)
@@ -79,6 +86,36 @@ func DryRunDocker(app string, passthroughArgs []string) error {
 	default:
 		return fmt.Errorf("dry-run only supports docker|podman for now (got %q)", body.Container.Type)
 	}
+}
+
+// RunContainer resolves the OBX manifest and runs docker or podman with inherited stdio.
+func RunContainer(app string, passthroughArgs []string) error {
+	body, _, cmd, err := loadManifestAndCommand(app, passthroughArgs)
+	if err != nil {
+		return err
+	}
+	ct := strings.ToLower(strings.TrimSpace(body.Container.Type))
+	bin, err := exec.LookPath(ct)
+	if err != nil {
+		return fmt.Errorf("%s not found in PATH (install %s or add --dry-run to print the invocation)", ct, ct)
+	}
+	var runArgs []string
+	switch ct {
+	case "docker":
+		runArgs = dockerRunArgs(body, cmd)
+	case "podman":
+		runArgs = podmanRunArgs(body, cmd)
+	default:
+		return fmt.Errorf("execute supports docker|podman only (got %q)", body.Container.Type)
+	}
+	c := exec.Command(bin, runArgs...)
+	c.Stdin = os.Stdin
+	c.Stdout = os.Stdout
+	c.Stderr = os.Stderr
+	if err := c.Run(); err != nil {
+		return err
+	}
+	return nil
 }
 
 func pickCommand(body *manifest.BodyModel, passthroughArgs []string) string {
@@ -127,12 +164,13 @@ func dockerRunArgs(body *manifest.BodyModel, command string) []string {
 		args = append(args, "-e", "XDG_RUNTIME_DIR="+os.Getenv("XDG_RUNTIME_DIR"))
 		args = append(args, "-v", os.Getenv("XDG_RUNTIME_DIR")+":"+os.Getenv("XDG_RUNTIME_DIR"))
 	}
+	wd, _ := os.Getwd()
 	for _, m := range body.Volumes {
 		ro := ""
 		if m.Readonly {
 			ro = ":ro"
 		}
-		host := expandHome(m.Host)
+		host := expandVolumeHost(m.Host, wd)
 		args = append(args, "-v", host+":"+m.Container+ro)
 	}
 	args = append(args, body.Container.Image)
@@ -162,4 +200,9 @@ func expandHome(p string) string {
 		return filepath.Join(home, strings.TrimPrefix(p, "~/"))
 	}
 	return p
+}
+
+func expandVolumeHost(host string, cwd string) string {
+	h := expandHome(host)
+	return strings.ReplaceAll(h, "{cwd}", cwd)
 }

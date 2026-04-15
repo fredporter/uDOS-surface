@@ -87,6 +87,12 @@ test("app command group is exposed", () => {
   assert.match(app.output, /\blaunch\b/);
 });
 
+test("app launch documents execute", () => {
+  const launch = runUdo(["app", "launch", "--help"]);
+  assert.equal(launch.code, 0);
+  assert.match(launch.output, /--execute/);
+});
+
 test("adaptor validate accepts baseline yaml", async () => {
   const dir = await fs.mkdtemp(path.join(os.tmpdir(), "udo-adaptor-"));
   const file = path.join(dir, "adaptor.yaml");

@@ -40,7 +40,7 @@ func printHelp() {
 
 Commands:
   uos apps list
-  uos launch <app> [--dry-run] [--] [args...]
+  uos launch <app> (--dry-run | --execute) [--] [args...]
 `)
 }
 
@@ -77,16 +77,21 @@ func cmdAppsList() error {
 
 func cmdLaunch(args []string) error {
 	if len(args) < 1 {
-		return fmt.Errorf("usage: uos launch <app> [--dry-run] [--] [args...]")
+		return fmt.Errorf("usage: uos launch <app> (--dry-run | --execute) [--] [args...]")
 	}
 	app := args[0]
 	rest := args[1:]
 	dry := false
+	execute := false
 	var passthrough []string
 	sawSep := false
 	for _, a := range rest {
 		if !sawSep && a == "--dry-run" {
 			dry = true
+			continue
+		}
+		if !sawSep && a == "--execute" {
+			execute = true
 			continue
 		}
 		if !sawSep && a == "--" {
@@ -95,8 +100,14 @@ func cmdLaunch(args []string) error {
 		}
 		passthrough = append(passthrough, a)
 	}
-	if !dry {
-		return fmt.Errorf("non-dry-run execution is intentionally disabled in scaffold; pass --dry-run")
+	if dry && execute {
+		return fmt.Errorf("pass only one of --dry-run or --execute")
 	}
-	return launch.DryRunDocker(app, passthrough)
+	if !dry && !execute {
+		return fmt.Errorf("choose --dry-run (print invocation) or --execute (run docker/podman)")
+	}
+	if dry {
+		return launch.DryRunDocker(app, passthrough)
+	}
+	return launch.RunContainer(app, passthrough)
 }

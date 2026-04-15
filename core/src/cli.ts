@@ -519,14 +519,15 @@ export async function main(argv: string[]): Promise<void> {
     .description("Launch app (default: dry-run prints container invocation)")
     .argument("<app>", "Manifest name without .obx")
     .argument("[args...]", "Forwarded to manifest command")
-    .option("--execute", "Run container (not implemented yet)")
-    .action(async (appName: string, forwarded: string[], o: { execute?: boolean }) => {
-      if (o.execute) {
-        console.error("`--execute` is not implemented yet; dry-run only.");
+    .option("--dry-run", "Print docker/podman invocation (default)")
+    .option("--execute", "Run docker/podman (stdio inherited)")
+    .action(async (appName: string, forwarded: string[], o: { execute?: boolean; dryRun?: boolean }) => {
+      if (o.execute && o.dryRun) {
+        console.error("Use only one of --dry-run or --execute.");
         process.exitCode = 1;
         return;
       }
-      await cmdAppLaunch(appName, forwarded, true);
+      await cmdAppLaunch(appName, forwarded, { execute: Boolean(o.execute) });
     });
 
   const adaptor = program.command("adaptor").description("Adaptor schema and tooling");
