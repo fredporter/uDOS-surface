@@ -30,9 +30,11 @@ func RepoFallbackManifestPath(app string) (string, error) {
 	if err != nil {
 		return "", err
 	}
+	// When `go run` cwd is modules/uos, examples live in ./apps.
+	// When cwd is repo root, examples live in modules/uos/apps.
 	candidates := []string{
-		filepath.Join(here, "modules", "uos", "apps", app+".obx"),
 		filepath.Join(here, "apps", app+".obx"),
+		filepath.Join(here, "modules", "uos", "apps", app+".obx"),
 	}
 	for _, c := range candidates {
 		if st, err := os.Stat(c); err == nil && !st.IsDir() {

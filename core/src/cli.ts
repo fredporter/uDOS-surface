@@ -113,6 +113,7 @@ import {
 } from "./actions/grid.js";
 import { cmdObfRender } from "./actions/obf-ui.js";
 import { cmdAdaptorValidate } from "./actions/adaptor.js";
+import { cmdAppLaunch, cmdAppList } from "./actions/uos-app.js";
 import type { GridMode } from "@udos/obf-grid";
 
 export async function main(argv: string[]): Promise<void> {
@@ -510,6 +511,23 @@ export async function main(argv: string[]): Promise<void> {
     .option("-n, --lines <n>", "Tail lines", "80")
     .action(async (o: { lines: string }) => cmdGuiLogs(parseInt(o.lines, 10) || 80));
   gui.command("open").description("Open running GUI URL in browser").action(async () => cmdGuiBrowserOpen());
+
+  const appCmd = program.command("app").description("External app launcher (uos OBX manifests; requires Go)");
+  appCmd.command("list").description("List known app manifests").action(async () => cmdAppList());
+  appCmd
+    .command("launch")
+    .description("Launch app (default: dry-run prints container invocation)")
+    .argument("<app>", "Manifest name without .obx")
+    .argument("[args...]", "Forwarded to manifest command")
+    .option("--execute", "Run container (not implemented yet)")
+    .action(async (appName: string, forwarded: string[], o: { execute?: boolean }) => {
+      if (o.execute) {
+        console.error("`--execute` is not implemented yet; dry-run only.");
+        process.exitCode = 1;
+        return;
+      }
+      await cmdAppLaunch(appName, forwarded, true);
+    });
 
   const adaptor = program.command("adaptor").description("Adaptor schema and tooling");
   adaptor

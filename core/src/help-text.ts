@@ -123,6 +123,10 @@ GUI:
 ADAPTOR:
   udo adaptor validate <file>   Validate adaptor YAML/JSON against A2 baseline schema
 
+APP (uos — requires Go):
+  udo app list                  List OBX app manifests
+  udo app launch <app> [args…]  Dry-run: print docker/podman line (default)
+
 GRID (OBF — see docs/specs/obf-grid-spec.md):
   udo grid render <file> [--mode]   Render grid (ANSI)
   udo grid export <file> --format ascii|obf|…

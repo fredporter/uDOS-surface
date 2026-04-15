@@ -48,15 +48,19 @@ func cmdAppsList() error {
 	appsDir := launch.AppsDir()
 	entries, err := os.ReadDir(appsDir)
 	if err != nil {
-		// repo dev fallback
+		// repo dev fallback (go run cwd is often modules/uos)
 		wd, err2 := os.Getwd()
 		if err2 != nil {
 			return err
 		}
-		fallback := filepath.Join(wd, "modules", "uos", "apps")
+		fallback := filepath.Join(wd, "apps")
 		entries, err = os.ReadDir(fallback)
 		if err != nil {
-			return err
+			fallback = filepath.Join(wd, "modules", "uos", "apps")
+			entries, err = os.ReadDir(fallback)
+			if err != nil {
+				return err
+			}
 		}
 		appsDir = fallback
 	}

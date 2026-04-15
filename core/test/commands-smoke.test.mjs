@@ -80,6 +80,13 @@ test("gui command group is exposed", () => {
   assert.match(gui.output, /stop/);
 });
 
+test("app command group is exposed", () => {
+  const app = runUdo(["app", "--help"]);
+  assert.equal(app.code, 0);
+  assert.match(app.output, /\budo app\b/);
+  assert.match(app.output, /\blaunch\b/);
+});
+
 test("adaptor validate accepts baseline yaml", async () => {
   const dir = await fs.mkdtemp(path.join(os.tmpdir(), "udo-adaptor-"));
   const file = path.join(dir, "adaptor.yaml");
