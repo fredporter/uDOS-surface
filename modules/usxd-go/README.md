@@ -1,14 +1,30 @@
-# @udos/usxd-go (placeholder)
+# @udos/usxd-go
 
-Planning placeholder for the future `usxd-go` runtime module.
+Alpha baseline scaffold for `v0.1.0-alpha.1`.
 
-Current state:
+Current scope:
 
-- Spec captured in `docs/specs/usxd-go.md`
-- Alpha target baseline: `v0.1.0-alpha.1`
+- `version.go` semver prerelease constants (`v0.1.0-alpha.1`)
+- Minimal USXD state model (`open_box`, `chassis`, `widgets`)
+- Four widget serializers in `widgets/`
+- HTTP endpoint: `/api/usxd/state`
+- WebSocket endpoint: `/ws/usxd`
 
-Start conditions:
+Run server:
 
-- Explicit operator authorization to begin alpha implementation work
-- Task rows added/approved in `dev/TASKS.md`
-- Versioning follows semver prerelease (`v0.x.y-alpha.n`) until Beta/GA
+```bash
+cd modules/usxd-go
+go run ./cmd/usxd-server
+```
+
+Demo example:
+
+```bash
+cd modules/usxd-go
+go run ./examples/four-components
+```
+
+References:
+
+- Spec: `docs/specs/usxd-go.md`
+- Versioning policy: `docs/specs/version-mapping-a1.md`
