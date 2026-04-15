@@ -1,0 +1,11 @@
+/* uDos Ventoy menu chrome (placeholder)
+ *
+ * This file is intentionally small. Real Ventoy integration will map these
+ * tokens into Ventoy/GRUB theme assets during branding apply.
+ */
+
+:root {
+  --udos-bg: #0f172a;
+  --udos-fg: #e5e7eb;
+  --udos-accent: #3b82f6;
+}

@@ -1,0 +1,5 @@
+# Placeholder patch file
+#
+# Keep Ventoy upstream deltas minimal: capture only branding-related changes here.
+# Real integration should be regenerated against the pinned Ventoy version in
+# `distro/ventoy/branding/config.obx`.

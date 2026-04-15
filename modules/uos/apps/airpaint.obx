@@ -1,0 +1,32 @@
+---
+version: "1.0"
+app_id: "com.uos.airpaint"
+name: "Airpaint"
+category: "graphics"
+---
+
+container:
+  type: "docker"
+  image: "ghcr.io/fredporter/airpaint:latest"
+  runtime: "electron"
+
+resources:
+  cpu: 2
+  memory: "1GB"
+  gpu: true
+
+mounts:
+  - host: "~/Pictures"
+    container: "/pictures"
+    readonly: false
+  - host: "{cwd}"
+    container: "/workspace"
+    readonly: true
+
+commands:
+  default: "airpaint /workspace/{file}"
+  cli:
+    - pattern: "uos launch airpaint {file}"
+      command: "airpaint /workspace/{file}"
+    - pattern: "uos launch airpaint --new"
+      command: "airpaint --new-document"

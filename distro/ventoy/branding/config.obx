@@ -1,0 +1,69 @@
+---
+version: "1.0"
+target: ventoy-1.0.99
+---
+
+## BOOT MENU
+
+background: "./background.png"
+logo: "./logo.svg"
+menu:
+  position: center
+  font: "Inter 16px"
+  color: "#FFFFFF"
+  selected_bg: "#2563EB"
+  selected_fg: "#FFFFFF"
+  border_radius: 8
+
+## LABELS
+
+replace_strings:
+  - from: "Ventoy"
+    to: "uDos Boot"
+  - from: "Ventoy Compatibility"
+    to: "uDos Tools"
+  - from: "Boot ISO/WIM/IMG/VHD(x)/EFI"
+    to: "Launch uDos Environment"
+
+## MENU ITEMS
+
+menu_items:
+  - label: "uDos Live"
+    action: "boot /uos/live.iso"
+    default: true
+  - label: "uDos Recovery"
+    action: "boot /uos/recovery.img"
+  - label: "Hardware Diagnostics"
+    action: "boot /tools/diag.iso"
+  - label: "System Tools"
+    submenu:
+      - label: "Partition Manager"
+        action: "boot /tools/gparted.iso"
+      - label: "Disk Clone"
+        action: "boot /tools/clonezilla.iso"
+
+## THEME
+
+theme:
+  name: "uDos Dark"
+  boot_screen:
+    bg_color: "#0F172A"
+    timeout_bar_color: "#3B82F6"
+  grub:
+    style: "compact"
+    timeout: 5
+
+## PLUGINS (Ventoy plugins to enable)
+
+plugins:
+  - vtoyboot
+  - vtoygpt
+  - injection:
+      - "/uos/config/setup.sh"
+      - "/uos/assets/wallpaper.jpg"
+
+## POST-BUILD HOOK
+
+post_build:
+  - command: "sign-iso.sh {output}"
+  - command: "verify-checksum {output}"
