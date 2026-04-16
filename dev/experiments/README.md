@@ -1,16 +1,9 @@
-# Developer Experiments
+# `dev/experiments/` — integration briefs (forward queue)
 
-This area is intentionally unstable and may break between commits.
+Thin **briefs** for experimental modules and upstream forks before they become `modules/` scaffolds or alpha tasks.
 
-Structure:
+| Brief | Module | Notes |
+| --- | --- | --- |
+| [udos-image-nanobanana/BRIEF.md](udos-image-nanobanana/BRIEF.md) | `udos-image-nanobanana` | Mono-line image contract + nano-banana-pro-mcp integration path |
 
-- `chasis/` - container-hosted application surface integration experiment
-- `widgets/` - TypeScript/JavaScript widget contract experiment
-- `winboat/` - Windows container experiment placeholder
-- `retroarch/` - emulator surface experiment placeholder
-
-Conventions:
-
-- no production guarantees
-- promotion requires criteria in each experiment's `PROMOTION.md`
-- promoted modules move to `@modules/` when ready
+Add a row when a new experiment is ingested; link the matching **Alpha roadmap** row in [`TASKS.md`](../TASKS.md).

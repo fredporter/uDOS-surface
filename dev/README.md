@@ -5,9 +5,10 @@
 ## Start dev flow (daily)
 
 1. **One repo:** work only in **uDosConnect** — planning spine: [`docs/family-workspace-layout.md`](../docs/family-workspace-layout.md).
-2. **Live queue:** open **[`TASKS.md`](TASKS.md)** — section **Dev flow** + table **Alpha roadmap tracked** (semver lanes, Story, `usxd-go`, `uos`, Ventoy, GUI service).
-3. **Beta-era backlog (reference):** [`BACKLOG-A1-branch.md`](BACKLOG-A1-branch.md) — reconciled; not the primary execution list.
-4. **Verify:** `npm run verify:a1` (repo root) and [`OPERATOR-LIVE-TEST-A1.md`](OPERATOR-LIVE-TEST-A1.md) when touching CLI surfaces.
+2. **Live queue:** open **[`TASKS.md`](TASKS.md)** — section **Dev flow** + table **Alpha roadmap tracked** (semver lanes, Story, `usxd-go`, `uos`, image experiments, Ventoy, GUI service).
+3. **Experimental integration briefs:** [`experiments/README.md`](experiments/README.md) (e.g. `udos-image-nanobanana`) — linked from the Alpha table when a task ID exists.
+4. **Beta-era backlog (reference):** [`BACKLOG-A1-branch.md`](BACKLOG-A1-branch.md) — reconciled; not the primary execution list.
+5. **Verify:** `npm run verify:a1` (repo root) and [`OPERATOR-LIVE-TEST-A1.md`](OPERATOR-LIVE-TEST-A1.md) when touching CLI surfaces.
 
 ## Contributor tiers (tags)
 
@@ -41,6 +42,7 @@
 | [`local/`](local/) | **Ignored** — create `mkdir -p dev/local/{notes,drafts,scratch}` |
 | [`roadmaps/`](roadmaps/) | Template only (see [`roadmaps/README.md`](roadmaps/README.md)) |
 | [`features/`](features/) | Template only (see [`features/README.md`](features/README.md)) |
+| [`experiments/`](experiments/) | Integration briefs for experimental modules before `modules/` scaffolds (see [`experiments/README.md`](experiments/README.md)) |
 | [`vibe/`](vibe/) | VibeCLI rules + config |
 | [`.gitignore`](.gitignore) | Ignores `local/`, non-template `roadmaps/*.md`, `features/*.md`, `*.notes.md` |
 

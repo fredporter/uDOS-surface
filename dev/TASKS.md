@@ -5,6 +5,7 @@
 | What | Where |
 | --- | --- |
 | Planning spine (paths, single repo) | [`docs/family-workspace-layout.md`](../docs/family-workspace-layout.md) |
+| Experimental integration briefs | [`dev/experiments/README.md`](experiments/README.md) (linked from Alpha roadmap rows) |
 | This file | Task IDs (T001–T021), TypeScript punch list, **Alpha roadmap** table (forward queue) |
 | Process + devlog/summary | [`dev/workflow/dev-summary-and-devlog.md`](workflow/dev-summary-and-devlog.md) |
 | Beta-era reconciliation backlog (historical queue) | [`dev/BACKLOG-A1-branch.md`](BACKLOG-A1-branch.md) |
@@ -448,6 +449,7 @@
 | **T-ALPHA-RUN** | `udo run` / literate markdown | Target lane: `v0.2.0-alpha.1+`; informed by rnmd + marki experiments — [commonmark-reference.md](../docs/specs/commonmark-reference.md), clones: [dev/toybox-experiments/README.md](toybox-experiments/README.md) |
 | **T-ALPHA-VECTOR** | Vector DB + Cloud WordPress research | Target lane: `v0.6.0-alpha.1+`; Foam → embedding graph hypotheses — [vector-db-research.md](../docs/specs/vector-db-research.md) |
 | **T-ALPHA-DOCKER** | `udo docker` patterns | Target lane: `v0.3.0-alpha.1+`; CLI/compose/SDK per [docker-integration.md](../docs/specs/docker-integration.md) |
+| **T-ALPHA-IMAGE-NB** | Experimental image module (`udos-image-nanobanana`) | Target lane: experimental / `v0.x`; Mono Core line layer + [nano-banana-pro-mcp](https://github.com/fredporter/nano-banana-pro-mcp) fork path — brief: [dev/experiments/udos-image-nanobanana/BRIEF.md](experiments/udos-image-nanobanana/BRIEF.md) |
 | **T-ALPHA-WIDGET** | USXD interactive widgets | Target lane: `v0.1.0-alpha.1`; experiment brief: [seed/toybox/experiments/usxd-widget/BRIEF.md](../seed/toybox/experiments/usxd-widget/BRIEF.md) |
 | **T-ALPHA-ADAPTORS** | Adaptor schema + sandbox foundation | Target lane: `v0.1.0-alpha.1`; experiment brief: [seed/toybox/experiments/adaptors/BRIEF.md](../seed/toybox/experiments/adaptors/BRIEF.md) |
 | **T-ALPHA-SKIN-TAILWIND** | Tailwind + Tailwind Plus browser surfaces | Target lane: `v0.5.0-alpha.1`; build browser index/demo surfaces on USXD skin tokens |

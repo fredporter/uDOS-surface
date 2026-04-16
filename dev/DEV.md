@@ -19,6 +19,7 @@ Fast day-to-day operating guide for work in `dev/`.
 ## 3) Working Surfaces
 
 - `dev/TASKS.md` -> active tracked work
+- `dev/experiments/` -> forwarded upstream integration briefs (Mono image, etc.); see `experiments/README.md`
 - `dev/summary/` + `dev/devlog/` -> period handover (process: [`workflow/dev-summary-and-devlog.md`](workflow/dev-summary-and-devlog.md)); new summary **assesses previous** and rolls watches forward
 - `dev/DOC-TODO.md` -> **later** public-doc round only (not parallel to implementation)
 - `dev/decisions/` -> locked decisions and audits
