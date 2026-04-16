@@ -5,11 +5,14 @@ on:
     paths:
       - "package.json"
       - "package-lock.json"
+      - "uDosConnect.code-workspace"
       - "core/**"
+      - "core-rs/**"
       - "tools/sonic-express/**"
       - "tools/usxd-express/**"
       - "modules/**"
       - "launcher/**"
+      - "scripts/check-workspace-drift.sh"
       - "templates/usxd/**"
       - ".github/workflows/core-ci.yml"
   push:
@@ -18,11 +21,14 @@ on:
     paths:
       - "package.json"
       - "package-lock.json"
+      - "uDosConnect.code-workspace"
       - "core/**"
+      - "core-rs/**"
       - "tools/sonic-express/**"
       - "tools/usxd-express/**"
       - "modules/**"
       - "launcher/**"
+      - "scripts/check-workspace-drift.sh"
       - "templates/usxd/**"
       - ".github/workflows/core-ci.yml"
 
@@ -36,5 +42,7 @@ jobs:
           node-version: "22"
           cache: npm
           cache-dependency-path: package-lock.json
+      - name: Workspace drift guard
+        run: npm run workspace:drift
       - name: Install workspace and test
         run: npm ci && npm test

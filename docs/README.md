@@ -37,6 +37,7 @@
 | [public/faq.md](public/faq.md) | **`--public`** FAQ (tags, OBF, folders) |
 | [student/README.md](student/README.md) | **`--student`** course-facing landing |
 | [contributor/README.md](contributor/README.md) | **`--contributor`** invite / dev portal stubs |
+| [contributor/cursor-mcp-setup.md](contributor/cursor-mcp-setup.md) | Cursor MCP setup for local `udo` stdio server + smoke test |
 | [contributor/migrated-round2/README.md](contributor/migrated-round2/README.md) | **Round 2** migrated documentation batch (examples, wizard, knowledge subset, **`site/`**) |
 | [templates/README.md](templates/README.md) | Tagged markdown templates |
 | [family-workspace-layout.md](family-workspace-layout.md) | **Disk layout:** optional coding root, OS examples, monorepo + archive (link here; don’t repeat) |

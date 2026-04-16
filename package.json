@@ -1,7 +1,7 @@
 {
   "name": "udos-connect",
   "private": true,
-  "description": "uDos family monorepo — npm workspaces (core, ui, tools/sonic-express, tools/usxd-express, modules/*)",
+  "description": "uDos family monorepo — npm workspaces for JS/TS packages (core, ui, tools/sonic-express, tools/usxd-express, modules/*) plus core-rs Rust CLI",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -12,7 +12,10 @@
   "scripts": {
     "build": "npm run build -w @udos/shared-types && npm run build -w @udos/shared-utils && npm run build -w @udos/obf-grid && npm run build -w @udos/core && npm run build -w @udos/sonic-express && npm run build -w @udos/usxd-express && npm run build -w @udos/feed-engine && npm run build -w @udos/publish-gateway && npm run build -w @udos/spool-archiver && npm run build -w @udos/vault-manager && npm run build -w @udos/usxd-renderer",
     "test": "npm run build && npm run test -w @udos/core",
-    "verify:a1": "npm test && ./scripts/shakedown.sh && (cd core-rs && cargo test)"
+    "verify:a1": "npm test && ./scripts/shakedown.sh && (cd core-rs && cargo test)",
+    "workspaces:list": "npm query .workspace --json",
+    "workspaces:check": "npm run workspaces:list > /dev/null && echo \"npm workspace resolution OK\"",
+    "workspace:drift": "bash scripts/check-workspace-drift.sh"
   },
   "devDependencies": {
     "@types/node": "^22.10.0",

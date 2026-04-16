@@ -10,6 +10,10 @@
       "path": "core"
     },
     {
+      "name": "core-rs (Rust CLI)",
+      "path": "core-rs"
+    },
+    {
       "name": "ui (Vue views)",
       "path": "ui"
     },
@@ -46,33 +50,35 @@
       "path": "courses"
     },
     {
-      "name": "scripts (family helpers)",
+      "name": "scripts (monorepo helpers)",
       "path": "scripts"
-    },
-    {
-      "name": "v2-reference (archived)",
-      "path": "/Users/fredbook/Code/archive/v2-reference"
-    },
-    {
-      "name": "archive (retired repos)",
-      "path": "/Users/fredbook/Code/archive"
     }
   ],
   "settings": {
     "files.exclude": {
       "**/.DS_Store": true,
       "**/node_modules": true,
-      "**/dist": true
+      "**/dist": true,
+      "**/target": true
     },
     "search.exclude": {
       "**/node_modules": true,
-      "**/dist": true
+      "**/dist": true,
+      "**/target": true
+    },
+    "files.watcherExclude": {
+      "**/.git/objects/**": true,
+      "**/node_modules/**": true,
+      "**/dist/**": true,
+      "**/target/**": true
     }
   },
   "extensions": {
     "recommendations": [
       "dbaeumer.vscode-eslint",
-      "esbenp.prettier-vscode"
+      "esbenp.prettier-vscode",
+      "rust-lang.rust-analyzer",
+      "tamasfe.even-better-toml"
     ]
   }
 }
