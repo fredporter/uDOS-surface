@@ -96,3 +96,46 @@ func TestSerializeAndRender(t *testing.T) {
 		t.Fatalf("expected progress in render")
 	}
 }
+
+func TestPanelKindTaxonomyMapping(t *testing.T) {
+	cases := []struct {
+		step Step
+		want PanelKind
+	}{
+		{step: NewPresentationStep("x"), want: PanelStorySlide},
+		{step: NewInputStep("Name", "text", "", true), want: PanelStoryInput},
+		{step: NewSingleChoiceStep("Path", []Option{{Value: "a", Label: "A"}}), want: PanelStoryChoice},
+		{step: NewMultiChoiceStep("Modules", []Option{{Value: "a", Label: "A"}}), want: PanelStoryChoice},
+		{step: NewScaleStep("Rate", 1, 5, nil, 3), want: PanelStoryScale},
+		{step: NewStarsStep("Stars", 5, 3), want: PanelStoryRatingStars},
+	}
+	for _, tc := range cases {
+		got := tc.step.PanelKind()
+		if got != tc.want {
+			t.Fatalf("panel kind mismatch for %q: got %q want %q", tc.step.Type, got, tc.want)
+		}
+	}
+}
+
+func TestRenderHintsAlignWithControlType(t *testing.T) {
+	s := New("Hints").
+		AddStep(NewScaleStep("Scale", 1, 5, nil, 3)).
+		AddStep(NewMultiChoiceStep("Multi", []Option{{Value: "a", Label: "A"}}))
+
+	rendered, err := s.RenderCurrent(ThemeTypeform)
+	if err != nil {
+		t.Fatalf("render scale: %v", err)
+	}
+	if !strings.Contains(rendered, "Use ← → then Enter") {
+		t.Fatalf("expected scale keyboard hint, got: %q", rendered)
+	}
+
+	_, _ = s.Enter()
+	rendered, err = s.RenderCurrent(ThemeTypeform)
+	if err != nil {
+		t.Fatalf("render multi-choice: %v", err)
+	}
+	if !strings.Contains(rendered, "Space to toggle, Enter to continue") {
+		t.Fatalf("expected multi-choice keyboard hint, got: %q", rendered)
+	}
+}

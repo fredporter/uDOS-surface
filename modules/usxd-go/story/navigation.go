@@ -36,8 +36,12 @@ func (s *Story) Submit() bool {
 }
 
 func (s *Story) Enter() (submitted bool, err error) {
+	s.Navigation.normalize()
 	if len(s.Steps) == 0 {
 		return false, ErrNoSteps
+	}
+	if !s.Navigation.EnterToContinue {
+		return false, ErrInvalidChoice
 	}
 	if s.Submit() {
 		return true, nil

@@ -5,6 +5,9 @@
  */
 
 export * from "./types";
+export * from "./styles/skin-presets";
+export * from "./themes/udos-themes";
+export * from "./themes/usxd-publish";
 
 export { default as VaultTableRouteView } from "./vault/VaultTableRouteView.vue";
 export { default as VaultListRouteView } from "./vault/VaultListRouteView.vue";
@@ -33,6 +36,8 @@ export { default as ActivityUnifiedFeedCard } from "./dashboard/ActivityUnifiedF
 export { default as SyncStatusPill } from "./dashboard/SyncStatusPill.vue";
 
 export { default as ChatView } from "./chat/ChatView.vue";
+export { default as ProseSurfaceView } from "./surfaces/ProseSurfaceView.vue";
+export { default as ProseSurfaceRouteView } from "./surfaces/ProseSurfaceRouteView.vue";
 
 export { default as SettingsView } from "./settings/SettingsView.vue";
 export { default as VaultPathPicker } from "./settings/VaultPathPicker.vue";

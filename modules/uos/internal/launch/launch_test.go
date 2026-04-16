@@ -3,7 +3,10 @@ package launch
 import (
 	"os"
 	"path/filepath"
+	"strings"
 	"testing"
+
+	"github.com/fredporter/uDosConnect/modules/uos/internal/manifest"
 )
 
 func TestResolveFilePlaceholder_underWorkspace(t *testing.T) {
@@ -122,5 +125,50 @@ func TestEffectiveContainerKind(t *testing.T) {
 	k, err = effectiveContainerKind("docker", "")
 	if err != nil || k != "podman" {
 		t.Fatalf("env: got %q %v", k, err)
+	}
+}
+
+func TestEffectiveGPUProfile(t *testing.T) {
+	p, err := effectiveGPUProfile(true, "")
+	if err != nil || p != "all" {
+		t.Fatalf("manifest gpu true should default all, got %q %v", p, err)
+	}
+	p, err = effectiveGPUProfile(false, "")
+	if err != nil || p != "off" {
+		t.Fatalf("manifest gpu false should default off, got %q %v", p, err)
+	}
+	p, err = effectiveGPUProfile(true, "nvidia")
+	if err != nil || p != "nvidia" {
+		t.Fatalf("override nvidia failed: %q %v", p, err)
+	}
+	if _, err = effectiveGPUProfile(true, "bad-profile"); err == nil {
+		t.Fatal("expected invalid gpu profile error")
+	}
+}
+
+func TestDockerRunArgs_GPUProfiles(t *testing.T) {
+	var body manifest.BodyModel
+	body.Container.Image = "example/app:latest"
+	body.Container.Type = "docker"
+	body.Resources.CPU = 1
+	body.Resources.Memory = "512m"
+	body.Commands.Default = "echo ok"
+
+	args, err := dockerRunArgs(&body, "echo ok", nil, "nvidia")
+	if err != nil {
+		t.Fatal(err)
+	}
+	joined := strings.Join(args, " ")
+	if !strings.Contains(joined, "--gpus all") || !strings.Contains(joined, "NVIDIA_DRIVER_CAPABILITIES=all") {
+		t.Fatalf("expected nvidia gpu args, got: %s", joined)
+	}
+
+	args, err = dockerRunArgs(&body, "echo ok", nil, "amd")
+	if err != nil {
+		t.Fatal(err)
+	}
+	joined = strings.Join(args, " ")
+	if !strings.Contains(joined, "--device /dev/dri") {
+		t.Fatalf("expected /dev/dri for amd profile, got: %s", joined)
 	}
 }

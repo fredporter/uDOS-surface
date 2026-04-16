@@ -28,7 +28,7 @@ Planned roadmap:
 | Current | `v0.1.0-alpha.1` | CHASIS baseline + four Go widgets + state server |
 | Next | `v0.1.0-alpha.2` | Bugfix patch round (no new feature lane) |
 | Next | `v0.1.0-alpha.3` | Bugfix patch round (no new feature lane) |
-| Next | `v0.2.0-alpha.1` | Liquid template integration |
+| Next | `v0.2.0-alpha.1` | Liquid template integration + Story surface baseline (`application/vnd.usxd.story`) |
 | Next | `v0.3.0-alpha.1` | Static HTML export |
 | Next | `v0.4.0-alpha.1` | React renderer + WebSocket bridge |
 | Next | `v0.5.0-alpha.1` | SKIN layer (Tailwind CSS variables) |
@@ -98,3 +98,17 @@ Out of scope for this release:
 - React renderer (`v0.4.0-alpha.1`)
 - Tailwind SKIN (`v0.5.0-alpha.1`)
 - LENS (`v0.6.0-alpha.1`)
+
+## 7) Story surface baseline (`v0.2.0-alpha.1`)
+
+Story remains a surface pattern on top of shared GTX semantics:
+
+- linear step navigation
+- `Enter` to continue contract
+- visible progress (`step x/y` or equivalent)
+- theme abstraction (`typeform`, `marp`, `teletext`, `thinui`)
+- USXD story envelope: `application/vnd.usxd.story`
+
+Canonical Story spec:
+
+- [`usxd-story-format.md`](usxd-story-format.md)

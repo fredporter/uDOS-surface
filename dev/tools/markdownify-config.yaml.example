@@ -1,5 +1,6 @@
 # dev/tools/markdownify-config.yaml.example
-# Copy to .local/markdownify-config.yaml (vault or machine scope) to enable after MCP wiring.
+# Copy to .local/markdownify-config.yaml (vault or machine scope).
+# Runtime bootstrap: bash scripts/bootstrap-markdownify-runtime.sh
 
 markdownify:
   enabled: true

@@ -23,3 +23,9 @@ slot: 5
 ## Notes for `udo run` (A2)
 
 Block execution and fence semantics should align with CommonMark **code fences** and any uDos extensions documented in [open-box-format.md](open-box-format.md) where they overlap with prose markdown.
+
+Current alpha behavior in `core-rs`:
+
+- Executes fenced `ucode` blocks in source order for markdown inputs.
+- Accepts attribute-style fence info (for example ` ```ucode {linenos=true}`).
+- Preserves shared runtime state across multiple `ucode` fences in one document.

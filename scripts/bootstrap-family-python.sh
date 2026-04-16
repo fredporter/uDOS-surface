@@ -44,4 +44,4 @@ echo "activate with:"
 echo "  source \"$UDOS_SHARED_ENV_DIR/bin/activate\""
 
 # Keep a local pointer for scripts and tools that want a root-level hint.
-printf '%s\n' "$UDOS_SHARED_PYTHON_BIN" > "$ROOT_DIR/.udos-family-python"
+printf '%s\n' "$UDOS_SHARED_PYTHON_BIN" > "$ROOT_DIR/.udos-connect-python"

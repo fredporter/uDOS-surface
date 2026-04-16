@@ -39,5 +39,8 @@ Locked reference material for **Open Box Format (OBF)**, **grid**, **display siz
 | [docker-integration.md](docker-integration.md) | Docker use patterns for uDos (A2/A3) |
 | [vector-db-research.md](vector-db-research.md) | Foam → vector / WordPress cloud (A3 planning) |
 | [usxd-go.md](usxd-go.md) | USXD-GO draft architecture (CHASIS/WIDGET/SKIN/LENS) |
+| [usxd-story-format.md](usxd-story-format.md) | Story surface spec: step schema, keyboard rules, panel taxonomy, theme adapters |
+| [usxd-story-schema.json](usxd-story-schema.json) | JSON Schema artifact for `application/vnd.usxd.story` envelopes (non-Go tooling) |
+| [uos-launcher.md](uos-launcher.md) | UOS launcher operator contract (runtime, GPU profiles, passthrough, smoke gate) |
 
 Parent policy overview: [../documentation-policy.md](../documentation-policy.md).

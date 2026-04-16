@@ -21,8 +21,11 @@ fi
 
 echo
 echo "Shared env status:"
-if [ -f "$ROOT_DIR/.udos-family-python" ]; then
-  echo "  pointer file: $ROOT_DIR/.udos-family-python"
+if [ -f "$ROOT_DIR/.udos-connect-python" ]; then
+  echo "  pointer file: $ROOT_DIR/.udos-connect-python"
+  echo "  python bin: $(cat "$ROOT_DIR/.udos-connect-python")"
+elif [ -f "$ROOT_DIR/.udos-family-python" ]; then
+  echo "  pointer file: $ROOT_DIR/.udos-family-python (legacy)"
   echo "  python bin: $(cat "$ROOT_DIR/.udos-family-python")"
 else
   echo "  pointer file missing; run scripts/bootstrap-family-python.sh"

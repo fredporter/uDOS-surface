@@ -5,7 +5,7 @@ audience: public
 slot: 5
 status: "draft"
 last_reviewed: "2026-04-15"
-applies_to: "A2/A3 — patterns documented in A1; implementation deferred"
+applies_to: "A2/A3 — patterns documented in A1; CLI baseline active in alpha"
 ---
 
 # Docker integration patterns (uDos)
@@ -27,9 +27,12 @@ applies_to: "A2/A3 — patterns documented in A1; implementation deferred"
 - Docker Hub **product** integration (marketplace, org sync) — possible **A3+** optional lane.
 - Multi-host **orchestration** (Kubernetes/Swarm) beyond **single-host** compose for dev and small deployments.
 
-## A1 deliverable
+## Alpha baseline (implemented)
 
-This document — **patterns only**. No requirement to ship `udo docker` in VA1.
+- `udo docker status` reports runtime inventory and selected runtime.
+- `udo docker run -- <args...>` pass-through with guardrails for missing args.
+- `udo docker compose -- <args...>` pass-through.
+- Runtime override supported via `UDO_DOCKER_RUNTIME` (or `UOS_RUNTIME`) with accepted values: `auto`, `docker`, `podman`.
 
 ## A2/A3 implementation notes
 

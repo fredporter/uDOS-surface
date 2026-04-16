@@ -1,4 +1,5 @@
 # Local machine pointer (written by scripts/bootstrap-family-python.sh)
+.udos-connect-python
 .udos-family-python
 
 # macOS / Windows noise

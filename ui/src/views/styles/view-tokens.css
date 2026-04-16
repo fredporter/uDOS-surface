@@ -25,6 +25,42 @@
   box-sizing: border-box;
 }
 
+.uv-view[data-skin="terminal"] {
+  --uv-bg: #000000;
+  --uv-surface: #0c130c;
+  --uv-border: #1b2c1b;
+  --uv-text: #00ff8a;
+  --uv-muted: #67b88c;
+  --uv-accent: #00ff8a;
+  --uv-danger: #ff4d4d;
+  --uv-success: #00ff8a;
+  --uv-warning: #ffd84d;
+}
+
+.uv-view[data-skin="nord"] {
+  --uv-bg: #2e3440;
+  --uv-surface: #3b4252;
+  --uv-border: #4c566a;
+  --uv-text: #eceff4;
+  --uv-muted: #d8dee9;
+  --uv-accent: #88c0d0;
+  --uv-danger: #bf616a;
+  --uv-success: #a3be8c;
+  --uv-warning: #ebcb8b;
+}
+
+.uv-view[data-skin="amber"] {
+  --uv-bg: #130e05;
+  --uv-surface: #1f1608;
+  --uv-border: #3a2b13;
+  --uv-text: #ffd18a;
+  --uv-muted: #ccab74;
+  --uv-accent: #ffbf4d;
+  --uv-danger: #ff6e5e;
+  --uv-success: #8bd17c;
+  --uv-warning: #ffd18a;
+}
+
 .uv-caption {
   font-size: 0.8rem;
   color: var(--uv-muted);

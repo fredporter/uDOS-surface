@@ -5,12 +5,28 @@ import "fmt"
 type StepType string
 
 const (
+	// Core story step kinds for v0.2.0-alpha.1.
 	StepPresentation StepType = "presentation"
 	StepInput        StepType = "input"
 	StepSingleChoice StepType = "single_choice"
 	StepMultiChoice  StepType = "multi_choice"
 	StepStars        StepType = "stars"
 	StepScale        StepType = "scale"
+)
+
+type PanelKind string
+
+const (
+	PanelStoryIntro       PanelKind = "story-intro"
+	PanelStoryInput       PanelKind = "story-input"
+	PanelStoryChoice      PanelKind = "story-choice"
+	PanelStoryScale       PanelKind = "story-scale"
+	PanelStoryRatingStars PanelKind = "story-rating-stars"
+	PanelStorySummary     PanelKind = "story-summary"
+	PanelStoryConfirm     PanelKind = "story-confirm"
+	PanelStorySlide       PanelKind = "story-slide"
+	PanelStorySlideInput  PanelKind = "story-slide-input"
+	PanelStoryEnd         PanelKind = "story-end"
 )
 
 type Option struct {
@@ -47,6 +63,14 @@ type NavigationConfig struct {
 	EnterToContinue bool   `json:"enter_to_continue"`
 }
 
+func (n *NavigationConfig) normalize() {
+	if n.Progress == "" {
+		n.Progress = "visible"
+	}
+	// Story baseline requires Enter as the primary action.
+	n.EnterToContinue = true
+}
+
 type Story struct {
 	Title      string           `json:"title"`
 	Steps      []Step           `json:"steps"`
@@ -70,6 +94,7 @@ func New(title string) *Story {
 }
 
 func (s *Story) AddStep(step Step) *Story {
+	s.Navigation.normalize()
 	s.Steps = append(s.Steps, step)
 	return s
 }
@@ -100,6 +125,7 @@ func (s *Story) TotalSteps() int {
 }
 
 func (s *Story) Progress() (current int, total int, percent int) {
+	s.Navigation.normalize()
 	total = len(s.Steps)
 	if total == 0 {
 		return 0, 0, 0
@@ -122,6 +148,27 @@ func NewPresentationStep(content string) Step {
 		Type:       StepPresentation,
 		Content:    content,
 		NextAction: "enter",
+	}
+}
+
+// PanelKind maps step semantics to the story surface taxonomy.
+func (st Step) PanelKind() PanelKind {
+	switch st.Type {
+	case StepPresentation:
+		if st.Field != "" || st.Label != "" || st.Placeholder != "" || len(st.Options) > 0 {
+			return PanelStorySlideInput
+		}
+		return PanelStorySlide
+	case StepInput:
+		return PanelStoryInput
+	case StepSingleChoice, StepMultiChoice:
+		return PanelStoryChoice
+	case StepScale:
+		return PanelStoryScale
+	case StepStars:
+		return PanelStoryRatingStars
+	default:
+		return PanelStoryInput
 	}
 }
 

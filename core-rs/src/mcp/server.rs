@@ -1,6 +1,7 @@
 use crate::mcp::registry;
 use anyhow::{Context, Result};
 use serde_json::{json, Value};
+use std::collections::HashSet;
 use std::io::{self, BufRead, Write};
 use tokio::io::{AsyncReadExt, AsyncWriteExt};
 use tokio::net::TcpListener;
@@ -57,13 +58,11 @@ impl UDosMcpServer {
                     let tools = registry::default_tools()
                         .into_iter()
                         .map(|tool| {
+                            let input_schema = tool_input_schema(&tool.name);
                             json!({
                                 "name": tool.name,
                                 "description": format!("{} [{}]", tool.description, tool.status),
-                                "inputSchema": {
-                                    "type": "object",
-                                    "additionalProperties": true
-                                }
+                                "inputSchema": input_schema
                             })
                         })
                         .collect::<Vec<_>>();
@@ -77,6 +76,29 @@ impl UDosMcpServer {
                         .unwrap_or_else(|| json!({}));
                     match name {
                         Some(tool_name) => {
+                            if !known_tool_names().contains(tool_name) {
+                                let message = format!("Invalid params: unknown tool `{tool_name}`");
+                                let detail = json!({ "name": tool_name });
+                                let resp = jsonrpc_error(
+                                    id.unwrap_or(Value::Null),
+                                    -32602,
+                                    &message,
+                                    Some(detail),
+                                );
+                                write_framed_message(&mut writer, &resp)?;
+                                continue;
+                            }
+                            if let Err(message) = validate_tool_arguments(tool_name, &args) {
+                                let detail = json!({ "name": tool_name, "arguments": args });
+                                let resp = jsonrpc_error(
+                                    id.unwrap_or(Value::Null),
+                                    -32602,
+                                    &format!("Invalid params: {message}"),
+                                    Some(detail),
+                                );
+                                write_framed_message(&mut writer, &resp)?;
+                                continue;
+                            }
                             let tool_out = registry::handle_tool_call(tool_name, args)
                                 .unwrap_or_else(|e| json!({ "ok": false, "error": e.to_string() }));
                             let is_error = tool_out.get("ok").and_then(Value::as_bool) == Some(false);
@@ -211,4 +233,130 @@ fn jsonrpc_error(id: Value, code: i64, message: &str, data: Option<Value>) -> Va
             "data": data
         }
     })
+}
+
+fn known_tool_names() -> HashSet<String> {
+    registry::default_tools().into_iter().map(|t| t.name).collect()
+}
+
+fn tool_input_schema(tool_name: &str) -> Value {
+    match tool_name {
+        "markdownify.import" => json!({
+            "type": "object",
+            "properties": {
+                "input": { "type": "string", "description": "Input file path or URL" },
+                "output": { "type": "string", "description": "Optional output markdown path" }
+            },
+            "required": ["input"],
+            "additionalProperties": false
+        }),
+        "markdownify.status" => json!({
+            "type": "object",
+            "properties": {},
+            "additionalProperties": false
+        }),
+        "diagram.banner" => json!({
+            "type": "object",
+            "properties": {
+                "text": { "type": "string", "description": "Text to render with figlet" },
+                "font": { "type": "string", "description": "Optional figlet font name" }
+            },
+            "required": ["text"],
+            "additionalProperties": false
+        }),
+        "diagram.fonts.list" => json!({
+            "type": "object",
+            "properties": {},
+            "additionalProperties": false
+        }),
+        _ => json!({
+            "type": "object",
+            "additionalProperties": true
+        }),
+    }
+}
+
+fn validate_tool_arguments(tool_name: &str, args: &Value) -> std::result::Result<(), String> {
+    let obj = args
+        .as_object()
+        .ok_or_else(|| "tools/call `arguments` must be an object".to_string())?;
+    match tool_name {
+        "markdownify.import" => {
+            let input = obj
+                .get("input")
+                .and_then(Value::as_str)
+                .ok_or_else(|| "`input` is required and must be a string".to_string())?;
+            if input.trim().is_empty() {
+                return Err("`input` cannot be empty".to_string());
+            }
+            if let Some(output) = obj.get("output") {
+                if output.as_str().is_none() {
+                    return Err("`output` must be a string when provided".to_string());
+                }
+            }
+            reject_unexpected(obj, &["input", "output"])?;
+        }
+        "markdownify.status" | "diagram.fonts.list" => {
+            reject_unexpected(obj, &[])?;
+        }
+        "diagram.banner" => {
+            let text = obj
+                .get("text")
+                .and_then(Value::as_str)
+                .ok_or_else(|| "`text` is required and must be a string".to_string())?;
+            if text.trim().is_empty() {
+                return Err("`text` cannot be empty".to_string());
+            }
+            if let Some(font) = obj.get("font") {
+                if font.as_str().is_none() {
+                    return Err("`font` must be a string when provided".to_string());
+                }
+            }
+            reject_unexpected(obj, &["text", "font"])?;
+        }
+        _ => {}
+    }
+    Ok(())
+}
+
+fn reject_unexpected(
+    obj: &serde_json::Map<String, Value>,
+    allowed: &[&str],
+) -> std::result::Result<(), String> {
+    for key in obj.keys() {
+        if !allowed.iter().any(|k| key == k) {
+            return Err(format!("unexpected argument `{key}`"));
+        }
+    }
+    Ok(())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::{tool_input_schema, validate_tool_arguments};
+    use serde_json::json;
+
+    #[test]
+    fn schema_marks_markdownify_import_input_required() {
+        let schema = tool_input_schema("markdownify.import");
+        let required = schema
+            .get("required")
+            .and_then(|x| x.as_array())
+            .expect("required array");
+        assert!(required.iter().any(|x| x == "input"));
+    }
+
+    #[test]
+    fn validation_rejects_missing_required_input() {
+        let err = validate_tool_arguments("markdownify.import", &json!({}))
+            .expect_err("expected validation error");
+        assert!(err.contains("input"), "unexpected error: {err}");
+    }
+
+    #[test]
+    fn validation_rejects_unknown_field_for_status() {
+        let err = validate_tool_arguments("markdownify.status", &json!({"foo":"bar"}))
+            .expect_err("expected validation error");
+        assert!(err.contains("unexpected argument"), "unexpected error: {err}");
+    }
 }

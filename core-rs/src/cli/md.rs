@@ -1,6 +1,9 @@
 use anyhow::{anyhow, Context, Result};
+use std::env;
+use std::fs;
 use std::path::{Path, PathBuf};
 use std::process::Command;
+use std::time::{SystemTime, UNIX_EPOCH};
 
 fn remark_cli_path() -> &'static str {
     "/Users/fredbook/Code/uDosConnect/modules/remark-pipeline/src/cli.mjs"
@@ -168,4 +171,109 @@ pub fn frontmatter(path: &str) -> Result<()> {
 
 pub fn check(path: &str) -> Result<()> {
     run_remark(&["check", path])
+}
+
+pub fn publish_file(
+    file: &Path,
+    vault_path: Option<&Path>,
+    out_dir: Option<&Path>,
+    layout: Option<&str>,
+    theme: Option<&str>,
+) -> Result<PathBuf> {
+    let input = fs::read_to_string(file)
+        .with_context(|| format!("failed to read markdown source {}", file.display()))?;
+    let title = extract_title(&input).unwrap_or_else(|| {
+        file.file_stem()
+            .and_then(|s| s.to_str())
+            .unwrap_or("untitled")
+            .to_string()
+    });
+    let slug = slugify(&title);
+    let published_dir = resolve_publish_dir(vault_path, out_dir)?;
+    fs::create_dir_all(&published_dir)
+        .with_context(|| format!("failed to create {}", published_dir.display()))?;
+
+    let ts = SystemTime::now()
+        .duration_since(UNIX_EPOCH)
+        .context("system clock is before unix epoch")?
+        .as_secs();
+    let out_path = published_dir.join(format!("{slug}.md"));
+    let fm_layout = layout.unwrap_or("vault-entry");
+    let fm_theme = theme.unwrap_or("github-dark");
+    let output = format!(
+        "---\nlayout: {fm_layout}\ntitle: \"{}\"\ndate_unix: {ts}\nusxd_theme: {fm_theme}\nsource_path: \"{}\"\n---\n\n{}",
+        escape_quotes(&title),
+        file.display(),
+        input
+    );
+    fs::write(&out_path, output)
+        .with_context(|| format!("failed to write published markdown {}", out_path.display()))?;
+    Ok(out_path)
+}
+
+fn resolve_publish_dir(vault_path: Option<&Path>, out_dir: Option<&Path>) -> Result<PathBuf> {
+    if let Some(dir) = out_dir {
+        return Ok(dir.to_path_buf());
+    }
+    if let Some(vault) = vault_path {
+        return Ok(vault.join("content").join("published"));
+    }
+    let home = env::var("HOME").context("HOME is not set")?;
+    Ok(PathBuf::from(home).join("vault/content/published"))
+}
+
+fn extract_title(markdown: &str) -> Option<String> {
+    markdown
+        .lines()
+        .map(str::trim)
+        .find(|line| line.starts_with("# "))
+        .map(|line| line.trim_start_matches("# ").trim().to_string())
+}
+
+fn slugify(input: &str) -> String {
+    let mut out = String::new();
+    let mut last_dash = false;
+    for ch in input.chars() {
+        let c = ch.to_ascii_lowercase();
+        if c.is_ascii_alphanumeric() {
+            out.push(c);
+            last_dash = false;
+        } else if !last_dash {
+            out.push('-');
+            last_dash = true;
+        }
+    }
+    out.trim_matches('-').to_string()
+}
+
+fn escape_quotes(input: &str) -> String {
+    input.replace('"', "\\\"")
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use tempfile::tempdir;
+
+    #[test]
+    fn publish_file_writes_frontmatter_and_body() {
+        let temp = tempdir().expect("tempdir");
+        let source = temp.path().join("sample.md");
+        fs::write(&source, "# Hello Surface\n\ncontent").expect("write source");
+        let out_dir = temp.path().join("published");
+        let out = publish_file(
+            &source,
+            None,
+            Some(&out_dir),
+            Some("post"),
+            Some("github-dark"),
+        )
+        .expect("publish");
+        assert!(out.exists(), "expected {}", out.display());
+        let written = fs::read_to_string(out).expect("read output");
+        assert!(written.contains("layout: post"));
+        assert!(written.contains("title: \"Hello Surface\""));
+        assert!(written.contains("usxd_theme: github-dark"));
+        assert!(written.contains("content"));
+    }
 }

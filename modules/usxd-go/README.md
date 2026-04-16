@@ -66,6 +66,20 @@ make run-story
 make run-story-tui
 ```
 
+Repo-level scaffold gate:
+
+```bash
+cd ../../
+bash scripts/check-usxd-go-scaffold.sh
+```
+
+Story lane gate:
+
+```bash
+cd ../../
+bash scripts/check-usxd-story.sh
+```
+
 References:
 
 - Spec: `docs/specs/usxd-go.md`

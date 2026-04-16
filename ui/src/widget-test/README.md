@@ -12,6 +12,7 @@ This folder is a sandbox for evaluating external widget integrations before prom
 - iframe embedding
 - Web Component wrapper
 - Direct app shell integration
+- USXD skin token compatibility (`default`, `terminal`, `nord`, `amber`)
 
 ## Evaluation checklist
 

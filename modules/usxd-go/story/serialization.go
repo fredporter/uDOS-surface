@@ -8,6 +8,7 @@ type StoryEnvelope struct {
 }
 
 func (s *Story) Serialize() ([]byte, error) {
+	s.Navigation.normalize()
 	envelope := StoryEnvelope{
 		OpenBox: map[string]any{
 			"id":           "onboarding-story",

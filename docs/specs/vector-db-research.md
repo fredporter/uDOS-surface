@@ -5,12 +5,12 @@ audience: public
 slot: 5
 status: "draft"
 last_reviewed: "2026-04-15"
-applies_to: "A3 planning — informed by Foam experiment"
+applies_to: "A3 planning (after WordPress + cloud lanes) — informed by Foam experiment"
 ---
 
 # Vector database research for Cloud WordPress
 
-**Status:** A3 planning — **findings to be filled** from the Foam experiment under vault **`@toybox/experiments/foam/`** (or repo mirror [`dev/toybox-experiments`](../../dev/toybox-experiments/README.md)).
+**Status:** Deferred to **A3**. This lane starts only after WordPress + cloud integration lanes are active. Until then, uDos default local data format remains **`sqlite.db`** and vector activity stays research-only.
 
 ## Research questions
 
@@ -33,6 +33,11 @@ Expected topics:
 - Posts / CPTs → chunked text → **embeddings** stored with post IDs.
 - Comments / reactions → optional edge features or separate embedding index.
 - Query pattern: “posts related to X” → similarity search + permission filter at read time.
+
+## Default local store (pre-A3)
+
+- Use **`sqlite.db`** as the default local store format.
+- Do not introduce vector runtime dependencies into A1/A2 local baselines before cloud/WordPress readiness gates are met.
 
 ## Next steps
 

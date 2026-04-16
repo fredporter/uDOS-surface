@@ -13,7 +13,11 @@ ensure_shared_python
 bash "$SCRIPT_DIR/bootstrap-family-python.sh" >/dev/null
 
 export UDOS_USE_SHARED_RESOURCES=1
-if [ -f "$ROOT_DIR/.udos-family-python" ]; then
+if [ -f "$ROOT_DIR/.udos-connect-python" ]; then
+  UDOS_SHARED_PYTHON_BIN="$(tr -d '\n' < "$ROOT_DIR/.udos-connect-python")"
+  export UDOS_SHARED_PYTHON_BIN
+elif [ -f "$ROOT_DIR/.udos-family-python" ]; then
+  # Backward compatibility for older local setups.
   UDOS_SHARED_PYTHON_BIN="$(tr -d '\n' < "$ROOT_DIR/.udos-family-python")"
   export UDOS_SHARED_PYTHON_BIN
 fi

@@ -84,7 +84,8 @@ func loadManifestAndCommand(app string, passthroughArgs []string) (*manifest.Bod
 
 // LaunchOpts configures dry-run and execute. Runtime is docker|podman or empty to use manifest / UOS_RUNTIME.
 type LaunchOpts struct {
-	Runtime string
+	Runtime    string
+	GPUProfile string
 }
 
 // effectiveContainerKind resolves docker vs podman: --runtime / LaunchOpts.Runtime wins, then UOS_RUNTIME, then manifest type.
@@ -120,19 +121,24 @@ func DryRunDocker(app string, passthroughArgs []string, opts LaunchOpts) error {
 	if err != nil {
 		return err
 	}
+	gpuProfile, err := effectiveGPUProfile(body.Resources.GPU, opts.GPUProfile)
+	if err != nil {
+		return err
+	}
 
 	fmt.Printf("app: %s\n", app)
 	fmt.Printf("manifest: %s\n", p)
 	fmt.Printf("container: %s image=%s runtime=%s\n", body.Container.Type, body.Container.Image, body.Container.Runtime)
 	fmt.Printf("effective: %s\n", kind)
+	fmt.Printf("gpu_profile: %s\n", gpuProfile)
 	fmt.Printf("command: %s\n\n", cmd)
 
 	var args []string
 	switch kind {
 	case "docker":
-		args, err = dockerRunArgs(body, cmd, extra)
+		args, err = dockerRunArgs(body, cmd, extra, gpuProfile)
 	case "podman":
-		args, err = podmanRunArgs(body, cmd, extra)
+		args, err = podmanRunArgs(body, cmd, extra, gpuProfile)
 	default:
 		return fmt.Errorf("dry-run only supports docker|podman (got %q)", kind)
 	}
@@ -153,6 +159,10 @@ func RunContainer(app string, passthroughArgs []string, opts LaunchOpts) error {
 	if err != nil {
 		return err
 	}
+	gpuProfile, err := effectiveGPUProfile(body.Resources.GPU, opts.GPUProfile)
+	if err != nil {
+		return err
+	}
 	bin, err := exec.LookPath(kind)
 	if err != nil {
 		return fmt.Errorf("%s not found in PATH (install %s or add --dry-run to print the invocation)", kind, kind)
@@ -160,9 +170,9 @@ func RunContainer(app string, passthroughArgs []string, opts LaunchOpts) error {
 	var runArgs []string
 	switch kind {
 	case "docker":
-		runArgs, err = dockerRunArgs(body, cmd, extra)
+		runArgs, err = dockerRunArgs(body, cmd, extra, gpuProfile)
 	case "podman":
-		runArgs, err = podmanRunArgs(body, cmd, extra)
+		runArgs, err = podmanRunArgs(body, cmd, extra, gpuProfile)
 	default:
 		return fmt.Errorf("execute supports docker|podman only (got %q)", kind)
 	}
@@ -177,6 +187,24 @@ func RunContainer(app string, passthroughArgs []string, opts LaunchOpts) error {
 		return err
 	}
 	return nil
+}
+
+// effectiveGPUProfile resolves the runtime GPU profile. Supported values:
+// auto|off|all|nvidia|amd|intel.
+func effectiveGPUProfile(manifestGPU bool, override string) (string, error) {
+	v := strings.ToLower(strings.TrimSpace(override))
+	if v == "" || v == "auto" {
+		if manifestGPU {
+			return "all", nil
+		}
+		return "off", nil
+	}
+	switch v {
+	case "off", "all", "nvidia", "amd", "intel":
+		return v, nil
+	default:
+		return "", fmt.Errorf("gpu profile must be one of auto|off|all|nvidia|amd|intel (got %q)", override)
+	}
 }
 
 func pickCommand(body *manifest.BodyModel, passthroughArgs []string) string {
@@ -304,7 +332,7 @@ func splitCommandArgv(s string) ([]string, error) {
 	return parts, nil
 }
 
-func dockerRunArgs(body *manifest.BodyModel, command string, extra []extraBind) ([]string, error) {
+func dockerRunArgs(body *manifest.BodyModel, command string, extra []extraBind, gpuProfile string) ([]string, error) {
 	args := []string{"run", "--rm", "--name", sanitizeName(body)}
 	if body.Resources.CPU > 0 {
 		args = append(args, "--cpus", fmt.Sprintf("%d", body.Resources.CPU))
@@ -312,8 +340,13 @@ func dockerRunArgs(body *manifest.BodyModel, command string, extra []extraBind) 
 	if strings.TrimSpace(body.Resources.Memory) != "" {
 		args = append(args, "--memory", body.Resources.Memory)
 	}
-	if body.Resources.GPU {
+	switch gpuProfile {
+	case "all":
 		args = append(args, "--gpus", "all")
+	case "nvidia":
+		args = append(args, "--gpus", "all", "-e", "NVIDIA_DRIVER_CAPABILITIES=all")
+	case "amd", "intel":
+		args = append(args, "--device", "/dev/dri")
 	}
 	if os.Getenv("DISPLAY") != "" {
 		args = append(args, "-e", "DISPLAY="+os.Getenv("DISPLAY"))
@@ -349,8 +382,8 @@ func dockerRunArgs(body *manifest.BodyModel, command string, extra []extraBind) 
 	return args, nil
 }
 
-func podmanRunArgs(body *manifest.BodyModel, command string, extra []extraBind) ([]string, error) {
-	args, err := dockerRunArgs(body, command, extra)
+func podmanRunArgs(body *manifest.BodyModel, command string, extra []extraBind, gpuProfile string) ([]string, error) {
+	args, err := dockerRunArgs(body, command, extra, gpuProfile)
 	if err != nil {
 		return nil, err
 	}

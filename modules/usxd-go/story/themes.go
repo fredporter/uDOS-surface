@@ -36,7 +36,9 @@ func (s *Story) RenderCurrent(theme Theme) (string, error) {
 func renderTypeform(s *Story, step Step) string {
 	cur, total, _ := s.Progress()
 	var b strings.Builder
-	b.WriteString(fmt.Sprintf("Story %d/%d\n", cur, total))
+	if s.Navigation.Progress != "hidden" {
+		b.WriteString(fmt.Sprintf("Story %d/%d\n", cur, total))
+	}
 	if step.Title != "" {
 		b.WriteString(step.Title + "\n")
 	}
@@ -47,14 +49,18 @@ func renderTypeform(s *Story, step Step) string {
 		b.WriteString(step.Content + "\n")
 	}
 	b.WriteString(renderControl(step))
-	b.WriteString("\nPress Enter to continue")
+	b.WriteString("\n" + controlHint(step))
 	return b.String()
 }
 
 func renderMarp(s *Story, step Step) string {
 	cur, total, _ := s.Progress()
 	var b strings.Builder
-	b.WriteString(fmt.Sprintf("Story %d/%d · Presentation Mode\n", cur, total))
+	if s.Navigation.Progress != "hidden" {
+		b.WriteString(fmt.Sprintf("Story %d/%d · Presentation Mode\n", cur, total))
+	} else {
+		b.WriteString("Presentation Mode\n")
+	}
 	if step.Content != "" {
 		b.WriteString(step.Content + "\n")
 	}
@@ -62,7 +68,7 @@ func renderMarp(s *Story, step Step) string {
 		b.WriteString(step.Label + "\n")
 	}
 	b.WriteString(renderControl(step))
-	b.WriteString("\n<- Back | Enter -> Continue")
+	b.WriteString("\n← Back | Enter → Continue")
 	return b.String()
 }
 
@@ -77,16 +83,19 @@ func renderTeletext(s *Story, step Step) string {
 		b.WriteString(strings.ToUpper(step.Label) + "\n")
 	}
 	b.WriteString(strings.ToUpper(renderControl(step)))
-	b.WriteString("\nPRESS ENTER TO CONTINUE")
+	b.WriteString("\n" + strings.ToUpper(controlHint(step)))
 	return b.String()
 }
 
 func renderThinUI(s *Story, step Step) string {
 	cur, total, _ := s.Progress()
+	progressHTML := ""
+	if s.Navigation.Progress != "hidden" {
+		progressHTML = fmt.Sprintf("<div class=\"story-progress\">Step %d of %d</div>", cur, total)
+	}
 	return fmt.Sprintf(
-		"<div class=\"story-panel\"><div class=\"story-progress\">Step %d of %d</div><h2>%s</h2><pre>%s</pre><div class=\"story-footer\"><button>← Back</button><button>Enter →</button></div></div>",
-		cur,
-		total,
+		"<div class=\"story-panel\">%s<h2>%s</h2><pre>%s</pre><div class=\"story-footer\"><button>← Back</button><button>Enter →</button></div></div>",
+		progressHTML,
 		escape(step.Label),
 		escape(renderControl(step)),
 	)
@@ -142,6 +151,17 @@ func renderControl(step Step) string {
 		return strings.Join(parts, " ")
 	default:
 		return ""
+	}
+}
+
+func controlHint(step Step) string {
+	switch step.Type {
+	case StepStars, StepScale:
+		return "Hint: Use ← → then Enter"
+	case StepMultiChoice:
+		return "Hint: Space to toggle, Enter to continue"
+	default:
+		return "Press Enter to continue"
 	}
 }
 

@@ -116,6 +116,43 @@ enum Command {
         #[command(subcommand)]
         command: WorkflowCommand,
     },
+    /// Adaptor schema scaffolds and validation
+    Adaptor {
+        #[command(subcommand)]
+        command: AdaptorCommand,
+    },
+    /// Vector database research lane commands
+    Vector {
+        #[command(subcommand)]
+        command: VectorCommand,
+    },
+    /// USXD widget scaffolds and checks
+    Widget {
+        #[command(subcommand)]
+        command: WidgetCommand,
+    },
+    /// Container runtime helpers (docker/podman)
+    Docker {
+        #[command(subcommand)]
+        command: DockerCommand,
+    },
+    /// Experimental image module commands (nanobanana lane)
+    Image {
+        #[command(subcommand)]
+        command: ImageCommand,
+    },
+    /// Deterministic handle generator (uNameStringGen lane)
+    Namegen {
+        seed: String,
+    },
+    /// Import external documents into markdown using Markdownify bridge
+    Import {
+        input: String,
+        #[arg(long)]
+        output: Option<PathBuf>,
+    },
+    /// Show Markdownify integration status
+    ImportStatus,
     /// Run uCode (mini runtime; file or `--eval`)
     Run {
         #[arg(short = 'f', long)]
@@ -291,6 +328,92 @@ enum WorkflowCommand {
 }
 
 #[derive(Subcommand, Debug)]
+enum AdaptorCommand {
+    /// Create adaptor yaml scaffold under @user/adaptors
+    Create {
+        name: String,
+        #[arg(long, default_value = "import")]
+        kind: String,
+        #[arg(long)]
+        path: Option<PathBuf>,
+    },
+    /// List adaptors under @user/adaptors
+    List {
+        #[arg(long)]
+        path: Option<PathBuf>,
+    },
+    /// Validate adaptor yaml schema baseline
+    Validate { file: PathBuf },
+}
+
+#[derive(Subcommand, Debug)]
+enum VectorCommand {
+    /// Show vector lane readiness pointers
+    Status,
+    /// Print recommended research execution plan
+    Plan,
+    /// Record benchmark intent (stub)
+    Benchmark {
+        #[arg(long)]
+        dataset: String,
+        #[arg(long)]
+        backend: String,
+    },
+}
+
+#[derive(Subcommand, Debug)]
+enum WidgetCommand {
+    /// Create widget scaffold under @toybox/widgets
+    Create {
+        name: String,
+        #[arg(long, default_value = "js")]
+        lang: String,
+        #[arg(long)]
+        path: Option<PathBuf>,
+    },
+    /// List available widgets under @toybox/widgets
+    List {
+        #[arg(long)]
+        path: Option<PathBuf>,
+    },
+    /// Run static contract checks on a widget file
+    Test { file: PathBuf },
+}
+
+#[derive(Subcommand, Debug)]
+enum DockerCommand {
+    /// Show docker/podman availability
+    Status,
+    /// Pass-through to `docker run` or `podman run`
+    Run {
+        #[arg(trailing_var_arg = true, allow_hyphen_values = true)]
+        args: Vec<String>,
+    },
+    /// Pass-through to `docker compose` or `podman compose`
+    Compose {
+        #[arg(trailing_var_arg = true, allow_hyphen_values = true)]
+        args: Vec<String>,
+    },
+}
+
+#[derive(Subcommand, Debug)]
+enum ImageCommand {
+    /// List available mono style presets
+    Styles,
+    /// Validate prompt and print render scaffold settings
+    Render {
+        #[arg(long)]
+        prompt: String,
+        #[arg(long, default_value = "mono_teletext")]
+        style: String,
+        #[arg(long, default_value = "1:1")]
+        aspect: String,
+        #[arg(long, default_value = "2K")]
+        size: String,
+    },
+}
+
+#[derive(Subcommand, Debug)]
 enum MdCommand {
     /// Format markdown in place
     Format { file: PathBuf },
@@ -314,6 +437,18 @@ enum MdCommand {
     Check { file: PathBuf },
     /// Verify Node.js and remark-pipeline dependencies
     Doctor,
+    /// Publish markdown to vault-friendly Jekyll frontmatter output
+    Publish {
+        file: PathBuf,
+        #[arg(long)]
+        vault_path: Option<PathBuf>,
+        #[arg(long)]
+        out_dir: Option<PathBuf>,
+        #[arg(long, default_value = "vault-entry")]
+        layout: String,
+        #[arg(long, default_value = "github-dark")]
+        theme: String,
+    },
 }
 
 #[tokio::main]
@@ -405,6 +540,22 @@ async fn main() -> Result<()> {
             MdCommand::Frontmatter { file } => cli::md::frontmatter(&file.to_string_lossy())?,
             MdCommand::Check { file } => cli::md::check(&file.to_string_lossy())?,
             MdCommand::Doctor => cli::md::doctor()?,
+            MdCommand::Publish {
+                file,
+                vault_path,
+                out_dir,
+                layout,
+                theme,
+            } => {
+                let output = cli::md::publish_file(
+                    &file,
+                    vault_path.as_deref(),
+                    out_dir.as_deref(),
+                    Some(&layout),
+                    Some(&theme),
+                )?;
+                println!("Published {}", output.display());
+            }
         },
         Command::ServerDaemon => {
             server::run_daemon_loop().await?;
@@ -446,6 +597,51 @@ async fn main() -> Result<()> {
             WorkflowCommand::QueueStatus => cli::workflow::queue_status()?,
             WorkflowCommand::Retry { failed_id } => cli::workflow::retry(&failed_id)?,
         },
+        Command::Adaptor { command } => match command {
+            AdaptorCommand::Create { name, kind, path } => {
+                cli::adaptor::create(&name, &kind, path.as_deref())?;
+            }
+            AdaptorCommand::List { path } => {
+                cli::adaptor::list(path.as_deref())?;
+            }
+            AdaptorCommand::Validate { file } => cli::adaptor::validate(&file)?,
+        },
+        Command::Vector { command } => match command {
+            VectorCommand::Status => cli::vector::status(),
+            VectorCommand::Plan => cli::vector::plan(),
+            VectorCommand::Benchmark { dataset, backend } => {
+                cli::vector::benchmark_stub(&dataset, &backend)?
+            }
+        },
+        Command::Widget { command } => match command {
+            WidgetCommand::Create { name, lang, path } => {
+                cli::widget::create(&name, &lang, path.as_deref())?;
+            }
+            WidgetCommand::List { path } => {
+                cli::widget::list(path.as_deref())?;
+            }
+            WidgetCommand::Test { file } => cli::widget::test(&file)?,
+        },
+        Command::Docker { command } => match command {
+            DockerCommand::Status => cli::docker::status()?,
+            DockerCommand::Run { args } => cli::docker::run_passthrough(&args)?,
+            DockerCommand::Compose { args } => cli::docker::compose_passthrough(&args)?,
+        },
+        Command::Image { command } => match command {
+            ImageCommand::Styles => cli::image::styles(),
+            ImageCommand::Render {
+                prompt,
+                style,
+                aspect,
+                size,
+            } => cli::image::render(&prompt, &style, &aspect, &size)?,
+        },
+        Command::Namegen { seed } => cli::namegen::generate(&seed)?,
+        Command::Import { input, output } => {
+            let output_s = output.map(|x| x.to_string_lossy().to_string());
+            cli::import::run(&input, output_s.as_deref())?
+        }
+        Command::ImportStatus => cli::import::status()?,
         Command::Run { file, eval } => match (&file, &eval) {
             (Some(path), None) => cli::ucode::run_file(path)?,
             (None, Some(code)) => cli::ucode::run_eval(code)?,

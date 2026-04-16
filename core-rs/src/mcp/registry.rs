@@ -32,6 +32,16 @@ pub fn default_tools() -> Vec<ToolSpec> {
         tool("diagram.banner", "Generate FIGlet banner", "A1"),
         tool("diagram.fonts.list", "List FIGlet fonts", "A1"),
         tool("image.process", "Process image via IMAGE module", "A1"),
+        tool(
+            "markdownify.status",
+            "Show Markdownify MCP integration status",
+            "A2-alpha",
+        ),
+        tool(
+            "markdownify.import",
+            "Convert input to markdown via MarkItDown bridge",
+            "A2-alpha",
+        ),
         tool("sync.status", "Sync status", "A2-stub"),
         tool("sync.push", "Sync push", "A2-stub"),
         tool("sync.pull", "Sync pull", "A2-stub"),
@@ -67,6 +77,8 @@ pub fn handle_tool_call(method: &str, params: Value) -> Result<Value> {
             let fonts = figlet_fonts()?;
             Ok(json!({ "ok": true, "fonts": fonts }))
         }
+        "markdownify.status" => Ok(crate::mcp::markdownify::status_json()),
+        "markdownify.import" => crate::mcp::markdownify::import_to_markdown(params),
         _ => Ok(json!({
             "ok": false,
             "error": format!("tool `{method}` not implemented in A1 scaffold"),

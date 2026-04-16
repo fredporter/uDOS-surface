@@ -44,6 +44,7 @@ Commands:
 
 Options:
   --runtime docker|podman   Override OBX container.type (default: manifest or UOS_RUNTIME)
+  --gpu-profile auto|off|all|nvidia|amd|intel   Override GPU runtime mode (default: auto)
 
 `)
 }
@@ -88,6 +89,7 @@ func cmdLaunch(args []string) error {
 	dry := false
 	execute := false
 	runtimeFlag := ""
+	gpuProfile := ""
 	var passthrough []string
 	sawSep := false
 	for i := 0; i < len(rest); i++ {
@@ -115,6 +117,14 @@ func cmdLaunch(args []string) error {
 			i++
 			continue
 		}
+		if a == "--gpu-profile" {
+			if i+1 >= len(rest) {
+				return fmt.Errorf("--gpu-profile requires auto|off|all|nvidia|amd|intel")
+			}
+			gpuProfile = strings.ToLower(strings.TrimSpace(rest[i+1]))
+			i++
+			continue
+		}
 		if a == "--" {
 			sawSep = true
 			continue
@@ -127,7 +137,7 @@ func cmdLaunch(args []string) error {
 	if !dry && !execute {
 		return fmt.Errorf("choose --dry-run (print invocation) or --execute (run docker/podman)")
 	}
-	opts := launch.LaunchOpts{Runtime: runtimeFlag}
+	opts := launch.LaunchOpts{Runtime: runtimeFlag, GPUProfile: gpuProfile}
 	if dry {
 		return launch.DryRunDocker(app, passthrough, opts)
 	}

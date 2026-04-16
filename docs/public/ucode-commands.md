@@ -35,6 +35,7 @@ Implemented by **`core-rs`** (`udos-core`). Language subset: `PRINT`, `LET`, `IF
 | Command | Description | Example |
 | --- | --- | --- |
 | `udo run --file <path>` | Execute a `.ucode` file | `udo run -f ucode/hello.ucode` |
+| `udo run --file <doc.md>` | Execute all fenced ` ```ucode ` blocks in markdown (CommonMark fence order) | `udo run -f notes/lab.md` |
 | `udo run --eval <snippet>` | Inline uCode (quote as needed) | `udo run --eval 'PRINT "hello"'` |
 | `udo fmt <path>` | Format `.ucode` under a file or directory (trim trailing spaces; ensure final newline) | `udo fmt ucode/` |
 | `udo fmt --check <path>` | Exit with error if any file would change (CI-style) | `udo fmt --check script.ucode` |
@@ -58,6 +59,7 @@ Requires external **`figlet`** on `PATH` for large banners; boxed fallback if mi
 | `udo md format <file>` | Format markdown | `udo md format note.md` |
 | `udo md lint <file>` | Lint | `udo md lint note.md` |
 | `udo md toc <file>` | Insert / refresh TOC | `udo md toc note.md` |
+| `udo md publish <file> [--vault-path <path> \| --out-dir <dir>] [--layout <name>] [--theme <id>]` | Write vault publishing markdown with Jekyll-style frontmatter | `udo md publish content/note.md --theme github-dark` |
 
 ## Frontmatter
 
@@ -267,6 +269,43 @@ See [../specs/font-system-obf.md](../specs/font-system-obf.md), repo [`cdn/READM
 | `udo update` | Rebuild workspace via sonic-express |
 | `udo uninstall` | Remove global `udo`; optional `--delete-vault` |
 | `udo help` | Full help text |
+
+## Docker (alpha lane, `udos-core`)
+
+| Command | Description |
+| --- | --- |
+| `udo docker status` | Show docker/podman availability and selected runtime |
+| `udo docker run -- <args...>` | Pass through to `docker run` (fallback `podman run`) |
+| `udo docker compose -- <args...>` | Pass through to `docker compose` (fallback `podman compose`) |
+
+## Image (experimental nanobanana lane, `udos-core`)
+
+| Command | Description |
+| --- | --- |
+| `udo image styles` | List Mono preset ids (`mono_blueprint`, `mono_botanical`, `mono_chrome`, `mono_teletext`, `mono_editorial`) |
+| `udo image render --prompt <text> [--style ... --aspect ... --size ...]` | Validate Mono-Core prompt constraints and print render scaffold settings (A2-alpha stub) |
+
+## Name generator (experimental `uNameStringGen` lane, `udos-core`)
+
+| Command | Description |
+| --- | --- |
+| `udo namegen "<seed>"` | Generate deterministic handle from a seed using FNV-1a + internal word lists |
+
+## Widget (experimental USXD widget lane, `udos-core`)
+
+| Command | Description |
+| --- | --- |
+| `udo widget create <name> [--lang js|ts] [--path <vault-root>]` | Create widget scaffold under `@toybox/widgets` |
+| `udo widget list [--path <vault-root>]` | List `.js`/`.ts` widgets under `@toybox/widgets` |
+| `udo widget test <file>` | Validate basic widget contract (`onRender` + return presence) |
+
+## Adaptor (experimental integration lane, `udos-core`)
+
+| Command | Description |
+| --- | --- |
+| `udo adaptor create <name> [--kind import|export|sync|event|widget] [--path <vault-root>]` | Create adaptor YAML scaffold under `@user/adaptors` |
+| `udo adaptor list [--path <vault-root>]` | List `.adaptor.yaml` files under `@user/adaptors` |
+| `udo adaptor validate <file>` | Validate baseline adaptor YAML contract (`name`, `version >= 1`, optional non-empty capabilities) |
 
 ## Trash / compost index
 
