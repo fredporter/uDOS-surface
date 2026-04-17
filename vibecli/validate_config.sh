@@ -1,7 +1,8 @@
 #!/bin/bash
 
 # Validate the config.json file
-CONFIG_FILE="config.json"
+SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+CONFIG_FILE="$SCRIPT_DIR/config.json"
 
 if [ ! -f "$CONFIG_FILE" ]; then
     echo "Error: $CONFIG_FILE not found!"
@@ -70,8 +71,8 @@ if [ "$SECRET_SCAN_ENABLED" != "\"auto\"" ]; then
 fi
 
 # Check examples folder
-if [ -d "examples" ]; then
-    EXAMPLE_COUNT=$(ls -1 examples/ 2>/dev/null | wc -l)
+if [ -d "$SCRIPT_DIR/examples" ]; then
+    EXAMPLE_COUNT=$(ls -1 "$SCRIPT_DIR/examples/" 2>/dev/null | wc -l)
     if [ "$EXAMPLE_COUNT" -gt 0 ]; then
         echo "✅ Examples folder contains $EXAMPLE_COUNT file(s)."
     else
