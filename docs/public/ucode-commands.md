@@ -161,6 +161,35 @@ Auto-detection defaults:
 | `udo wp sync` | WordPress sync stub (upgrade message) |
 | `udo wp publish` | WordPress publish stub (upgrade message) |
 | `udo wp review` | WordPress editorial review stub (upgrade message) |
+| `udo wp submit` | WordPress draft submission stub (upgrade message) |
+| `udo wp approve` | WordPress draft approval stub (upgrade message) |
+
+## WordPress sync commands (A2 implementation)
+
+| Command | Description |
+| --- | --- |
+| `udo wp sync run` | Run bidirectional synchronization (dry-run mode) |
+| `udo wp sync status` | Show synchronization status and state |
+| `udo wp sync --apply` | Apply synchronization changes (future) |
+
+## WordPress adaptor commands (A2 implementation)
+
+| Command | Description |
+| --- | --- |
+| `udo wp setup` | Configure WordPress connection and credentials |
+| `udo wp status` | Check WordPress connection status with API test |
+| `udo wp import [--all] [--category <cat>] [--tag <tag>] [--since <date>] [--limit <num>] [--include-media] [--dry-run]` | Import WordPress posts with filtering options |
+| `udo wp export [--all] [--category <cat>] [--tag <tag>] [--since <date>] [--limit <num>] [--include-media] [--dry-run]` | Export uDos notes with filtering options |
+
+## WordPress API commands (A2 direct access)
+
+| Command | Description |
+| --- | --- |
+| `udo wp api test` | Test WordPress API connectivity |
+| `udo wp api posts` | List WordPress posts from API |
+| `udo wp api posts <id>` | Get specific post details |
+| `udo wp api categories` | List all categories |
+| `udo wp api tags` | List all tags |
 
 ## Sync (A1 stubs for WP cloud actions)
 

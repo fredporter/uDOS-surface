@@ -9,6 +9,10 @@ slot: 5
 
 Locked reference material for **Open Box Format (OBF)**, **grid**, **display sizes**, **audience tags**, and **publishing slots**. All files here are **`--public`** (technical, no login required to read the spec text).
 
+## v1.4 (Alpha) Specifications
+
+See [v4/README.md](v4/README.md) for **spatial algebra**, **Tower of Knowledge**, and **uCell ↔ voxel mapping**.
+
 | Spec | Purpose |
 | --- | --- |
 | [va1-style-guide.md](va1-style-guide.md) | **VA1** consolidated style (colours, type, grid summary, OBF UI) |

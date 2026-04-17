@@ -41,9 +41,9 @@ test("github and pr command groups are exposed", () => {
 test("wp command emits A2 upgrade guidance", () => {
   const wp = runUdo(["wp", "sync"]);
   assert.equal(wp.code, 0);
-  assert.match(wp.output.toLowerCase(), /not implemented in udos a1 wireframe core/);
   assert.match(wp.output.toLowerCase(), /wordpress sync/);
-  assert.match(wp.output.toLowerCase(), /udos universe/);
+  assert.match(wp.output.toLowerCase(), /a1 stub implementation/);
+  assert.match(wp.output.toLowerCase(), /bidirectional sync/);
 });
 
 test("collab docs route uses wp stub path", () => {

@@ -24,7 +24,7 @@ apple_color: Blue
 
 | # | Round | Focus |
 | --- | --- | --- |
-| 1 | PRE5-R01 | Spec spine and roadmap parity |
+| 1 | PRE5-R01 | Spec spine and roadmap parity (v1.4) |
 | 2 | PRE5-R02 | WordPress portal and two gates |
 | 3 | PRE5-R03 | Spatial registry (voxel / cell / depth) |
 | 4 | PRE5-R04 | Tower of Knowledge (slots 0–7) |

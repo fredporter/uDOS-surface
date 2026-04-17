@@ -4,7 +4,7 @@ experiments:
     source: "https://github.com/markuspeitl/rnmd"
     purpose: "Executable markdown patterns for udo run (A2)"
     location: "markdown-runtime/"
-    status: "pending-clone"
+    status: "cloned"
     findings: "markdown-runtime/findings.md"
     a2_ready: false
 
@@ -12,7 +12,7 @@ experiments:
     source: "https://github.com/phillip-england/marki"
     purpose: "Markdown → HTML; watch mode"
     location: "markdown-runtime/"
-    status: "pending-clone"
+    status: "cloned"
     findings: "markdown-runtime/findings.md"
     a2_ready: false
 
@@ -20,7 +20,7 @@ experiments:
     source: "https://github.com/foambubble/foam"
     purpose: "Backlinks / graph — informs vector DB + WordPress (A3)"
     location: "foam/"
-    status: "pending-clone"
+    status: "cloned"
     findings: "foam/findings.md"
     a3_ready: false
 

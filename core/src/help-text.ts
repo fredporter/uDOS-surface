@@ -140,6 +140,19 @@ GRID (OBF — see docs/specs/obf-grid-spec.md):
   udo grid layer show <file> --layer <index>
   udo grid layer merge <file> --layers 0,1,2
 
+SPATIAL ALGEBRA (v1.4 — see docs/specs/v4/UDOS_SPATIAL_ALGEBRA_LOCKED_v1.2.md):
+  udo cell <x> <y> <z>             Navigate to voxel cell
+  udo cube <x> <y>                 Render depth cube
+  udo surface create <id>         Create surface from cubes
+  udo surface list                 List surfaces
+  udo surface show <id>            Show surface details
+
+TOWER OF KNOWLEDGE (v1.4 — see docs/specs/v4/UDOS_TOWER_OF_KNOWLEDGE_LOCKED_v1.md):
+  udo tower view                   View all slots
+  udo tower list <slot>             List surfaces in slot
+  udo tower move <surface> --to <slot> Move surface to slot
+  udo tower publish <surface>      Publish to slot 5 (Global Knowledge Bank)
+
 OBF UI BLOCKS:
   udo obf render <file> [--format terminal|html]
                            Render obf CARD/COLUMNS/TABS/ACCORDION/GRID blocks
