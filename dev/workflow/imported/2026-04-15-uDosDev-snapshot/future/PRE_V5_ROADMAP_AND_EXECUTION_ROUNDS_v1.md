@@ -92,9 +92,9 @@ Rounds are **batches**, not strict releases; close a round when **exit criteria*
 
 | Action | Exit |
 | --- | --- |
-| Confirm `specs/v4/README.md` lists Tower, Spatial algebra, uCell mapping | Done |
-| uDosGo `docs/specs/README.md` includes pre-v5 rows | Done |
-| `roadmap-v4-family.md` + `uDosGo` `ROADMAP.md` reference this file | Done |
+| Confirm `docs/specs/v4/README.md` lists Tower, Spatial algebra, uCell mapping | ✅ Done |
+| uDosConnect `docs/specs/README.md` includes v1.4 rows | ✅ Done |
+| `docs/roadmap/pre-v5-family-notes.md` references v1.4 specs | ✅ Done |
 
 **Primary repo:** uDosDev → uDosGo.
 

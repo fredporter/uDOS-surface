@@ -38,6 +38,7 @@ export { default as SyncStatusPill } from "./dashboard/SyncStatusPill.vue";
 export { default as ChatView } from "./chat/ChatView.vue";
 export { default as ProseSurfaceView } from "./surfaces/ProseSurfaceView.vue";
 export { default as ProseSurfaceRouteView } from "./surfaces/ProseSurfaceRouteView.vue";
+export { default as TowerBrowserView } from "./surfaces/TowerBrowserView.vue";
 
 export { default as SettingsView } from "./settings/SettingsView.vue";
 export { default as VaultPathPicker } from "./settings/VaultPathPicker.vue";

@@ -68,6 +68,7 @@ import {
 import { getVaultRoot } from "./paths.js";
 import { cmdTour } from "./actions/tour.js";
 import { cmdUpdate, cmdUninstall } from "./actions/self-manage.js";
+import { registerVibeCommand } from "./actions/vibe.js";
 import { cmdFontActivate, cmdFontInstall, cmdFontList, cmdFontPreview } from "./actions/font.js";
 import {
   cmdServerConfigure,
@@ -611,6 +612,74 @@ export async function main(argv: string[]): Promise<void> {
       cmdObfRender(file, (o.format === "html" ? "html" : "terminal") as "terminal" | "html")
     );
 
+  // SPATIAL ALGEBRA (v1.4)
+  const cell = program.command("cell").description("Navigate voxel cells (spatial algebra v1.4)");
+  cell
+    .argument("<x>", "X coordinate")
+    .argument("<y>", "Y coordinate")
+    .argument("<z>", "Z coordinate (depth 0–5)")
+    .action(async (x: string, y: string, z: string) => {
+      const { cmdCellNavigate } = await import("./actions/spatial.js");
+      await cmdCellNavigate(parseInt(x, 10), parseInt(y, 10), parseInt(z, 10));
+    });
+
+  const cube = program.command("cube").description("Render depth cubes (spatial algebra v1.4)");
+  cube
+    .argument("<x>", "X coordinate")
+    .argument("<y>", "Y coordinate")
+    .action(async (x: string, y: string) => {
+      const { cmdCubeRender } = await import("./actions/spatial.js");
+      await cmdCubeRender(parseInt(x, 10), parseInt(y, 10));
+    });
+
+  const surface = program.command("surface").description("Surface management (spatial algebra v1.4)");
+  surface
+    .command("create")
+    .argument("<id>", "Surface ID")
+    .option("--cubes <cubes>", "Comma-separated cube coordinates, e.g. 1,2,3,4")
+    .action(async (id: string, o: { cubes?: string }) => {
+      const { cmdSurfaceCreate } = await import("./actions/spatial.js");
+      await cmdSurfaceCreate(id, o.cubes?.split(",").map(Number));
+    });
+  surface.command("list").action(async () => {
+    const { cmdSurfaceList } = await import("./actions/spatial.js");
+    await cmdSurfaceList();
+  });
+  surface.command("show").argument("<id>", "Surface ID").action(async (id: string) => {
+    const { cmdSurfaceShow } = await import("./actions/spatial.js");
+    await cmdSurfaceShow(id);
+  });
+
+  // TOWER OF KNOWLEDGE (v1.4)
+  const tower = program.command("tower").description("Tower of Knowledge (slots 0–7)");
+  tower.command("view").description("View all slots").action(async () => {
+    const { cmdTowerView } = await import("./actions/tower.js");
+    await cmdTowerView();
+  });
+  tower
+    .command("list")
+    .argument("<slot>", "Slot number (0–7)")
+    .action(async (slot: string) => {
+      const { cmdTowerList } = await import("./actions/tower.js");
+      await cmdTowerList(parseInt(slot, 10));
+    });
+  tower
+    .command("move")
+    .argument("<surface>", "Surface ID")
+    .requiredOption("--to <slot>", "Target slot (0–7)")
+    .action(async (surface: string, o: { to: string }) => {
+      const { cmdTowerMove } = await import("./actions/tower.js");
+      await cmdTowerMove(surface, parseInt(o.to, 10));
+    });
+  tower
+    .command("publish")
+    .argument("<surface>", "Surface ID")
+    .description("Publish to slot 5 (Global Knowledge Bank)")
+    .action(async (surface: string) => {
+      const { cmdTowerPublish } = await import("./actions/tower.js");
+      await cmdTowerPublish(surface);
+    });
+
   const font = program.command("font").description("Font bundles (stub — see docs/specs/font-system-obf.md)");
   font.command("install").argument("[bundle]", "e.g. retro").action(async (b) => cmdFontInstall(b ?? "retro"));
   font.command("list").action(async () => cmdFontList());
@@ -653,6 +722,9 @@ export async function main(argv: string[]): Promise<void> {
       cmdUninstall({ yes: Boolean(o.yes), deleteVault: Boolean(o.deleteVault) })
     );
   program.command("help").description("Show help").action(() => console.log(VA1_HELP));
+
+  // Register vibe command
+  registerVibeCommand(program);
 
   await program.parseAsync(argv);
 }

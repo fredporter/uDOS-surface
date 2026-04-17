@@ -17,6 +17,7 @@
     "@udos/obf-grid": "*",
     "@udos/shared-types": "*",
     "@udos/shared-utils": "*",
+    "@udos/ugridcomposer": "*",
     "chalk": "^5.4.1",
     "commander": "^12.1.0",
     "fs-extra": "^11.3.0",
