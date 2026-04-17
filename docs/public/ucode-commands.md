@@ -178,8 +178,8 @@ Auto-detection defaults:
 | --- | --- |
 | `udo wp setup` | Configure WordPress connection and credentials |
 | `udo wp status` | Check WordPress connection status with API test |
-| `udo wp import` | Import WordPress posts as uDos notes (A2) |
-| `udo wp export` | Export uDos notes as WordPress posts (A2) |
+| `udo wp import [--all] [--category <cat>] [--tag <tag>] [--since <date>] [--limit <num>] [--include-media] [--dry-run]` | Import WordPress posts with filtering options |
+| `udo wp export [--all] [--category <cat>] [--tag <tag>] [--since <date>] [--limit <num>] [--include-media] [--dry-run]` | Export uDos notes with filtering options |
 
 ## WordPress API commands (A2 direct access)
 

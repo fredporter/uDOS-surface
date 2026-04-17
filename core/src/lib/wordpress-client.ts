@@ -183,6 +183,14 @@ export class WordPressClient {
   }
   
   /**
+   * Get media item by ID
+   */
+  async getMedia(mediaId: number): Promise<any> {
+    const response = await this.client.get(`/media/${mediaId}`);
+    return response.data;
+  }
+  
+  /**
    * Get a single post by ID
    */
   async getPost(id: number): Promise<WordPressPost> {

@@ -345,8 +345,53 @@ export async function main(argv: string[]): Promise<void> {
   wp.command("submit").action(async () => cmdWpSubmit());
   wp.command("approve").action(async () => cmdWpApprove());
   wp.command("setup").action(async () => cmdWpSetup());
-  wp.command("import").action(async () => cmdWpImport());
-  wp.command("export").action(async () => cmdWpExport());
+  
+  // Import command with options
+  wp.command("import")
+    .description("Import WordPress posts to uDos")
+    .option("--all", "Import all posts")
+    .option("--category <category>", "Import posts from specific category")
+    .option("--tag <tag>", "Import posts with specific tag")
+    .option("--since <date>", "Import posts since date (YYYY-MM-DD)")
+    .option("--limit <num>", "Limit number of posts to import", "10")
+    .option("--include-media", "Include media attachments")
+    .option("--dry-run", "Preview import without executing")
+    .action(async (o: { all?: boolean; category?: string; tag?: string; since?: string; limit?: string; includeMedia?: boolean; dryRun?: boolean }) => {
+      const { cmdWpImportWithOptions } = await import("./actions/wordpress.js");
+      return cmdWpImportWithOptions({
+        all: Boolean(o.all),
+        category: o.category,
+        tag: o.tag,
+        since: o.since,
+        limit: parseInt(o.limit || "10", 10),
+        includeMedia: Boolean(o.includeMedia),
+        dryRun: Boolean(o.dryRun)
+      });
+    });
+  
+  // Export command with options
+  wp.command("export")
+    .description("Export uDos notes to WordPress")
+    .option("--all", "Export all notes")
+    .option("--category <category>", "Export notes with specific category")
+    .option("--tag <tag>", "Export notes with specific tag")
+    .option("--since <date>", "Export notes since date (YYYY-MM-DD)")
+    .option("--limit <num>", "Limit number of notes to export", "10")
+    .option("--include-media", "Include media attachments")
+    .option("--dry-run", "Preview export without executing")
+    .action(async (o: { all?: boolean; category?: string; tag?: string; since?: string; limit?: string; includeMedia?: boolean; dryRun?: boolean }) => {
+      const { cmdWpExportWithOptions } = await import("./actions/wordpress.js");
+      return cmdWpExportWithOptions({
+        all: Boolean(o.all),
+        category: o.category,
+        tag: o.tag,
+        since: o.since,
+        limit: parseInt(o.limit || "10", 10),
+        includeMedia: Boolean(o.includeMedia),
+        dryRun: Boolean(o.dryRun)
+      });
+    });
+  
   wp.command("status").action(async () => cmdWpStatus());
 
   program

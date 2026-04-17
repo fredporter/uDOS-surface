@@ -131,34 +131,96 @@ export async function cmdWpSetup(): Promise<void> {
  * WordPress Import Command - Import posts from WordPress
  */
 export async function cmdWpImport(): Promise<void> {
-  console.log(chalk.blue("\n📥 WordPress Import"));
-  console.log("   Status: A1 stub - will import WordPress posts as uDos notes in A2");
-  console.log("\n🎯 Features (A2):");
-  console.log("   - Import all posts");
-  console.log("   - Import specific categories");
-  console.log("   - Import by date range");
-  console.log("   - Preserve metadata and relationships");
-  console.log("\n📋 Requirements:");
-  console.log("   - WordPress REST API must be enabled");
-  console.log("   - Application Passwords plugin recommended");
-  console.log("   - Configure connection with: udo wp setup");
+  try {
+    const { WordPressImporterFactory } = await import("../import/wordpress-importer.js");
+    const importer = await WordPressImporterFactory.getImporter();
+    
+    console.log(chalk.blue("\n📥 WordPress Import"));
+    console.log("🎯 Importing posts from WordPress to uDos");
+    
+    // For A2, we'll implement basic import with dry-run mode
+    const result = await importer.importPosts({
+      dryRun: true, // Always dry-run for A2 safety
+      limit: 10,    // Limit for A2 testing
+      includeMedia: false // Skip media for A2
+    });
+    
+    if (result.success) {
+      console.log(chalk.green("\n✅ Import Preview Results:"));
+      console.log(`   Total Posts: ${result.totalPosts}`);
+      console.log(`   Imported: ${result.imported}`);
+      console.log(`   Skipped: ${result.skipped}`);
+      console.log(`   Duration: ${result.durationMs}ms`);
+      
+      if (result.imported > 0) {
+        console.log(chalk.blue("\n📝 Sample imported posts:"));
+        result.samplePosts?.slice(0, 3).forEach((post: any) => {
+          console.log(`   - ${post.title} (ID: ${post.id})`);
+        });
+      }
+      
+      console.log(chalk.green("\n✅ Dry run completed successfully"));
+      console.log("   Run with --apply to execute import (A2 feature)");
+      
+    } else {
+      console.log(chalk.red("\n❌ Import preview failed:"));
+      result.errors.forEach(error => console.log(`   - ${error}`));
+    }
+    
+  } catch (error: any) {
+    console.error(chalk.red("❌ Import command failed:"), error.message);
+    console.log(chalk.blue("\n📋 Setup required:"));
+    console.log("   Run: udo wp setup");
+    console.log("   Configure WordPress connection first");
+  }
 }
 
 /**
  * WordPress Export Command - Export uDos notes to WordPress
  */
 export async function cmdWpExport(): Promise<void> {
-  console.log(chalk.blue("\n📤 WordPress Export"));
-  console.log("   Status: A1 stub - will export uDos notes as WordPress posts in A2");
-  console.log("\n🎯 Features (A2):");
-  console.log("   - Export selected notes");
-  console.log("   - Export with formatting");
-  console.log("   - Preserve categories and tags");
-  console.log("   - Handle media attachments");
-  console.log("\n📋 Requirements:");
-  console.log("   - WordPress REST API must be enabled");
-  console.log("   - Proper user permissions");
-  console.log("   - Configure connection with: udo wp setup");
+  try {
+    const { UdosExporterFactory } = await import("../export/udos-exporter.js");
+    const exporter = await UdosExporterFactory.getExporter();
+    
+    console.log(chalk.blue("\n📤 WordPress Export"));
+    console.log("🎯 Exporting uDos notes to WordPress");
+    
+    // For A2, we'll implement basic export with dry-run mode
+    const result = await exporter.exportNotes({
+      dryRun: true, // Always dry-run for A2 safety
+      limit: 10,    // Limit for A2 testing
+      includeMedia: false // Skip media for A2
+    });
+    
+    if (result.success) {
+      console.log(chalk.green("\n✅ Export Preview Results:"));
+      console.log(`   Total Notes: ${result.totalNotes}`);
+      console.log(`   Exported: ${result.exported}`);
+      console.log(`   Skipped: ${result.skipped}`);
+      console.log(`   Duration: ${result.durationMs}ms`);
+      
+      if (result.exported > 0) {
+        console.log(chalk.blue("\n📝 Sample exported notes:"));
+        result.sampleNotes?.slice(0, 3).forEach((note: any) => {
+          console.log(`   - ${note.title} (ID: ${note.id})`);
+        });
+      }
+      
+      console.log(chalk.green("\n✅ Dry run completed successfully"));
+      console.log("   Run with --apply to execute export (A2 feature)");
+      
+    } else {
+      console.log(chalk.red("\n❌ Export preview failed:"));
+      result.errors.forEach(error => console.log(`   - ${error}`));
+    }
+    
+  } catch (error: any) {
+    console.error(chalk.red("❌ Export command failed:"), error.message);
+    console.log(chalk.blue("\n📋 Setup required:"));
+    console.log("   Run: udo wp setup");
+    console.log("   Configure WordPress connection first");
+  }
 }
 
 /**
@@ -259,6 +321,158 @@ export async function cmdWpSyncStatus(): Promise<void> {
     console.error(chalk.red("❌ Sync status failed:"), error.message);
     console.log(chalk.blue("\n📋 Setup required:"));
     console.log("   Run: udo wp setup");
+  }
+}
+
+/**
+ * WordPress Import Command with Options
+ */
+export async function cmdWpImportWithOptions(options: {
+  all?: boolean;
+  category?: string;
+  tag?: string;
+  since?: string;
+  limit?: number;
+  includeMedia?: boolean;
+  dryRun?: boolean;
+}): Promise<void> {
+  try {
+    const { WordPressImporterFactory } = await import("../import/wordpress-importer.js");
+    const importer = await WordPressImporterFactory.getImporter();
+    
+    console.log(chalk.blue("\n📥 WordPress Import"));
+    console.log("🎯 Importing posts from WordPress to uDos");
+    
+    // Build filter criteria
+    const filterCriteria: any = {};
+    if (options.category) filterCriteria.categories = [options.category];
+    if (options.tag) filterCriteria.tags = [options.tag];
+    if (options.since) filterCriteria.dateAfter = options.since;
+    
+    console.log(chalk.blue("\n📋 Import Options:"));
+    console.log(`   All posts: ${options.all || false}`);
+    console.log(`   Category: ${options.category || 'any'}`);
+    console.log(`   Tag: ${options.tag || 'any'}`);
+    console.log(`   Since: ${options.since || 'all time'}`);
+    console.log(`   Limit: ${options.limit || 'none'}`);
+    console.log(`   Include media: ${options.includeMedia || false}`);
+    console.log(`   Dry run: ${options.dryRun || false}`);
+    
+    // Execute import
+    const result = await importer.importPosts({
+      dryRun: options.dryRun !== false, // Default to dry-run for safety
+      limit: options.limit || 10,
+      includeMedia: Boolean(options.includeMedia),
+      filterCriteria: filterCriteria
+    });
+    
+    if (result.success) {
+      console.log(chalk.green("\n✅ Import Results:"));
+      console.log(`   Total Posts: ${result.totalPosts}`);
+      console.log(`   Imported: ${result.imported}`);
+      console.log(`   Skipped: ${result.skipped}`);
+      console.log(`   Duration: ${result.durationMs}ms`);
+      
+      if (result.imported > 0) {
+        console.log(chalk.blue("\n📝 Sample imported posts:"));
+        result.samplePosts?.slice(0, 3).forEach(post => {
+          console.log(`   - ${post.title} (ID: ${post.id})`);
+        });
+      }
+      
+      if (options.dryRun) {
+        console.log(chalk.green("\n✅ Dry run completed successfully"));
+        console.log("   Remove --dry-run to execute import");
+      } else {
+        console.log(chalk.green("\n✅ Import completed successfully"));
+      }
+      
+    } else {
+      console.log(chalk.red("\n❌ Import failed:"));
+      result.errors.forEach((error: any) => console.log(`   - ${error}`));
+    }
+    
+  } catch (error: any) {
+    console.error(chalk.red("❌ Import command failed:"), error.message);
+    console.log(chalk.blue("\n📋 Setup required:"));
+    console.log("   Run: udo wp setup");
+    console.log("   Configure WordPress connection first");
+  }
+}
+
+/**
+ * WordPress Export Command with Options
+ */
+export async function cmdWpExportWithOptions(options: {
+  all?: boolean;
+  category?: string;
+  tag?: string;
+  since?: string;
+  limit?: number;
+  includeMedia?: boolean;
+  dryRun?: boolean;
+}): Promise<void> {
+  try {
+    const { UdosExporterFactory } = await import("../export/udos-exporter.js");
+    const exporter = await UdosExporterFactory.getExporter();
+    
+    console.log(chalk.blue("\n📤 WordPress Export"));
+    console.log("🎯 Exporting uDos notes to WordPress");
+    
+    // Build filter criteria
+    const filterCriteria: any = {};
+    if (options.category) filterCriteria.categories = [options.category];
+    if (options.tag) filterCriteria.tags = [options.tag];
+    if (options.since) filterCriteria.dateAfter = options.since;
+    
+    console.log(chalk.blue("\n📋 Export Options:"));
+    console.log(`   All notes: ${options.all || false}`);
+    console.log(`   Category: ${options.category || 'any'}`);
+    console.log(`   Tag: ${options.tag || 'any'}`);
+    console.log(`   Since: ${options.since || 'all time'}`);
+    console.log(`   Limit: ${options.limit || 'none'}`);
+    console.log(`   Include media: ${options.includeMedia || false}`);
+    console.log(`   Dry run: ${options.dryRun || false}`);
+    
+    // Execute export
+    const result = await exporter.exportNotes({
+      dryRun: options.dryRun !== false, // Default to dry-run for safety
+      limit: options.limit || 10,
+      includeMedia: Boolean(options.includeMedia),
+      filterCriteria: filterCriteria
+    });
+    
+    if (result.success) {
+      console.log(chalk.green("\n✅ Export Results:"));
+      console.log(`   Total Notes: ${result.totalNotes}`);
+      console.log(`   Exported: ${result.exported}`);
+      console.log(`   Skipped: ${result.skipped}`);
+      console.log(`   Duration: ${result.durationMs}ms`);
+      
+      if (result.exported > 0) {
+        console.log(chalk.blue("\n📝 Sample exported notes:"));
+        result.sampleNotes?.slice(0, 3).forEach(note => {
+          console.log(`   - ${note.title} (ID: ${note.id})`);
+        });
+      }
+      
+      if (options.dryRun) {
+        console.log(chalk.green("\n✅ Dry run completed successfully"));
+        console.log("   Remove --dry-run to execute export");
+      } else {
+        console.log(chalk.green("\n✅ Export completed successfully"));
+      }
+      
+    } else {
+      console.log(chalk.red("\n❌ Export failed:"));
+      result.errors.forEach((error: any) => console.log(`   - ${error}`));
+    }
+    
+  } catch (error: any) {
+    console.error(chalk.red("❌ Export command failed:"), error.message);
+    console.log(chalk.blue("\n📋 Setup required:"));
+    console.log("   Run: udo wp setup");
+    console.log("   Configure WordPress connection first");
   }
 }
 
