@@ -6,24 +6,137 @@ const branches = ref<string[]>(['main', 'dev', 'feature/vibe-integration']);
 const currentBranch = ref('main');
 const commits = ref<{message: string; author: string; date: string}[]>([]);
 
-function syncRepo() {
+async function syncRepo() {
   repoStatus.value = 'syncing';
-  setTimeout(() => {
-    repoStatus.value = 'synced';
-    commits.value = [
-      { message: 'Add Vibe integration', author: 'fredbook', date: '2026-04-17' },
-      { message: 'Update GUI launcher', author: 'fredbook', date: '2026-04-16' },
-      { message: 'Fix Tailwind config', author: 'fredbook', date: '2026-04-15' },
-    ];
-  }, 1500);
+  
+  try {
+    const response = await fetch('http://localhost:5175/api/exec', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ command: 'udo github sync' })
+    });
+    
+    const data = await response.json();
+    
+    if (data.success) {
+      repoStatus.value = 'synced';
+      commits.value = [
+        { message: 'Add Vibe integration', author: 'fredbook', date: '2026-04-17' },
+        { message: 'Update GUI launcher', author: 'fredbook', date: '2026-04-16' },
+        { message: 'Fix Tailwind config', author: 'fredbook', date: '2026-04-15' },
+      ];
+    } else {
+      repoStatus.value = 'error';
+      alert(`Sync failed: ${data.error}`);
+    }
+  } catch (error) {
+    repoStatus.value = 'error';
+    alert(`Sync failed: ${error.message}`);
+  }
 }
 
-function pullRequest() {
-  alert('Creating pull request...');
+async function pullRequest() {
+  try {
+    const response = await fetch('http://localhost:5175/api/exec', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ command: 'udo github pr create' })
+    });
+    
+    const data = await response.json();
+    
+    if (data.success) {
+      alert(`Pull request created successfully:\n${data.output}`);
+    } else {
+      alert(`Failed to create pull request:\n${data.error}`);
+    }
+  } catch (error) {
+    alert(`Failed to create pull request:\n${error.message}`);
+  }
 }
 
-function checkoutBranch(branch: string) {
-  currentBranch.value = branch;
+async function checkoutBranch(branch: string) {
+  try {
+    const response = await fetch('http://localhost:5175/api/exec', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ command: `udo github checkout ${branch}` })
+    });
+    
+    const data = await response.json();
+    
+    if (data.success) {
+      currentBranch.value = branch;
+    } else {
+      alert(`Failed to checkout branch:\n${data.error}`);
+    }
+  } catch (error) {
+    alert(`Failed to checkout branch:\n${error.message}`);
+  }
+}
+
+async function pushChanges() {
+  try {
+    const response = await fetch('http://localhost:5175/api/exec', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ command: 'udo github push' })
+    });
+    
+    const data = await response.json();
+    
+    if (data.success) {
+      alert(`Changes pushed successfully:\n${data.output}`);
+    } else {
+      alert(`Failed to push changes:\n${data.error}`);
+    }
+  } catch (error) {
+    alert(`Failed to push changes:\n${error.message}`);
+  }
+}
+
+async function pullUpdates() {
+  try {
+    const response = await fetch('http://localhost:5175/api/exec', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ command: 'udo github pull' })
+    });
+    
+    const data = await response.json();
+    
+    if (data.success) {
+      alert(`Updates pulled successfully:\n${data.output}`);
+    } else {
+      alert(`Failed to pull updates:\n${data.error}`);
+    }
+  } catch (error) {
+    alert(`Failed to pull updates:\n${error.message}`);
+  }
+}
+
+async function createBranch() {
+  const branchName = prompt('Enter new branch name:');
+  if (!branchName) return;
+  
+  try {
+    const response = await fetch('http://localhost:5175/api/exec', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ command: `udo github branch ${branchName}` })
+    });
+    
+    const data = await response.json();
+    
+    if (data.success) {
+      branches.value.push(branchName);
+      alert(`Branch created successfully:\n${data.output}`);
+    } else {
+      alert(`Failed to create branch:\n${data.error}`);
+    }
+  } catch (error) {
+    alert(`Failed to create branch:\n${error.message}`);
+  }
 }
 </script>
 
@@ -52,7 +165,7 @@ function checkoutBranch(branch: string) {
     <div class="bg-gray-800 border border-gray-700 rounded-lg p-4">
       <div class="flex items-center space-x-2 mb-2">
         <span class="text-gray-400">Branch:</span>
-        <select v-model="currentBranch" class="bg-gray-700 text-white px-2 py-1 rounded text-sm">
+        <select v-model="currentBranch" @change="checkoutBranch(currentBranch)" class="bg-gray-700 text-white px-2 py-1 rounded text-sm">
           <option v-for="branch in branches" :key="branch" :value="branch">
             {{ branch }}
           </option>
@@ -96,13 +209,13 @@ function checkoutBranch(branch: string) {
     
     <!-- Quick Actions -->
     <div class="grid grid-cols-2 gap-4">
-      <button class="bg-gray-700 hover:bg-gray-600 text-white px-4 py-3 rounded text-left">
+      <button @click="pushChanges" class="bg-gray-700 hover:bg-gray-600 text-white px-4 py-3 rounded text-left">
         📤 Push Changes
       </button>
-      <button class="bg-gray-700 hover:bg-gray-600 text-white px-4 py-3 rounded text-left">
+      <button @click="pullUpdates" class="bg-gray-700 hover:bg-gray-600 text-white px-4 py-3 rounded text-left">
         📥 Pull Updates
       </button>
-      <button class="bg-gray-700 hover:bg-gray-600 text-white px-4 py-3 rounded text-left">
+      <button @click="createBranch" class="bg-gray-700 hover:bg-gray-600 text-white px-4 py-3 rounded text-left">
         🌿 Create Branch
       </button>
       <button class="bg-gray-700 hover:bg-gray-600 text-white px-4 py-3 rounded text-left">

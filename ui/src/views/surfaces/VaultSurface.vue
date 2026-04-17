@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 
 const vaultItems = ref<{name: string; type: string; size: string; modified: string}[]>([]);
 const isLoading = ref<boolean>(true);
@@ -21,8 +21,8 @@ async function loadVaultContents() {
       vaultItems.value = data.map((item: any) => ({
         name: item.name,
         type: item.type || 'file',
-        size: item.size || '-',
-        modified: item.modified || 'Unknown'
+        size: formatSize(item.size),
+        modified: formatDate(item.modified)
       }));
     } else {
       // Fallback to default vault structure
@@ -45,6 +45,23 @@ async function loadVaultContents() {
   }
 }
 
+function formatSize(bytes: number): string {
+  if (bytes === 0) return '-';
+  const k = 1024;
+  const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+}
+
+function formatDate(isoString: string): string {
+  try {
+    const date = new Date(isoString);
+    return date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
+  } catch {
+    return 'Unknown';
+  }
+}
+
 const filteredItems = computed(() => {
   if (!searchQuery.value) return vaultItems.value;
   return vaultItems.value.filter(item => 
@@ -52,8 +69,57 @@ const filteredItems = computed(() => {
   );
 });
 
-function openItem(item: any) {
-  alert(`Opening ${item.name}`);
+async function openItem(item: any) {
+  if (item.type === 'directory') {
+    alert(`Opening directory: ${item.name}`);
+  } else {
+    alert(`Opening file: ${item.name}`);
+  }
+}
+
+async function createDirectory() {
+  const name = prompt('Enter directory name:');
+  if (!name) return;
+  
+  try {
+    const response = await fetch('http://localhost:5175/api/vault/create', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name })
+    });
+    
+    const data = await response.json();
+    
+    if (data.success) {
+      alert(`Directory created: ${data.path}`);
+      await loadVaultContents(); // Refresh list
+    } else {
+      alert(`Failed to create directory: ${data.error}`);
+    }
+  } catch (error) {
+    alert(`Failed to create directory: ${error.message}`);
+  }
+}
+
+async function syncVault() {
+  try {
+    const response = await fetch('http://localhost:5175/api/exec', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ command: 'udo vault sync' })
+    });
+    
+    const data = await response.json();
+    
+    if (data.success) {
+      alert(`Vault synced successfully:\n${data.output}`);
+      await loadVaultContents(); // Refresh list
+    } else {
+      alert(`Vault sync failed:\n${data.error}`);
+    }
+  } catch (error) {
+    alert(`Vault sync failed:\n${error.message}`);
+  }
 }
 </script>
 
@@ -109,7 +175,7 @@ function openItem(item: any) {
               <td class="p-3 text-sm text-gray-400">{{ item.size }}</td>
               <td class="p-3 text-sm text-gray-400">{{ item.modified }}</td>
               <td class="p-3">
-                <button class="text-blue-400 hover:text-blue-300">Open</button>
+                <button @click.stop="openItem(item)" class="text-blue-400 hover:text-blue-300">Open</button>
               </td>
             </tr>
           </tbody>
@@ -117,13 +183,13 @@ function openItem(item: any) {
       </div>
       
       <div class="grid grid-cols-3 gap-4">
-        <button class="bg-gray-700 hover:bg-gray-600 text-white px-4 py-3 rounded text-left">
+        <button @click="createDirectory" class="bg-gray-700 hover:bg-gray-600 text-white px-4 py-3 rounded text-left">
           📁 Create Directory
         </button>
         <button class="bg-gray-700 hover:bg-gray-600 text-white px-4 py-3 rounded text-left">
           📄 Upload File
         </button>
-        <button class="bg-gray-700 hover:bg-gray-600 text-white px-4 py-3 rounded text-left">
+        <button @click="syncVault" class="bg-gray-700 hover:bg-gray-600 text-white px-4 py-3 rounded text-left">
           🔄 Sync Vault
         </button>
       </div>

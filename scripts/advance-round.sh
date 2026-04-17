@@ -1,5 +1,204 @@
 #!/bin/bash
 
+# uDosConnect Round Advancement Script
+# Advances the project to the next development round
+
+echo "🎮 uDosConnect Round Advancement"
+echo "================================"
+echo ""
+
+# Check current round
+if [ -f "ROUND_ADVANCEMENT.md" ]; then
+    echo "✅ Round Advancement Plan found"
+    echo ""
+    echo "Current Status:"
+    grep "## 📋 Current Status" -A 10 ROUND_ADVANCEMENT.md
+    echo ""
+else
+    echo "❌ ROUND_ADVANCEMENT.md not found"
+    exit 1
+fi
+
+# Create round 2 implementation files
+echo "🔧 Setting up Round 2 implementation..."
+
+# Create API endpoints directory
+mkdir -p tools/gui-api/endpoints
+
+# Create command execution endpoint
+cat > tools/gui-api/endpoints/exec.ts << 'EOT'
+import { Request, Response } from 'express';
+import { exec } from 'child_process';
+import { promisify } from 'util';
+
+const execAsync = promisify(exec);
+
+export async function execCommand(req: Request, res: Response) {
+  try {
+    const { command } = req.body;
+    
+    if (!command) {
+      return res.status(400).json({ success: false, error: 'Command required' });
+    }
+    
+    console.log(`Executing: ${command}`);
+    
+    const { stdout, stderr } = await execAsync(command);
+    
+    if (stderr) {
+      return res.json({ success: false, output: stdout, error: stderr });
+    }
+    
+    res.json({ success: true, output: stdout });
+  } catch (error) {
+    console.error('Command execution failed:', error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+}
+EOT
+
+# Create vault operations endpoint
+cat > tools/gui-api/endpoints/vault.ts << 'EOT'
+import { Request, Response } from 'express';
+import fs from 'fs';
+import path from 'path';
+
+const VAULT_PATH = process.env.VAULT_PATH || path.join(process.env.HOME || '', 'vault');
+
+export async function listVaultContents(req: Request, res: Response) {
+  try {
+    if (!fs.existsSync(VAULT_PATH)) {
+      return res.json([]);
+    }
+    
+    const items = fs.readdirSync(VAULT_PATH).map(item => {
+      const itemPath = path.join(VAULT_PATH, item);
+      const stats = fs.statSync(itemPath);
+      
+      return {
+        name: item,
+        type: stats.isDirectory() ? 'directory' : 'file',
+        size: stats.size,
+        modified: stats.mtime.toISOString()
+      };
+    });
+    
+    res.json(items);
+  } catch (error) {
+    console.error('Failed to list vault:', error);
+    res.status(500).json({ error: 'Failed to list vault contents' });
+  }
+}
+
+export async function createDirectory(req: Request, res: Response) {
+  try {
+    const { name } = req.body;
+    
+    if (!name) {
+      return res.status(400).json({ success: false, error: 'Name required' });
+    }
+    
+    const dirPath = path.join(VAULT_PATH, name);
+    
+    if (fs.existsSync(dirPath)) {
+      return res.status(400).json({ success: false, error: 'Directory already exists' });
+    }
+    
+    fs.mkdirSync(dirPath);
+    res.json({ success: true, path: dirPath });
+  } catch (error) {
+    console.error('Failed to create directory:', error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+}
+EOT
+
+# Update main API server
+cat > tools/gui-api/server.js << 'EOT'
+const express = require('express');
+const path = require('path');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+
+const app = express();
+const PORT = process.env.PORT || 5175;
+
+// Middleware
+app.use(cors());
+app.use(bodyParser.json());
+
+// API Routes
+const vaultRoutes = require('./endpoints/vault');
+const execRoutes = require('./endpoints/exec');
+
+app.use('/api/vault', vaultRoutes);
+app.use('/api/exec', execRoutes);
+
+// Health check
+app.get('/health', (req, res) => {
+  res.json({ status: 'healthy', timestamp: new Date().toISOString() });
+});
+
+// Start server
+app.listen(PORT, () => {
+  console.log(`GUI API Server running on http://localhost:${PORT}`);
+});
+EOT
+
+# Update package.json for API server
+cat > tools/gui-api/package.json << 'EOT'
+{
+  "name": "udos-gui-api",
+  "version": "1.0.0",
+  "description": "uDosConnect GUI API Server",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "body-parser": "^1.20.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2",
+    "@types/express": "^4.17.17",
+    "@types/cors": "^2.8.13",
+    "@types/node": "^20.4.2"
+  }
+}
+EOT
+
+# Create TypeScript config for API
+cat > tools/gui-api/tsconfig.json << 'EOT'
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "commonjs",
+    "outDir": "./dist",
+    "rootDir": ".",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["**/*.ts"],
+  "exclude": ["node_modules", "dist"]
+}
+EOT
+
+# Update GUI launcher to start API server
+echo ""
+echo "📝 Updating GUI launcher..."
+
+# Backup original launcher
+cp scripts/gui-launcher.sh scripts/gui-launcher.sh.bak
+
+# Create new launcher with API server support
+cat > scripts/gui-launcher.sh << 'EOT'
+#!/bin/bash
+
 # uDosConnect GUI Launcher with API Server
 # Enhanced with process monitoring and auto-restart
 
@@ -250,3 +449,23 @@ case "$1" in
         exit 1
         ;;
 esac
+EOT
+
+chmod +x scripts/gui-launcher.sh
+
+# Install API dependencies
+echo ""
+echo "📦 Installing API server dependencies..."
+cd tools/gui-api
+npm install > /dev/null 2>&1
+
+echo ""
+echo "✅ Round 2 setup complete!"
+echo ""
+echo "Next steps:"
+echo "1. Start the enhanced launcher: ./scripts/gui-launcher.sh start"
+echo "2. The API server will start on port 5175"
+echo "3. The GUI will start on an available port"
+echo "4. Begin wiring GUI buttons to real commands"
+echo ""
+echo "Documentation: ROUND_ADVANCEMENT.md"

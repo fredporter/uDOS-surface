@@ -41,13 +41,14 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('../views/surfaces/MCPSurface.vue'),
         meta: { title: 'MCP Bridge' },
       },
+      {
+        path: 'demos',
+        component: () => import('../views/surfaces/DemosSurface.vue'),
+        meta: { title: 'Demo Surfaces' },
+      },
     ],
   },
-  {
-    path: '/demos',
-    component: () => import('../views/surfaces/DemosSurface.vue'),
-    meta: { title: 'USXD Demos' },
-  },
+
   {
     path: '/:catchAll(.*)',
     redirect: '/surface/vibe',

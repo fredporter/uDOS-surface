@@ -5,28 +5,73 @@ const vibeStatus = ref<'idle' | 'connecting' | 'active' | 'error'>('idle');
 const model = ref('devstral-2');
 const sessionLog = ref<string[]>([]);
 
-function startVibe() {
+async function startVibe() {
   vibeStatus.value = 'connecting';
   sessionLog.value.push(`[${new Date().toLocaleTimeString()}] Starting Vibe with model: ${model.value}`);
   
-  setTimeout(() => {
-    vibeStatus.value = 'active';
-    sessionLog.value.push(`[${new Date().toLocaleTimeString()}] Vibe connected successfully`);
-  }, 1000);
+  try {
+    const response = await fetch('http://localhost:5175/api/exec', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ command: `udo vibe --model ${model.value}` })
+    });
+    
+    const data = await response.json();
+    
+    if (data.success) {
+      vibeStatus.value = 'active';
+      sessionLog.value.push(`[${new Date().toLocaleTimeString()}] Vibe connected successfully`);
+      sessionLog.value.push(`[${new Date().toLocaleTimeString()}] ${data.output}`);
+    } else {
+      vibeStatus.value = 'error';
+      sessionLog.value.push(`[${new Date().toLocaleTimeString()}] ❌ Error: ${data.error || 'Failed to start Vibe'}`);
+    }
+  } catch (error) {
+    vibeStatus.value = 'error';
+    sessionLog.value.push(`[${new Date().toLocaleTimeString()}] ❌ Error: ${error.message}`);
+  }
 }
 
-function stopVibe() {
-  vibeStatus.value = 'idle';
-  sessionLog.value.push(`[${new Date().toLocaleTimeString()}] Vibe session ended`);
+async function stopVibe() {
+  try {
+    const response = await fetch('http://localhost:5175/api/exec', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ command: 'udo vibe disconnect' })
+    });
+    
+    const data = await response.json();
+    vibeStatus.value = 'idle';
+    sessionLog.value.push(`[${new Date().toLocaleTimeString()}] Vibe session ended`);
+    if (data.output) sessionLog.value.push(`[${new Date().toLocaleTimeString()}] ${data.output}`);
+  } catch (error) {
+    vibeStatus.value = 'idle';
+    sessionLog.value.push(`[${new Date().toLocaleTimeString()}] ❌ Error: ${error.message}`);
+  }
 }
 
-function sendCommand(cmd: string) {
+async function sendCommand(cmd: string) {
   if (vibeStatus.value !== 'active') return;
+  
   sessionLog.value.push(`[${new Date().toLocaleTimeString()}] > ${cmd}`);
   
-  setTimeout(() => {
-    sessionLog.value.push(`[${new Date().toLocaleTimeString()}] ✅ Command executed: ${cmd}`);
-  }, 500);
+  try {
+    const response = await fetch('http://localhost:5175/api/exec', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ command: cmd })
+    });
+    
+    const data = await response.json();
+    
+    if (data.success) {
+      sessionLog.value.push(`[${new Date().toLocaleTimeString()}] ✅ ${data.output}`);
+    } else {
+      sessionLog.value.push(`[${new Date().toLocaleTimeString()}] ❌ Error: ${data.error || 'Command failed'}`);
+    }
+  } catch (error) {
+    sessionLog.value.push(`[${new Date().toLocaleTimeString()}] ❌ Error: ${error.message}`);
+  }
 }
 </script>
 

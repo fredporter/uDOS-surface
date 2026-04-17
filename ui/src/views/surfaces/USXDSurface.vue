@@ -5,19 +5,66 @@ const usxdStatus = ref<'stopped' | 'starting' | 'running' | 'error'>('stopped');
 const currentSurface = ref('teletext-console');
 const surfaces = ref<string[]>(['teletext-console', 'github-theme', 'nes-classic']);
 
-function startUSXD() {
+async function startUSXD() {
   usxdStatus.value = 'starting';
-  setTimeout(() => {
-    usxdStatus.value = 'running';
-  }, 1500);
+  
+  try {
+    const response = await fetch('http://localhost:5175/api/exec', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ command: 'udo usxd serve --dir surfaces' })
+    });
+    
+    const data = await response.json();
+    
+    if (data.success) {
+      usxdStatus.value = 'running';
+    } else {
+      usxdStatus.value = 'error';
+      alert(`Failed to start USXD: ${data.error}`);
+    }
+  } catch (error) {
+    usxdStatus.value = 'error';
+    alert(`Failed to start USXD: ${error.message}`);
+  }
 }
 
-function stopUSXD() {
-  usxdStatus.value = 'stopped';
+async function stopUSXD() {
+  try {
+    const response = await fetch('http://localhost:5175/api/exec', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ command: 'pkill -f "usxd serve"' })
+    });
+    
+    usxdStatus.value = 'stopped';
+  } catch (error) {
+    alert(`Failed to stop USXD: ${error.message}`);
+  }
 }
 
 function openSurface() {
   window.open(`http://localhost:3000/surface/${currentSurface.value}`, '_blank');
+}
+
+async function execCommand(cmd: string) {
+  try {
+    const response = await fetch('http://localhost:5175/api/exec', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ command: cmd })
+    });
+    
+    const data = await response.json();
+    
+    if (data.success) {
+      alert(`Command executed successfully:\n${data.output}`);
+    } else {
+      alert(`Command failed:\n${data.error || 'Unknown error'}`);
+    }
+  } catch (error) {
+    alert(`Command failed:\n${error.message}`);
+  }
 }
 </script>
 

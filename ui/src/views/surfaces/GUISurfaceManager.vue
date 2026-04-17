@@ -49,6 +49,7 @@ onMounted(() => {
     { id: 'usxd', title: 'USXD Renderer', path: '/surface/usxd' },
     { id: 'workflow', title: 'Workflow Engine', path: '/surface/workflow' },
     { id: 'mcp', title: 'MCP Bridge', path: '/surface/mcp' },
+    { id: 'demos', title: 'Demo Surfaces', path: '/surface/demos' },
   ];
 });
 </script>
@@ -118,8 +119,8 @@ onMounted(() => {
         <div class="mt-6 pt-4 border-t border-gray-700">
           <h3 class="text-xs text-gray-400 uppercase tracking-wider mb-2">Localhost Services</h3>
           <div class="space-y-1 text-sm">
-            <a href="http://localhost:5174" target="_blank" class="block px-3 py-1 rounded hover:bg-gray-700">
-              🎮 GUI Dashboard (5174)
+            <a href="http://localhost:5176" target="_blank" class="block px-3 py-1 rounded hover:bg-gray-700">
+              🎮 GUI Dashboard (5176)
             </a>
             <a href="http://localhost:5175" target="_blank" class="block px-3 py-1 rounded hover:bg-gray-700">
               🔌 API Server (5175)
@@ -129,6 +130,24 @@ onMounted(() => {
             </a>
             <a href="http://localhost:5173" target="_blank" class="block px-3 py-1 rounded hover:bg-gray-700">
               🌐 Vite Dev Server (5173)
+            </a>
+          </div>
+        </div>
+        
+        <div class="mt-6 pt-4 border-t border-gray-700">
+          <h3 class="text-xs text-gray-400 uppercase tracking-wider mb-2">USXD Surfaces</h3>
+          <div class="space-y-1 text-sm">
+            <a href="http://localhost:3000/surface/teletext-console" target="_blank" class="block px-3 py-1 rounded hover:bg-gray-700">
+              📺 Teletext Console
+            </a>
+            <a href="http://localhost:3000/surface/github-theme" target="_blank" class="block px-3 py-1 rounded hover:bg-gray-700">
+              🎨 GitHub Theme
+            </a>
+            <a href="http://localhost:3000/surface/nes-classic" target="_blank" class="block px-3 py-1 rounded hover:bg-gray-700">
+              🎮 NES Classic
+            </a>
+            <a href="http://localhost:3000/surface/bedstead-modern" target="_blank" class="block px-3 py-1 rounded hover:bg-gray-700">
+              🏠 Bedstead Modern
             </a>
           </div>
         </div>
