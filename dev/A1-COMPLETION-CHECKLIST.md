@@ -269,3 +269,5 @@ CREATE INDEX idx_is_binary ON compost_entries(is_binary);
 | 2026-04-15 | Widgets charter simplified (TS/JS-only, returns USXD, file-based); added `dev/experiments/widgets/` docs + promotion criteria (A2 hold) |
 | 2026-04-15 | Added design references (`docs/themes/nord.md`, `docs/design/material-design-notes.md`) and `docs/specs/usxd-go.md` draft + module placeholder (`modules/usxd-go/README.md`) |
 | 2026-04-15 | A1 operator test executed (pass); Parts 2–5 marked deferred (A2+) to reflect closure scope |
+| 2026-04-17 | Updated vendor symlink setup to `~/vendor/` and added `UDOS_VENDOR` environment variable support. |
+| 2026-04-17 | Noted future transition of `~/Code/uDosConnect/` to `~/code-vault/uDosConnect/`. |

@@ -19,3 +19,7 @@ audience: devonly
 ## Risks
 
 ## Out of scope
+
+## Notes
+
+- Transition `~/Code/uDosConnect/` to `~/code-vault/uDosConnect/` in a future dev round.

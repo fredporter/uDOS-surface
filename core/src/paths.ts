@@ -22,6 +22,10 @@ export function getVaultRoot(): string {
   return process.env.UDOS_VAULT ? path.resolve(process.env.UDOS_VAULT) : path.join(os.homedir(), "vault");
 }
 
+export function getVendorRoot(): string {
+  return process.env.UDOS_VENDOR ? path.resolve(process.env.UDOS_VENDOR) : path.join(os.homedir(), "vendor");
+}
+
 export function resolveInVault(vaultRoot: string, file: string): string {
   const p = path.resolve(vaultRoot, file);
   if (!p.startsWith(vaultRoot)) {

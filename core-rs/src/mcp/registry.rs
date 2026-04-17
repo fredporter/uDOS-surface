@@ -48,6 +48,8 @@ pub fn default_tools() -> Vec<ToolSpec> {
         tool("apple.reminders.list", "List reminders", "A2-stub"),
         tool("apple.contacts.list", "List contacts", "A2-stub"),
         tool("agent.hivemind", "Multi-agent query", "A2-stub"),
+        tool("lechat.query", "Query Le Chat (Mistral)", "A2-alpha"),
+        tool("lechat.stream", "Stream response from Le Chat", "A2-alpha"),
         tool("webhook.register", "Register webhook", "A2-stub"),
         tool("webhook.trigger", "Trigger webhook", "A2-stub"),
         tool("actions.workflow.trigger", "Trigger GitHub workflow", "A2-stub"),
@@ -79,6 +81,8 @@ pub fn handle_tool_call(method: &str, params: Value) -> Result<Value> {
         }
         "markdownify.status" => Ok(crate::mcp::markdownify::status_json()),
         "markdownify.import" => crate::mcp::markdownify::import_to_markdown(params),
+        "lechat.query" => crate::mcp::lechat::query(params),
+        "lechat.stream" => crate::mcp::lechat::stream(params),
         _ => Ok(json!({
             "ok": false,
             "error": format!("tool `{method}` not implemented in A1 scaffold"),
