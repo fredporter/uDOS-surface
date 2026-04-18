@@ -17,7 +17,12 @@
     "restart": "tsx src/main.ts restart",
     "health": "tsx src/main.ts health",
     "self-heal": "tsx src/main.ts self-heal",
-    "cleanup": "tsx src/main.ts cleanup"
+    "cleanup": "tsx src/main.ts cleanup",
+    "init": "tsx src/main.ts init",
+    "init-health": "tsx src/main.ts init-health",
+    "init-self-heal": "tsx src/main.ts init-self-heal",
+    "init-restart": "tsx src/main.ts init-restart",
+    "init-cleanup": "tsx src/main.ts init-cleanup"
   },
   "dependencies": {
     "@udos/shared-types": "*",
