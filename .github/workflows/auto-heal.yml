@@ -7,6 +7,9 @@ on:
     types:
       - completed
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   auto-heal:
     if: github.event.workflow_run.conclusion == 'failure' || github.event.action == 'udos_feed_notification'
@@ -14,6 +17,10 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
 
       - name: Parse uDos Feed Notification
         if: github.event.action == 'udos_feed_notification'
