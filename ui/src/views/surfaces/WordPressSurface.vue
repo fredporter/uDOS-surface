@@ -379,7 +379,7 @@ onMounted(() => {
               class="text-xs px-2 py-1 rounded" 
               :class="{
                 'bg-green-600': sync.status === 'success',
-                'bg-yellow-600': sync.status === 'running',
+                'bg-yellow-600': sync.status === 'running'
                 'bg-red-600': sync.status === 'error'
               }
             >
