@@ -57,9 +57,28 @@ The project uses a pre-commit hook to ensure code quality before committing. The
 
 1. **VibeCLI Configuration Validation**: Validates the VibeCLI configuration.
 2. **Trailing Comma Check**: Checks for trailing commas in Vue files.
-3. **Linting**: Runs ESLint on Vue files to catch syntax errors and enforce code style.
+3. **Linting**: Runs ESLint on TypeScript and JavaScript files to catch syntax errors and enforce code style.
+4. **Workspace Validation**: Validates the npm workspaces configuration.
 
 If any of these checks fail, the commit will be aborted. Fix the issues and try committing again.
+
+#### ESLint Configuration
+
+The project uses ESLint to enforce code style and catch syntax errors. The configuration is defined in `eslint.config.js` and includes the following rules:
+
+- `eslint:recommended`: Recommended ESLint rules.
+- `plugin:@typescript-eslint/recommended`: Recommended TypeScript ESLint rules.
+- Custom rules for `no-console`, `no-debugger`, `no-unused-vars`, and `no-useless-assignment`.
+
+To lint the code manually, run:
+```bash
+npm run lint:check
+```
+
+To fix linting issues automatically, run:
+```bash
+npm run lint
+```
 
 ### 5. Scripts
 
