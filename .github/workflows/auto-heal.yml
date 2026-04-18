@@ -1,0 +1,100 @@
+name: Auto-Heal Workflow
+on:
+  repository_dispatch:
+    types: [udos_feed_notification]
+  workflow_run:
+    workflows: ["CI"]
+    types:
+      - completed
+
+jobs:
+  auto-heal:
+    if: github.event.workflow_run.conclusion == 'failure' || github.event.action == 'udos_feed_notification'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Parse uDos Feed Notification
+        if: github.event.action == 'udos_feed_notification'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const payload = github.event.client_payload;
+            console.log("Received uDos Feed Notification:", JSON.stringify(payload, null, 2));
+            
+            // Store the payload for later steps
+            core.exportVariable('UDOS_EVENT', JSON.stringify(payload));
+
+      - name: Analyze Workflow Failure
+        if: github.event.workflow_run.conclusion == 'failure'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const logs = await github.rest.actions.downloadWorkflowRunLogs({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              run_id: ${{ github.event.workflow_run.id }}
+            });
+            
+            // Parse logs and determine the issue
+            console.log("Analyzing logs for auto-healing...");
+            core.exportVariable('WORKFLOW_LOGS', logs);
+
+      - name: Apply Auto-Healing Fixes
+        run: |
+          echo "Applying auto-healing fixes..."
+          # Add your auto-heal logic here
+          # Example: Restart services, clean up resources, etc.
+          
+          # Check if this is a uDos feed notification
+          if [ -n "${{ env.UDOS_EVENT }}" ]; then
+            echo "Auto-healing triggered by uDos feed notification."
+            echo "Event: ${{ env.UDOS_EVENT }}"
+          fi
+          
+          # Check if this is a workflow failure
+          if [ -n "${{ env.WORKFLOW_LOGS }}" ]; then
+            echo "Auto-healing triggered by workflow failure."
+            echo "Logs: ${{ env.WORKFLOW_LOGS }}"
+          fi
+
+      - name: Retry Failed Workflow
+        if: github.event.workflow_run.conclusion == 'failure'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            await github.rest.actions.reRunWorkflow({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              run_id: ${{ github.event.workflow_run.id }}
+            });
+            console.log("Workflow retry triggered.");
+
+      - name: Send uDos Feed Notification on Auto-Heal
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const payload = {
+              event: "auto_heal_triggered",
+              repo: context.repo.repo,
+              workflow: "Auto-Heal",
+              status: "triggered",
+              timestamp: new Date().toISOString(),
+              message: "Auto-healing process triggered.",
+              details: {
+                run_id: context.runId,
+                run_number: context.runNumber,
+                workflow_url: `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`
+              }
+            };
+            
+            // Send the payload to your custom webhook endpoint
+            await fetch('${{ secrets.UDOS_WEBHOOK_URL }}', {
+              method: 'POST',
+              body: JSON.stringify(payload),
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${{ secrets.UDOS_WEBHOOK_TOKEN }}`
+              }
+            });

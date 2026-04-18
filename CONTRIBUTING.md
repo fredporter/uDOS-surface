@@ -99,7 +99,53 @@ The project includes several scripts to help with development:
 The project uses GitHub Actions for continuous integration. The workflow runs the following checks on every push and pull request:
 
 1. **Pre-Commit Checks**: Runs the pre-commit hook to validate the code.
-2. **Linting**: Runs ESLint on Vue files.
+2. **Linting**: Runs ESLint on TypeScript and JavaScript files.
+3. **uDos Feed Notifications**: Sends notifications in uDos feed format on workflow failure.
+
+#### Auto-Healing Workflow
+
+The project includes an auto-healing workflow that triggers on:
+
+1. **Workflow Failure**: Automatically retries failed workflows and sends uDos feed notifications.
+2. **uDos Feed Notifications**: Listens for uDos feed notifications and triggers auto-healing processes.
+
+To trigger the auto-healing workflow manually, use the following command:
+```bash
+curl -X POST \
+  -H "Authorization: token YOUR_GITHUB_TOKEN" \
+  -H "Accept: application/vnd.github.v3+json" \
+  https://api.github.com/repos/fredporter/uDosConnect/dispatches \
+  -d '{"event_type":"udos_feed_notification", "client_payload": {"event": "workflow_failure", "repo": "uDosConnect", "workflow": "CI", "status": "failed"}}'
+```
+
+#### uDos Feed Format
+
+The uDos feed format includes the following fields:
+
+- `event`: The type of event (e.g., `workflow_failure`, `auto_heal_triggered`).
+- `repo`: The repository name.
+- `workflow`: The workflow name.
+- `status`: The status of the workflow (e.g., `failed`, `triggered`).
+- `timestamp`: The timestamp of the event.
+- `message`: A descriptive message.
+- `details`: Additional details (e.g., logs, error messages).
+
+Example uDos Feed Notification:
+```json
+{
+  "event": "workflow_failure",
+  "repo": "uDosConnect",
+  "workflow": "CI",
+  "status": "failed",
+  "timestamp": "2026-04-18T12:00:00.000Z",
+  "message": "CI workflow failed. Auto-healing triggered.",
+  "details": {
+    "run_id": 123456789,
+    "run_number": 42,
+    "workflow_url": "https://github.com/fredporter/uDosConnect/actions/runs/123456789"
+  }
+}
+```
 
 ### 7. Code Style
 
